@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:layout_weight="1.0"
-            android:text="1363636363"
             android:textColor="@color/gray_2"
             android:textSize="13sp" />
     </LinearLayout>
@@ -51,6 +50,7 @@
             android:gravity="center_vertical"
             android:hint="请输入验证码"
             android:imeOptions="actionNext"
+            android:inputType="number"
             android:maxLength="11"
             android:padding="5dip"
             android:textColorHint="@color/gray_line1"

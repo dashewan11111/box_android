@@ -6,12 +6,17 @@ public class UserDto extends BaseEntity {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -8340177731383737949L;
-
 	private String cUserId;
 	private String accountName;
 	private String loginName;
 	private String mobile;
 	private String password;
+	private String sexualOrientation;
+	private String marriageStatus;
+	private String updateDate;
+	private String birthday;
+	private String province;
+	private String city;
 	private String createDate;
 	private String sex;
 	private String delFlag;
@@ -91,6 +96,54 @@ public class UserDto extends BaseEntity {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getSexualOrientation() {
+		return sexualOrientation;
+	}
+
+	public void setSexualOrientation(String sexualOrientation) {
+		this.sexualOrientation = sexualOrientation;
+	}
+
+	public String getMarriageStatus() {
+		return marriageStatus;
+	}
+
+	public void setMarriageStatus(String marriageStatus) {
+		this.marriageStatus = marriageStatus;
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }

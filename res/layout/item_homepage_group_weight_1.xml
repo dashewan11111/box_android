@@ -3,8 +3,7 @@
     android:layout_width="0dip"
     android:layout_height="wrap_content"
     android:layout_weight="1.0"
-    android:background="@color/gray"
-    android:padding="1dip"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <TextView

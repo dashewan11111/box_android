@@ -22,8 +22,7 @@ import com.adult.android.view.MyEditText2;
 import com.adult.android.view.MyEditText2.OnEditNumberListener;
 import com.lidroid.xutils.BitmapUtils;
 
-public class CartListAdapter extends BaseAdapter implements
-		OnEditNumberListener {
+public class CartListAdapter extends BaseAdapter implements OnEditNumberListener {
 
 	private Context context;
 
@@ -35,8 +34,7 @@ public class CartListAdapter extends BaseAdapter implements
 
 	private int currentPosition = 0;
 
-	public CartListAdapter(Context context, List<ProductForCart> items,
-			OnDataChangeListener onDateChangeListener) {
+	public CartListAdapter(Context context, List<ProductForCart> items, OnDataChangeListener onDateChangeListener) {
 		this.context = context;
 		this.items = items;
 		bitmapUtils = new BitmapUtils(context);
@@ -65,17 +63,12 @@ public class CartListAdapter extends BaseAdapter implements
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.item_cart_list, null);
-			holder.llytPromotionContainer = (LinearLayout) convertView
-					.findViewById(R.id.item_cart_list_promotion);
-			holder.txtType = (TextView) convertView
-					.findViewById(R.id.item_cart_list_promotion_type);
-			holder.txtDesc = (TextView) convertView
-					.findViewById(R.id.item_cart_list_promotion_desc);
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_cart_list, null);
+			holder.llytPromotionContainer = (LinearLayout) convertView.findViewById(R.id.item_cart_list_promotion);
+			holder.txtType = (TextView) convertView.findViewById(R.id.item_cart_list_promotion_type);
+			holder.txtDesc = (TextView) convertView.findViewById(R.id.item_cart_list_promotion_desc);
 
-			holder.llytSkuContainer = (LinearLayout) convertView
-					.findViewById(R.id.item_cart_list_sku_container);
+			holder.llytSkuContainer = (LinearLayout) convertView.findViewById(R.id.item_cart_list_sku_container);
 
 			convertView.setTag(holder);
 		} else {
@@ -97,14 +90,13 @@ public class CartListAdapter extends BaseAdapter implements
 				holder.txtDesc.setText(rule.getRuleName());
 			}
 
-			holder.llytPromotionContainer
-					.setOnClickListener(new OnClickListener() {
+			holder.llytPromotionContainer.setOnClickListener(new OnClickListener() {
 
-						@Override
-						public void onClick(View view) {
-							onDataChangeListener.onPromotionClick(rule);
-						}
-					});
+				@Override
+				public void onClick(View view) {
+					onDataChangeListener.onPromotionClick(rule);
+				}
+			});
 		} else {
 			holder.llytPromotionContainer.setVisibility(View.GONE);
 		}
@@ -117,24 +109,15 @@ public class CartListAdapter extends BaseAdapter implements
 		}
 		List<SkuForCart> skuList = getItem(position).getSkuList();
 		for (int i = 0; i < skuList.size(); i++) {
-			View skuView = LayoutInflater.from(context).inflate(
-					R.layout.item_cart_sku, null);
-			ImageView imgCheck = (ImageView) skuView
-					.findViewById(R.id.item_cart_check);
-			ImageView imgProduct = (ImageView) skuView
-					.findViewById(R.id.item_cart_img_product);
-			TextView txtProductName = (TextView) skuView
-					.findViewById(R.id.item_cart_product_name);
-			TextView txtProductPrice = (TextView) skuView
-					.findViewById(R.id.item_cart_product_price);
-			TextView txtProductFormart = (TextView) skuView
-					.findViewById(R.id.item_cart_product_formart);
-			MyEditText2 editCount = (MyEditText2) skuView
-					.findViewById(R.id.item_cart_edit_count);
-			ImageView imgDelete = (ImageView) skuView
-					.findViewById(R.id.item_cart_delete);
-			LinearLayout llytDisable = (LinearLayout) skuView
-					.findViewById(R.id.item_cart_llyt_disable);
+			View skuView = LayoutInflater.from(context).inflate(R.layout.item_cart_sku, null);
+			ImageView imgCheck = (ImageView) skuView.findViewById(R.id.item_cart_check);
+			ImageView imgProduct = (ImageView) skuView.findViewById(R.id.item_cart_img_product);
+			TextView txtProductName = (TextView) skuView.findViewById(R.id.item_cart_product_name);
+			TextView txtProductPrice = (TextView) skuView.findViewById(R.id.item_cart_product_price);
+			TextView txtProductFormart = (TextView) skuView.findViewById(R.id.item_cart_product_formart);
+			MyEditText2 editCount = (MyEditText2) skuView.findViewById(R.id.item_cart_edit_count);
+			ImageView imgDelete = (ImageView) skuView.findViewById(R.id.item_cart_delete);
+			LinearLayout llytDisable = (LinearLayout) skuView.findViewById(R.id.item_cart_llyt_disable);
 			SkuForCart sku = skuList.get(i);
 			if (sku.isChecked()) {
 				imgCheck.setImageResource(R.drawable.cart_product_select_on);
@@ -142,15 +125,12 @@ public class CartListAdapter extends BaseAdapter implements
 				imgCheck.setImageResource(R.drawable.cart_product_select_off);
 			}
 			txtProductName.setText(sku.getItemName());
-			txtProductPrice.setText(context.getResources().getString(
-					R.string.rmb)
-					+ sku.getPromotionPrice());
+			txtProductPrice.setText(context.getResources().getString(R.string.rmb) + sku.getPromotionPrice());
 			txtProductFormart.setText(sku.getSkuName());
 			imgCheck.setOnClickListener(new ItemCartClickListner(position, i));
 			imgDelete.setOnClickListener(new ItemCartClickListner(position, i));
 
-			bitmapUtils.display(imgProduct, ServiceUrlConstants.getImageHost()
-					+ sku.getImgUrl());
+			bitmapUtils.display(imgProduct, ServiceUrlConstants.getImageHost() + sku.getImgUrl());
 			editCount.setOnAddReduceClickListener(this, position, i);
 			editCount.setTag(sku);
 			editCount.setNums(sku.getQty());
@@ -169,8 +149,7 @@ public class CartListAdapter extends BaseAdapter implements
 			});
 			llytSkuContainer.addView(skuView);
 			if (i < skuList.size() - 1) {
-				View line = LayoutInflater.from(context).inflate(
-						R.layout.line_gray_full, null);
+				View line = LayoutInflater.from(context).inflate(R.layout.line_gray_full, null);
 				llytSkuContainer.addView(line);
 			}
 		}
@@ -189,13 +168,10 @@ public class CartListAdapter extends BaseAdapter implements
 		public void onClick(View view) {
 			switch (view.getId()) {
 			case R.id.item_cart_check:
-				if (getItem(productPosition).getSkuList().get(skuPosition)
-						.isChecked()) {
-					onDataChangeListener.onChecedChange(productPosition,
-							skuPosition, false);
+				if (getItem(productPosition).getSkuList().get(skuPosition).isChecked()) {
+					onDataChangeListener.onChecedChange(productPosition, skuPosition, false);
 				} else {
-					onDataChangeListener.onChecedChange(productPosition,
-							skuPosition, true);
+					onDataChangeListener.onChecedChange(productPosition, skuPosition, true);
 				}
 				break;
 			case R.id.item_cart_delete:
@@ -208,17 +184,13 @@ public class CartListAdapter extends BaseAdapter implements
 	}
 
 	@Override
-	public void onAddClick(int position1, int position2, View v,
-			int previousNum, int currentNum, Object tag) {
-		onDataChangeListener.onSkuCountChange(position1, position2,
-				((SkuForCart) v.getTag()).getSkuId(), currentNum);
+	public void onAddClick(int position1, int position2, View v, int previousNum, int currentNum, Object tag) {
+		onDataChangeListener.onSkuCountChange(position1, position2, ((SkuForCart) v.getTag()).getSkuId(), currentNum);
 	}
 
 	@Override
-	public void onReduceClick(int position1, int position2, View v,
-			int previousNum, int currentNum, Object tag) {
-		onDataChangeListener.onSkuCountChange(position1, position2,
-				((SkuForCart) v.getTag()).getSkuId(), currentNum);
+	public void onReduceClick(int position1, int position2, View v, int previousNum, int currentNum, Object tag) {
+		onDataChangeListener.onSkuCountChange(position1, position2, ((SkuForCart) v.getTag()).getSkuId(), currentNum);
 	}
 
 	@Override
@@ -227,18 +199,15 @@ public class CartListAdapter extends BaseAdapter implements
 	}
 
 	@Override
-	public void onInputNumberDone(int position1, int position2, int number,
-			int max, Object tag) {
+	public void onInputNumberDone(int position1, int position2, int number, int max, Object tag) {
 		// ToastUtil.showToastLong(context, position2 + "：onInputNumberDone");
 	}
 
 	public interface OnDataChangeListener {
 
-		void onSkuCountChange(int productPosition, int skuPositions,
-				String skuId, int count);
+		void onSkuCountChange(int productPosition, int skuPositions, String skuId, int count);
 
-		void onChecedChange(int productPosition, int skuPosition,
-				boolean isChecked);
+		void onChecedChange(int productPosition, int skuPosition, boolean isChecked);
 
 		void onSkuDelete(int productPosition, int skuPosition);
 

@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import com.adult.android.R;
 import com.adult.android.entity.CouponDto;
-import com.adult.android.model.CouponResponse;
+import com.adult.android.entity.CouponResponse;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnGetMyCouponListCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;

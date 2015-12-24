@@ -50,8 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="230dip"
         android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
         android:scaleType="fitXY"
         android:src="@drawable/img_default_672_280" />
 

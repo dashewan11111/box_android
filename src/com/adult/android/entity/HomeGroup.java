@@ -15,7 +15,7 @@ public class HomeGroup extends BaseEntity {
 
 	private String more;// "更多"内容id(communityId,categoryId)
 
-	private String moreType;
+	private Integer moreType;
 
 	public String getTitle() {
 		return title;
@@ -41,11 +41,11 @@ public class HomeGroup extends BaseEntity {
 		this.more = more;
 	}
 
-	public String getMoreType() {
+	public Integer getMoreType() {
 		return moreType;
 	}
 
-	public void setMoreType(String moreType) {
+	public void setMoreType(Integer moreType) {
 		this.moreType = moreType;
 	}
 }

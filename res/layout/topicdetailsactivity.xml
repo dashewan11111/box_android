@@ -166,13 +166,20 @@
                     android:textColor="@color/lightpurple" />
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/community_detail_rewarder_container"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dip" >
-            </LinearLayout>
+                android:layout_gravity="center_vertical"
+                android:scrollbars="none" >
+
+                <LinearLayout
+                    android:id="@+id/community_detail_rewarder_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dip" >
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"

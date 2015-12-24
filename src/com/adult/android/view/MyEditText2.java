@@ -16,10 +16,8 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.adult.android.R;
-import com.adult.android.entity.SkuForCart;
 
-public class MyEditText2 extends LinearLayout implements TextWatcher,
-		OnEditorActionListener, View.OnClickListener {
+public class MyEditText2 extends LinearLayout implements TextWatcher, OnEditorActionListener, View.OnClickListener {
 	private OnEditNumberListener mOnAddReduceClickListener;
 	private OnEditTextClickListener mOnEditTextClickListener;
 	private EditText mEditText;
@@ -78,8 +76,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 		bAdd.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (null != v.getTag()
-						&& 0 == ((SkuForCart) v.getTag()).getStockQty()) {
+				if (null != v.getTag()) {
 					bReduce.setEnabled(false);
 					return;
 				}
@@ -90,8 +87,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 					}
 					if (-1 != maxNumber && tempNumber >= maxNumber) {
 						if (mOnAddReduceClickListener != null) {
-							mOnAddReduceClickListener.onMaxQty(position1,
-									position2, v, maxNumber);
+							mOnAddReduceClickListener.onMaxQty(position1, position2, v, maxNumber);
 						}
 						return;
 					}
@@ -101,16 +97,14 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 
 					// overrideSetText(number);
 					if (mOnAddReduceClickListener != null) {
-						mOnAddReduceClickListener.onAddClick(position1,
-								position2, v, tempNumber - 1, tempNumber,
+						mOnAddReduceClickListener.onAddClick(position1, position2, v, tempNumber - 1, tempNumber,
 								v.getTag());
 					}
 				} else {
 					number = "1";
 					// overrideSetText(number);
 					if (mOnAddReduceClickListener != null) {
-						mOnAddReduceClickListener.onAddClick(position1,
-								position2, v, 0, 1, v.getTag());
+						mOnAddReduceClickListener.onAddClick(position1, position2, v, 0, 1, v.getTag());
 					}
 				}
 				checkNum(number);
@@ -120,8 +114,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 		bReduce.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (null != v.getTag()
-						&& 0 == ((SkuForCart) v.getTag()).getStockQty()) {
+				if (null != v.getTag()) {
 					bReduce.setEnabled(false);
 					return;
 				}
@@ -137,8 +130,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 					number = String.valueOf(tempNumber);
 					// overrideSetText(number);
 					if (mOnAddReduceClickListener != null) {
-						mOnAddReduceClickListener.onReduceClick(position1,
-								position2, v, tempNumber + 1, tempNumber,
+						mOnAddReduceClickListener.onReduceClick(position1, position2, v, tempNumber + 1, tempNumber,
 								v.getTag());
 					}
 				} else {
@@ -162,9 +154,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 		bReduce.setTag(tag);
 	}
 
-	public void setOnAddReduceClickListener(
-			OnEditNumberListener mOnAddReduceClickListener, int position1,
-			int position2) {
+	public void setOnAddReduceClickListener(OnEditNumberListener mOnAddReduceClickListener, int position1, int position2) {
 		this.mOnAddReduceClickListener = mOnAddReduceClickListener;
 		this.position2 = position2;
 		this.position1 = position1;
@@ -176,8 +166,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 	}
 
@@ -214,8 +203,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 			return;
 		}
 		if (0 < maxNumber) {
-			if (!TextUtils.isEmpty(num.toString())
-					&& maxNumber < Integer.parseInt(num.toString())) {
+			if (!TextUtils.isEmpty(num.toString()) && maxNumber < Integer.parseInt(num.toString())) {
 				number = "" + maxNumber;
 			} else if (9999 < Integer.parseInt(num.toString())) {
 				number = "9999";
@@ -262,24 +250,20 @@ public class MyEditText2 extends LinearLayout implements TextWatcher,
 	}
 
 	public static interface OnEditNumberListener {
-		void onAddClick(int position1, int positio2, View v, int previousNum,
-				int currentNum, Object tag);
+		void onAddClick(int position1, int positio2, View v, int previousNum, int currentNum, Object tag);
 
-		void onReduceClick(int position1, int position2, View v,
-				int previousNum, int currentNum, Object tag);
+		void onReduceClick(int position1, int position2, View v, int previousNum, int currentNum, Object tag);
 
 		void onMaxQty(int position1, int position2, View v, int max);
 
-		void onInputNumberDone(int position1, int position2, int number,
-				int max, Object tag);
+		void onInputNumberDone(int position1, int position2, int number, int max, Object tag);
 	}
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		if (actionId == EditorInfo.IME_ACTION_DONE) {
 			if (isValidNumber() && mOnAddReduceClickListener != null) {
-				mOnAddReduceClickListener.onInputNumberDone(position1,
-						position2, Integer.parseInt(number), maxNumber,
+				mOnAddReduceClickListener.onInputNumberDone(position1, position2, Integer.parseInt(number), maxNumber,
 						this.tag);
 			}
 			return true;

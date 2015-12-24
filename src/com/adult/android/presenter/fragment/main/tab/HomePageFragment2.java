@@ -31,7 +31,6 @@ import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.internet.exception.BusinessException;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.presenter.activity.MainActivity;
-import com.adult.android.presenter.activity.ProductDetailsActivity;
 import com.adult.android.presenter.activity.ProductDetailsActivity2;
 import com.adult.android.presenter.activity.ProductListActivity;
 import com.adult.android.presenter.activity.PromotionActivity;
@@ -109,7 +108,8 @@ public class HomePageFragment2 extends BaseTabFragment implements
 	private void initFragment() {
 		initActivityTitle();
 		bitmapUtils = new BitmapUtils(getActivity());
-		bitmapUtils.configDefaultLoadFailedImage(R.drawable.img_default_672_280);
+		bitmapUtils
+				.configDefaultLoadFailedImage(R.drawable.img_default_672_280);
 		scrollView = (PullToRefreshScrollView) llytMainView
 				.findViewById(R.id.homepage_listview);
 		scrollView.setMode(Mode.PULL_DOWN_TO_REFRESH);
@@ -198,11 +198,17 @@ public class HomePageFragment2 extends BaseTabFragment implements
 	 * 
 	 * @param homeGroupDto
 	 */
-	private void addTopicLayout(HomeGroup hotTopic) {
+	private void addTopicLayout(final HomeGroup hotTopic) {
 		View viewTopic = LayoutInflater.from(getActivity()).inflate(
 				R.layout.layout_homepage_group_topic, null);
 		viewTopic.findViewById(R.id.layout_homepage_group_topic_more)
-				.setOnClickListener(new OnMoreClickListener(0));
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View view) {
+						swicheIntent(hotTopic.getMoreType(), hotTopic.getMore());
+					}
+				});
 		ImageView image = (ImageView) viewTopic
 				.findViewById(R.id.homepage_group_topic_image);
 		bitmapUtils.display(image, ServiceUrlConstants.getImageHost()
@@ -214,33 +220,23 @@ public class HomePageFragment2 extends BaseTabFragment implements
 
 	/** 添加Group列表 */
 	private void addGroupItem(int i) {
-		String title = "";
 		View groupView = LayoutInflater.from(getActivity()).inflate(
 				R.layout.layout_homepage_group_base, null);
-		switch (i) {
-		case 1:
-			title = "套套天堂";
-			break;
-		case 2:
-			title = "情趣服饰";
-			break;
-		case 3:
-			title = "女性玩具";
-			break;
-		case 4:
-			title = "男性玩具";
-			break;
-		case 5:
-			title = "调情助兴";
-			break;
-		default:
-			break;
+		final HomeGroup group = listGroup.get(i);
+		if (null == group) {
+			return;
 		}
 		TextView txtTitle = (TextView) groupView
 				.findViewById(R.id.homepage_group_base_title);
-		txtTitle.setText(title);
+		txtTitle.setText(group.getTitle());
 		groupView.findViewById(R.id.homepage_group_base_more)
-				.setOnClickListener(new OnMoreClickListener(i));
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View view) {
+						swicheIntent(group.getMoreType(), group.getMore());
+					}
+				});
 		addItemList(i, groupView);
 		mainContainer.addView(groupView);
 	}
@@ -256,7 +252,6 @@ public class HomePageFragment2 extends BaseTabFragment implements
 			return;
 		}
 		if (0 == i) {
-
 			return;
 		}
 		// 显示第一个子项（共通）
@@ -399,24 +394,6 @@ public class HomePageFragment2 extends BaseTabFragment implements
 		container.addView(view);
 	}
 
-	/** “更多”点击时间 */
-	class OnMoreClickListener implements OnClickListener {
-		int i = 0;
-
-		public OnMoreClickListener(int i) {
-			this.i = i;
-		}
-
-		@Override
-		public void onClick(View view) {
-			if (0 == i) {// 跳转到帖子列表
-				swicheIntent(0, listGroup.get(i).getMore());
-			} else {// 全部跳转到商品列表
-				swicheIntent(2, listGroup.get(1).getMore());
-			}
-		}
-	}
-
 	/** 最终子项点击事件 */
 	class OnFinalItemClickListener implements OnClickListener {
 
@@ -428,23 +405,43 @@ public class HomePageFragment2 extends BaseTabFragment implements
 
 		@Override
 		public void onClick(View view) {
-			swicheIntent(item.getType(), item.getContent());
+			swicheIntent(item.getType(), item.getJumpId());
 		}
 	}
 
 	/** 添加四个导航 */
 	protected void addGuidList() {
-		LinearLayout llytGuid = (LinearLayout) LayoutInflater.from(
-				getActivity()).inflate(R.layout.layout_homepage_guid, null);
-		View item1 = llytGuid.findViewById(R.id.homepage_guid_1);
-		View item2 = llytGuid.findViewById(R.id.homepage_guid_2);
-		View item3 = llytGuid.findViewById(R.id.homepage_guid_3);
-		View item4 = llytGuid.findViewById(R.id.homepage_guid_4);
-		item1.setOnClickListener(this);
-		item2.setOnClickListener(this);
-		item3.setOnClickListener(this);
-		item4.setOnClickListener(this);
-		mainContainer.addView(llytGuid);
+		if (null == listGuid || 0 == listGuid.size()) {
+			return;
+		}
+		LinearLayout guidContainer = (LinearLayout) getActivity()
+				.getLayoutInflater().inflate(R.layout.layout_homepage_guid,
+						null);
+		for (final HomeFinalItem item : listGuid) {
+			if (null != item) {
+				LinearLayout itemGuid = (LinearLayout) LayoutInflater.from(
+						getActivity()).inflate(R.layout.item_homepage_guid,
+						null);
+				itemGuid.setLayoutParams(new LinearLayout.LayoutParams(0,
+						LayoutParams.WRAP_CONTENT, 1.0f));
+				ImageView image = (ImageView) itemGuid
+						.findViewById(R.id.item_homepage_guid_image);
+				TextView txt = (TextView) itemGuid
+						.findViewById(R.id.item_homepage_guid_text);
+				txt.setText(item.getName());
+				bitmapUtils.display(image, ServiceUrlConstants.getImageHost()
+						+ item.getImgUrl());
+				itemGuid.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View view) {
+						swicheIntent(item.getType(), item.getJumpId());
+					}
+				});
+				guidContainer.addView(itemGuid);
+			}
+		}
+		mainContainer.addView(guidContainer);
 	}
 
 	/** 跳转到搜索画面 */
@@ -461,18 +458,18 @@ public class HomePageFragment2 extends BaseTabFragment implements
 		case R.id.search_view_root:
 			goToSearch();
 			break;
-		case R.id.homepage_guid_1:
-			partItemClick(0);
-			break;
-		case R.id.homepage_guid_2:
-			partItemClick(1);
-			break;
-		case R.id.homepage_guid_3:
-			partItemClick(2);
-			break;
-		case R.id.homepage_guid_4:
-			partItemClick(3);
-			break;
+		// case R.id.homepage_guid_1:
+		// partItemClick(0);
+		// break;
+		// case R.id.homepage_guid_2:
+		// partItemClick(1);
+		// break;
+		// case R.id.homepage_guid_3:
+		// partItemClick(2);
+		// break;
+		// case R.id.homepage_guid_4:
+		// partItemClick(3);
+		// break;
 		default:
 			break;
 		}
@@ -482,13 +479,13 @@ public class HomePageFragment2 extends BaseTabFragment implements
 		if (i >= listGuid.size() || null == listGuid.get(i)) {
 			return;
 		}
-		String promotionId = listGuid.get(i).getContent();
+		String promotionId = listGuid.get(i).getJumpId();
 		Intent intent = new Intent();
 		if (null == listGuid) {
 			ToastUtil.showToastShort(getActivity(), "参数不足");
 			return;
 		}
-		intent.putExtra("promotionId", promotionId);
+		intent.putExtra(PromotionActivity.PROMOTION_ID, promotionId);
 		intent.setClass(getActivity(), PromotionActivity.class);
 		startActivity(intent);
 	}
@@ -503,19 +500,25 @@ public class HomePageFragment2 extends BaseTabFragment implements
 			intent.putExtra(TopicListActivity.EXTRA_COMMUNITY_ID, params);
 			intent.setClass(getActivity(), TopicListActivity.class);
 			break;
-		case 1:// 商品详情
-			intent.putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, params);
+		case 2:// 商品详情
+			intent.putExtra(ProductDetailsActivity2.EXTRA_PRODUCT_ID, params);
 			intent.setClass(getActivity(), ProductDetailsActivity2.class);
 			break;
-		case 2:// 商品列表
-			intent.putExtra("keyword", params);
-			intent.putExtra("search_from", "keyword");
+		case 3:// 商品列表(类目id)
+			intent.putExtra(ProductListActivity.CATEGORY_ID, params);
 			intent.setClass(getActivity(), ProductListActivity.class);
 			break;
-		case 3: // 活动页
-			// intent.putExtra(ServiceUrlConstants.WebView.PROMOTION_URL,
-			// params);
-			// intent.setClass(getActivity(), PromotionActivity.class);
+		case 4: // 商品列表(关键字)
+			intent.putExtra(ProductListActivity.KEWORD, params);
+			intent.setClass(getActivity(), ProductListActivity.class);
+			break;
+		case 5: // 专题页
+			intent.putExtra(PromotionActivity.PROMOTION_ID, params);
+			intent.setClass(getActivity(), PromotionActivity.class);
+			break;
+		case 6: // 帖子列表
+			intent.putExtra(TopicListActivity.EXTRA_COMMUNITY_ID, params);
+			intent.setClass(getActivity(), TopicListActivity.class);
 			break;
 		default:
 			break;
@@ -714,7 +717,7 @@ public class HomePageFragment2 extends BaseTabFragment implements
 					long position) {
 				swicheIntent(listBanner.get((int) position % picCount)
 						.getType(), listBanner.get((int) position % picCount)
-						.getContent());
+						.getJumpId());
 			}
 		});
 	}

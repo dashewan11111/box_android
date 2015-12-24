@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/gray_bottom_bg"
-    android:orientation="vertical"
-    android:paddingTop="10dip" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                 android:id="@+id/evaluation_product_image"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:src="@drawable/img_default_672_632" />
+                android:src="@drawable/img_default_114" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,8 +45,7 @@
                     android:layout_weight="1.0"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="美国的撒娇雕塑家大搜美国的撒娇雕塑家大搜美"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -60,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dip"
                         android:text="商品评价"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                     <RatingBar
                         android:id="@+id/evaluation_point"
@@ -82,8 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:gravity="top"
         android:hint="评价下商品吧..."
         android:lines="6"
-        android:padding="10dip" />
+        android:padding="10dip"
+        android:textSize="14sp" />
 
 </LinearLayout>

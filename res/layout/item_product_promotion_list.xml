@@ -7,19 +7,20 @@
     android:paddingBottom="3dip"
     android:paddingTop="3dip" >
 
-    <ImageView
+    <TextView
         android:id="@+id/item_product_promotin_list_type"
         android:layout_width="55dip"
         android:layout_height="20dip"
-        android:scaleType="fitXY"
-        android:src="@drawable/img_default_720_360" />
+        android:gravity="center"
+        android:padding="2dip"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/item_product_promotin_list_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dip"
-        android:text="双节大促，满99元包邮"
         android:textColor="@color/gray"
         android:textSize="12sp" />
 

@@ -52,6 +52,8 @@ public class AgentApplication extends Application {
 
 	private String userId;
 
+	private String sessionId, shopId, shopperId, customerId;
+
 	private UserDto userInfo;
 
 	private int cartCount;
@@ -76,18 +78,15 @@ public class AgentApplication extends Application {
 		super.onCreate();
 		// TODO LiCheng 将下一行代码的注释打开，解决错误.
 		// CatchHandler.getInstance().init();
-		iwxapi = WXAPIFactory.createWXAPI(AgentApplication.get(),
-				ServiceUrlConstants.WECHAT_APPID);
+		iwxapi = WXAPIFactory.createWXAPI(AgentApplication.get(), ServiceUrlConstants.WECHAT_APPID);
 		iwxapi.registerApp(ServiceUrlConstants.WECHAT_APPID);
 
 		// 设置开启日志,发布时请关闭日志
 		JPushInterface.setDebugMode(false);
 		// 初始化 JPush
 		JPushInterface.init(this);
-		typeZhface = Typeface.createFromAsset(getResources().getAssets(),
-				"FZLTZHJW.TTF");
-		typeXhface = Typeface.createFromAsset(getResources().getAssets(),
-				"FZLTXHJW.TTF");
+		typeZhface = Typeface.createFromAsset(getResources().getAssets(), "FZLTZHJW.TTF");
+		typeXhface = Typeface.createFromAsset(getResources().getAssets(), "FZLTXHJW.TTF");
 	}
 
 	public Typeface getTypeZhface() {
@@ -147,9 +146,7 @@ public class AgentApplication extends Application {
 		Iterator<Activity> it = activityList.iterator();
 		while (it.hasNext()) {
 			Activity activity = it.next();
-			if (activity == null
-					|| activity.getClass().getName()
-							.equals(activityClass.getName()))
+			if (activity == null || activity.getClass().getName().equals(activityClass.getName()))
 				continue;
 			activity.finish();
 		}
@@ -173,9 +170,7 @@ public class AgentApplication extends Application {
 		Iterator<Activity> it = activityList.iterator();
 		while (it.hasNext()) {
 			Activity activity = it.next();
-			if (activity != null
-					&& activity.getClass().getName()
-							.equals(activityClass.getName())) {
+			if (activity != null && activity.getClass().getName().equals(activityClass.getName())) {
 				activity.finish();
 			}
 		}
@@ -184,8 +179,7 @@ public class AgentApplication extends Application {
 	public ApplicationInfo getApplicationInfo() {
 		ApplicationInfo applicationInfo = null;
 		try {
-			applicationInfo = getPackageManager().getApplicationInfo(
-					getPackageName(), PackageManager.GET_META_DATA);
+			applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
 		} catch (PackageManager.NameNotFoundException e) {
 			return null;
 		}
@@ -257,6 +251,38 @@ public class AgentApplication extends Application {
 
 	public void setCartCount(int cartCount) {
 		this.cartCount = cartCount;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+
+	public String getShopperId() {
+		return shopperId;
+	}
+
+	public void setShopperId(String shopperId) {
+		this.shopperId = shopperId;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 
 }

@@ -122,20 +122,27 @@ public class TopicDetailsActivity extends BaseActivity implements OnClickListene
 				});
 	}
 
+	private TextView txtRewarderCount;
+
 	/** 添加打赏者列表 */
 	protected void addRewarderList() {
-		TextView txtRewarderCount = (TextView) findViewById(R.id.community_detail_topic_tip_count);
+		txtRewarderCount = (TextView) findViewById(R.id.community_detail_topic_tip_count);
 		if (null == rewarderList || 0 == rewarderList.size()) {
 			txtRewarderCount.setText("无人打赏");
 		} else {
 			txtRewarderCount.setText(rewarderList.size() + "人打赏");
 			for (Rewarder user : rewarderList) {
-				ImageView imageAvator = (ImageView) getLayoutInflater().inflate(R.layout.coumunity_detail_image_circle,
-						null);
-				bitmapUtils.display(imageAvator, ServiceUrlConstants.getImageHost() + user.getUserImgUrl());
-				llytRewarder.addView(imageAvator);
+				addRewarder(user);
 			}
 		}
+	}
+
+	private void addRewarder(Rewarder user) {
+		View view = getLayoutInflater().inflate(R.layout.coumunity_detail_image_circle, null);
+		ImageView imageAvator = (ImageView) findViewById(R.id.community_reward_image);
+		// bitmapUtils.display(imageAvator,
+		// ServiceUrlConstants.getImageHost() + user.getUserImgUrl());
+		llytRewarder.addView(view);
 	}
 
 	/** 添加图文混排的内容 */
@@ -246,6 +253,18 @@ public class TopicDetailsActivity extends BaseActivity implements OnClickListene
 					@Override
 					public void onSuccess() {
 						ToastUtil.showToastShort(TopicDetailsActivity.this, "打赏成功");
+						for (Rewarder reward : rewarderList) {
+							if (null != reward && reward.getUserId().equals(AgentApplication.get().getUserId())) {
+								// 自己打过赏了
+								return;
+							}
+						}
+						Rewarder rewarder = new Rewarder();
+						rewarder.setUserImgUrl("");
+						rewarder.setUserId(AgentApplication.get().getUserId());
+						rewarderList.add(rewarder);
+						txtRewarderCount.setText(rewarderList.size() + "人打赏");
+						addRewarder(rewarder);
 					}
 
 					@Override

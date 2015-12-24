@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.adult.android.view.CircleImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="35dip"
-    android:layout_height="35dip"
-    android:margin="5dip"
-    android:src="@drawable/user_default_icon" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
 
-</com.adult.android.view.CircleImageView>
+    <com.adult.android.view.CircleImageView
+        android:id="@+id/community_reward_image"
+        android:layout_width="35dip"
+        android:layout_height="35dip"
+        android:layout_marginTop="2dip"
+        android:background="@color/white"
+        android:src="@drawable/user_default_icon" />
+
+</LinearLayout>

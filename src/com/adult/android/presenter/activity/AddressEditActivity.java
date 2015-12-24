@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.adult.android.R;
 import com.adult.android.entity.AddressDto;
+import com.adult.android.entity.UpdateAddressResponse;
 import com.adult.android.model.CartModel;
 import com.adult.android.model.CartModel.OnUpdateAddressCompletedListener;
-import com.adult.android.model.UpdateAddressResponse;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;

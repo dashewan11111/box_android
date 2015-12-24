@@ -27,9 +27,9 @@ import com.adult.android.utils.GeneralTool;
 import com.adult.android.utils.SharedPreferencesUtil;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
+
 @SuppressLint({ "NewApi", "HandlerLeak" })
-public class ModifyLoginPwdActivity extends BaseActivity implements
-		OnClickListener, SampleModelListener<Object> {
+public class ModifyLoginPwdActivity extends BaseActivity implements OnClickListener, SampleModelListener<Object> {
 	private EditText editOldPsd, editNewPsd, editSurePsd, editVd;
 	private TextView editPhone;
 	private UserInfo userBean;
@@ -55,17 +55,11 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 		editOldPsd = (EditText) findViewById(R.id.psdMD_oldPsdEdt);
 		editSurePsd = (EditText) findViewById(R.id.psdMD_new2PsdEdt);
 		editPhone = (TextView) findViewById(R.id.psdMD_phoneEdt);
-		String savedName = SharedPreferencesUtil
-				.getSharedPreferences(
-						SharedPreferencesConstants.FILES.FILE_USER,
-						SharedPreferencesConstants.PARAMS.USER_LOGIN_REGISTER_SUCCESS_INFO,
-						"");
+		String savedName = SharedPreferencesUtil.getSharedPreferences(SharedPreferencesConstants.FILES.FILE_USER,
+				SharedPreferencesConstants.PARAMS.USER_LOGIN_REGISTER_SUCCESS_INFO, "");
 		if (!TextUtils.isEmpty(userBean.getMobile())) {
-			editPhone.setText(userBean.getMobile().substring(0, 3)
-					+ "****"
-					+ userBean.getMobile().substring(
-							userBean.getMobile().length() - 4,
-							userBean.getMobile().length()));
+			editPhone.setText(userBean.getMobile().substring(0, 3) + "****"
+					+ userBean.getMobile().substring(userBean.getMobile().length() - 4, userBean.getMobile().length()));
 
 		}
 		editVd = (EditText) findViewById(R.id.psdMD_vdEdit);
@@ -94,13 +88,11 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			String new1Psd = editNewPsd.getText().toString();
 			String new2Psd = editSurePsd.getText().toString();
 			if (GeneralTool.isEmpty(vd)) {
-				ToastUtil
-						.showToastShort(ModifyLoginPwdActivity.this, "验证码不能为空");
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "验证码不能为空");
 				return;
 			}
 			if (GeneralTool.isEmpty(oldPsd)) {
-				ToastUtil
-						.showToastShort(ModifyLoginPwdActivity.this, "旧密码不能为空");
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "旧密码不能为空");
 				return;
 			}
 			if (oldPsd.length() < 6) {
@@ -109,14 +101,12 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 			}
 
 			if (GeneralTool.isEmpty(new1Psd)) {
-				ToastUtil
-						.showToastShort(ModifyLoginPwdActivity.this, "新密码不能为空");
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "新密码不能为空");
 				return;
 			}
-			
-			if(GeneralTool.isEmpty(new2Psd)){
-				ToastUtil
-						.showToastShort(ModifyLoginPwdActivity.this, "确认密码不能为空");
+
+			if (GeneralTool.isEmpty(new2Psd)) {
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "确认密码不能为空");
 				return;
 			}
 
@@ -125,25 +115,20 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 				return;
 			}
 			if (!CheckCode.checkPsd(new1Psd)) {
-				ToastUtil.showToastShort(ModifyLoginPwdActivity.this,
-						"密码格式不正确，只允许使用数字和字母，长度为6-20位，且不可以为全部相同的数字或字母");
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "密码格式不正确，只允许使用数字和字母，长度为6-20位，且不可以为全部相同的数字或字母");
 				return;
 			}
 
 			if (!new2Psd.equals(new1Psd)) {
-				ToastUtil.showToastShort(ModifyLoginPwdActivity.this,
-						"新密码与确认密码不一致");
+				ToastUtil.showToastShort(ModifyLoginPwdActivity.this, "新密码与确认密码不一致");
 				return;
 			}
-			if (UserLogic.getInsatnace().getUserBean().getUserName()
-					.equals(new1Psd)) {
-				ToastUtil.showToastLong(ModifyLoginPwdActivity.this,
-						"密码不能与用户名相同");
+			if (UserLogic.getInsatnace().getUserBean().getUserName().equals(new1Psd)) {
+				ToastUtil.showToastLong(ModifyLoginPwdActivity.this, "密码不能与用户名相同");
 				return;
 			}
 			methodString = "modify";
-			UserActionModel.modifyLoginPwd(userBean.getUserId(), phone, oldPsd,
-					new1Psd, vd, this);
+			UserActionModel.modifyLoginPwd(userBean.getUserId(), phone, oldPsd, new1Psd, vd, this);
 			break;
 		default:
 			break;
@@ -231,7 +216,7 @@ public class ModifyLoginPwdActivity extends BaseActivity implements
 	@Override
 	public void onRequestFail(ResponseException e) {
 		loadingDialog.dismiss();
-		ToastUtil.showToastShort(this,R.string.http_exception_string);
+		ToastUtil.showToastShort(this, "请求失败");
 		showExceptionView();
 	}
 

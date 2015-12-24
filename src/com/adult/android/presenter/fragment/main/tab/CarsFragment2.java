@@ -24,15 +24,15 @@ import android.widget.TextView;
 import com.adult.android.R;
 import com.adult.android.entity.AddToCartResponse;
 import com.adult.android.entity.CalculateCartResponse;
+import com.adult.android.entity.CartProductListResponse;
+import com.adult.android.entity.CartProductListResponse2;
+import com.adult.android.entity.GetCartAmountResponse;
 import com.adult.android.entity.ProductForCart;
 import com.adult.android.entity.ProductRule;
 import com.adult.android.entity.SkuForCart;
 import com.adult.android.model.CartModel;
 import com.adult.android.model.CartModel.OnCalculateCartCompletedListener;
 import com.adult.android.model.CartModel.OnGetCartAmountCompletedListener;
-import com.adult.android.model.CartProductListResponse;
-import com.adult.android.model.CartProductListResponse2;
-import com.adult.android.model.GetCartAmountResponse;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
@@ -51,8 +51,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class CarsFragment2 extends BaseTabFragment implements
-		OnDataChangeListener, OnClickListener {
+public class CarsFragment2 extends BaseTabFragment implements OnDataChangeListener, OnClickListener {
 
 	public static final String INTENT_ACTION_REFRESH_CART = "INTENT_ACTION_refresh_cart";
 
@@ -79,8 +78,7 @@ public class CarsFragment2 extends BaseTabFragment implements
 	private int currentPage = 1;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mainView = inflater.inflate(R.layout.cars_fragment2, null);
 		return mainView;
 	}
@@ -100,50 +98,41 @@ public class CarsFragment2 extends BaseTabFragment implements
 	private void initViews() {
 		initActivityTitle();
 		loadingDialog = new LoadingDialog(getActivity());
-		imgCheckAll = (ImageView) mainView
-				.findViewById(R.id.cart_fragment_all_check);
-		txtAllAmount = (TextView) mainView
-				.findViewById(R.id.cart_fragment_txt_all_amount);
+		imgCheckAll = (ImageView) mainView.findViewById(R.id.cart_fragment_all_check);
+		txtAllAmount = (TextView) mainView.findViewById(R.id.cart_fragment_txt_all_amount);
 		btnSum = (Button) mainView.findViewById(R.id.cart_fragment_btn_sum);
-		llytNoGoods = (LinearLayout) mainView
-				.findViewById(R.id.cart_fragment_no_goods);
+		llytNoGoods = (LinearLayout) mainView.findViewById(R.id.cart_fragment_no_goods);
 		btnGoBuy = (Button) mainView.findViewById(R.id.btn_go_buy);
 		imgCheckAll.setOnClickListener(this);
 		btnSum.setOnClickListener(this);
 		btnGoBuy.setOnClickListener(this);
-		listView = (PullToRefreshListView) mainView
-				.findViewById(R.id.cart_fragment_listView);
+		listView = (PullToRefreshListView) mainView.findViewById(R.id.cart_fragment_listView);
 		listView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		listView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
 			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 				getDateList(0);
 			}
 
 			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 				getDateList(1);
 			}
 		});
-		listView.getRefreshableView().setOnItemClickListener(
-				new OnItemClickListener() {
+		listView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
 
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int position, long id) {
-						if (0 < productList.get((int) id).getSkuList().size()) {
-							Intent intent = new Intent();
-							intent.putExtra("pid", productList.get((int) id)
-									.getSkuList().get(0));
-							intent.setClass(getActivity(),
-									ProductDetailsActivity2.class);
-							startActivity(intent);
-						}
-					}
-				});
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+				if (0 < productList.get((int) id).getSkuList().size()) {
+					Intent intent = new Intent();
+					intent.putExtra(ProductDetailsActivity2.EXTRA_PRODUCT_ID, productList.get((int) id).getSkuList()
+							.get(0));
+					intent.setClass(getActivity(), ProductDetailsActivity2.class);
+					startActivity(intent);
+				}
+			}
+		});
 		getDateList(0);
 	}
 
@@ -155,16 +144,13 @@ public class CarsFragment2 extends BaseTabFragment implements
 	}
 
 	@Override
-	public void onSkuCountChange(int productPosition, int skuPosition,
-			String skuId, int count) {
+	public void onSkuCountChange(int productPosition, int skuPosition, String skuId, int count) {
 		updateCart(productPosition, skuPosition, skuId, count);
 	}
 
 	@Override
-	public void onChecedChange(int productPosition, int skuPosition,
-			boolean isChecked) {
-		List<SkuForCart> skuList = productList.get(productPosition)
-				.getSkuList();
+	public void onChecedChange(int productPosition, int skuPosition, boolean isChecked) {
+		List<SkuForCart> skuList = productList.get(productPosition).getSkuList();
 		skuList.get(skuPosition).setChecked(isChecked);
 		productList.get(productPosition).setSkuList(skuList);
 		adapter.notifyDataSetChanged();
@@ -173,13 +159,10 @@ public class CarsFragment2 extends BaseTabFragment implements
 
 	@Override
 	public void onSkuDelete(final int productPosition, final int skuPosition) {
-		CartModel.getInstance().deleteCartProduct(
-				AgentApplication.get().getUserId(),
-				productList.get(productPosition).getSkuList().get(skuPosition)
-						.getSkuId(),
-				productList.get(productPosition).getSkuList().get(skuPosition)
-						.getQty()
-						+ "", new CartModel.OnAddToCartCompletedListener() {
+		CartModel.getInstance().deleteCartProduct(AgentApplication.get().getUserId(),
+				productList.get(productPosition).getSkuList().get(skuPosition).getSkuId(),
+				productList.get(productPosition).getSkuList().get(skuPosition).getQty() + "",
+				new CartModel.OnAddToCartCompletedListener() {
 
 					@Override
 					public void onSuccess(AddToCartResponse info) {
@@ -224,29 +207,23 @@ public class CarsFragment2 extends BaseTabFragment implements
 
 	/** 计算金额 */
 	private void getCartAmount() {
-		CartModel.getInstance().getCartAmount(
-				AgentApplication.get().getUserId(), getCartSkus(),
+		CartModel.getInstance().getCartAmount(AgentApplication.get().getUserId(), getCartSkus(),
 				new OnGetCartAmountCompletedListener() {
 
 					@Override
 					public void onSuccess(GetCartAmountResponse info) {
 						if (null != info.getData().getTotalAmount()) {
-							txtAllAmount.setText(getResources().getString(
-									R.string.rmb)
+							txtAllAmount.setText(getResources().getString(R.string.rmb)
 									+ info.getData().getTotalAmount());
 						} else {
-							txtAllAmount.setText(getResources().getString(
-									R.string.rmb)
-									+ "0.00");
+							txtAllAmount.setText(getResources().getString(R.string.rmb) + "0.00");
 						}
 						isAllChecked();
 					}
 
 					@Override
 					public void onFailed(ResponseException e) {
-						txtAllAmount.setText(getResources().getString(
-								R.string.rmb)
-								+ "0.00");
+						txtAllAmount.setText(getResources().getString(R.string.rmb) + "0.00");
 						isAllChecked();
 					}
 
@@ -278,8 +255,14 @@ public class CarsFragment2 extends BaseTabFragment implements
 			sumCars();
 			break;
 		case R.id.btn_go_buy:
-			((MainActivity) getActivity()).getTabSwitcherFragment()
-					.updateTab(1);
+			if (getActivity().getClass() == MainActivity.class) {
+				((MainActivity) getActivity()).getTabSwitcherFragment().updateTab(1);
+			} else {
+				Intent intent = new Intent(getActivity(), MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.putExtra(MainActivity.SWITCH_INDEX, 1);
+				startActivity(intent);
+			}
 			break;
 		default:
 			break;
@@ -316,8 +299,7 @@ public class CarsFragment2 extends BaseTabFragment implements
 			for (SkuForCart sku : product.getSkuList()) {
 				if (!sku.isChecked()) {
 					if (isAllCheced) {
-						imgCheckAll
-								.setImageResource(R.drawable.cart_product_select_off);
+						imgCheckAll.setImageResource(R.drawable.cart_product_select_off);
 					}
 					return;
 				}
@@ -355,8 +337,7 @@ public class CarsFragment2 extends BaseTabFragment implements
 			return;
 		}
 		loadingDialog.show();
-		CartModel.getInstance().getCartList(AgentApplication.get().getUserId(),
-				currentPage + "",
+		CartModel.getInstance().getCartList(AgentApplication.get().getUserId(), currentPage + "",
 				new CartModel.OnGetCartListCompletedListener() {
 
 					@Override
@@ -398,21 +379,18 @@ public class CarsFragment2 extends BaseTabFragment implements
 	/** 处理数据 */
 	protected void refreshDate(int flag, CartProductListResponse info) {
 		cartDto = info.getData();
-		if (null == cartDto || null == cartDto.getProductList()
-				|| 0 == cartDto.getProductList().size()) {
+		if (null == cartDto || null == cartDto.getProductList() || 0 == cartDto.getProductList().size()) {
 			llytNoGoods.setVisibility(View.VISIBLE);
 			return;
 		}
 		if (0 == flag) {
 			productList = new ArrayList<ProductForCart>();
-			adapter = new CartListAdapter(getActivity(), productList,
-					CarsFragment2.this);
+			adapter = new CartListAdapter(getActivity(), productList, CarsFragment2.this);
 			listView.setAdapter(adapter);
 		}
 		productList.addAll(cartDto.getProductList());
 		if (null == adapter) {
-			adapter = new CartListAdapter(getActivity(), productList,
-					CarsFragment2.this);
+			adapter = new CartListAdapter(getActivity(), productList, CarsFragment2.this);
 			listView.setAdapter(adapter);
 		} else {
 			adapter.notifyDataSetChanged();
@@ -426,17 +404,14 @@ public class CarsFragment2 extends BaseTabFragment implements
 	 * @param skuPosition
 	 * @param productPosition
 	 */
-	private void updateCart(final int productPosition, final int skuPosition,
-			String skuId, final int count) {
+	private void updateCart(final int productPosition, final int skuPosition, String skuId, final int count) {
 		loadingDialog.show();
-		CartModel.getInstance().addToCart(AgentApplication.get().getUserId(),
-				skuId, "" + count,
+		CartModel.getInstance().addToCart(AgentApplication.get().getUserId(), skuId, "" + count,
 				new CartModel.OnAddToCartCompletedListener() {
 
 					@Override
 					public void onSuccess(AddToCartResponse info) {
-						productList.get(productPosition).getSkuList()
-								.get(skuPosition).setQty(count);
+						productList.get(productPosition).getSkuList().get(skuPosition).setQty(count);
 						adapter.notifyDataSetChanged();
 						loadingDialog.dismiss();
 					}
@@ -468,26 +443,20 @@ public class CarsFragment2 extends BaseTabFragment implements
 	 * 
 	 * @param selectedList
 	 */
-	private void calculateCarsAmount(String skuIds,
-			final List<SkuForCart> selectedList) {
+	private void calculateCarsAmount(String skuIds, final List<SkuForCart> selectedList) {
 		loadingDialog.show();
 		String quickBuy = "0", skuIdQuickBuy = "", qtyQuickBuy = "";
-		CartModel.getInstance().calculateCart(
-				AgentApplication.get().getUserId(), skuIds, quickBuy,
-				skuIdQuickBuy, qtyQuickBuy,
-				new OnCalculateCartCompletedListener() {
+		CartModel.getInstance().calculateCart(AgentApplication.get().getUserId(), skuIds, quickBuy, skuIdQuickBuy,
+				qtyQuickBuy, new OnCalculateCartCompletedListener() {
 
 					@Override
 					public void onSuccess(CalculateCartResponse info) {
 						loadingDialog.dismiss();
 						if (null != info.getData()) {
 							Intent intent = new Intent();
-							intent.setClass(getActivity(),
-									OrderCommitActivity.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-									| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-							intent.putExtra("skuList",
-									(Serializable) selectedList);
+							intent.setClass(getActivity(), OrderCommitActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+							intent.putExtra("skuList", (Serializable) selectedList);
 							intent.putExtra("data", info.getData());
 							startActivity(intent);
 						}

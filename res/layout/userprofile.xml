@@ -14,7 +14,7 @@
             android:layout_weight="1.0"
             android:text="头像" />
 
-        <ImageView
+        <com.adult.android.view.CircleImageView
             android:layout_width="35dip"
             android:layout_height="35dip"
             android:src="@drawable/default_user_avator_m" />
@@ -38,6 +38,7 @@
             android:text="昵称" />
 
         <TextView
+            android:id="@+id/user_profile_nick_txt"
             style="@style/text_black_12"
             android:text="绿豆丸子" />
 
@@ -76,8 +77,8 @@
             android:text="性别" />
 
         <TextView
-            style="@style/text_black_12"
-            android:text="男" />
+            android:id="@+id/user_profile_sexy_txt"
+            style="@style/text_black_12" />
 
         <ImageView
             android:layout_width="7dip"
@@ -98,6 +99,7 @@
             android:text="年龄" />
 
         <TextView
+            android:id="@+id/user_profile_age_txt"
             style="@style/text_black_12"
             android:text="25" />
 
@@ -120,6 +122,7 @@
             android:text="性取向" />
 
         <TextView
+            android:id="@+id/user_profile_love_txt"
             style="@style/text_black_12"
             android:text="待完善" />
 
@@ -142,6 +145,7 @@
             android:text="婚姻情况" />
 
         <TextView
+            android:id="@+id/user_profile_marry_txt"
             style="@style/text_black_12"
             android:text="待完善" />
 
@@ -164,6 +168,7 @@
             android:text="所在地" />
 
         <TextView
+            android:id="@+id/user_profile_location_txt"
             style="@style/text_black_12"
             android:text="待完善" />
 
@@ -187,6 +192,7 @@
             android:text="等级" />
 
         <TextView
+            android:id="@+id/user_profile_level_txt"
             style="@style/text_black_12"
             android:text="1级" />
 

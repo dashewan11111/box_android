@@ -10,21 +10,20 @@ public class HomeFinalItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2577355760807531621L;
 
 	/**
-	 * 首页展示信息
-	 */
-	private String content;
-
-	/**
 	 * 目标地址信息
 	 */
 	private String imgUrl;
 
 	/**
-	 * 目标类型 1，url，2，商品ID，3，类目id，4，关键字，5，专题id
+	 * 目标类型 1，url，2，商品Id；3，类目Id，4，关键字，5，专题Id，6，圈子ID
 	 */
 	private Integer type;
 
-	private Integer jumpId;
+	private String jumpId;
+
+	private String name;
+
+	private String sort;
 
 	public String getImgUrl() {
 		return imgUrl;
@@ -32,14 +31,6 @@ public class HomeFinalItem extends BaseEntity implements Serializable {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public Integer getType() {
@@ -50,18 +41,28 @@ public class HomeFinalItem extends BaseEntity implements Serializable {
 		this.type = type;
 	}
 
-	@Override
-	public String toString() {
-		return "CustomerContentDto [content=" + content + ", targetUrl="
-				+ imgUrl + ", type=" + type + "]";
-	}
-
-	public Integer getJumpId() {
+	public String getJumpId() {
 		return jumpId;
 	}
 
-	public void setJumpId(Integer jumpId) {
+	public void setJumpId(String jumpId) {
 		this.jumpId = jumpId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 }

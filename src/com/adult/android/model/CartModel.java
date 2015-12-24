@@ -3,8 +3,14 @@ package com.adult.android.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.text.TextUtils;
+
 import com.adult.android.entity.AddToCartResponse;
 import com.adult.android.entity.CalculateCartResponse;
+import com.adult.android.entity.CartProductListResponse;
+import com.adult.android.entity.CommitOrderResponse;
+import com.adult.android.entity.GetCartAmountResponse;
+import com.adult.android.entity.UpdateAddressResponse;
 import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.constants.ServiceUrlConstants.CartParams2;
 import com.adult.android.model.internet.InternetClient;
@@ -148,7 +154,7 @@ public class CartModel {
 	}
 
 	/** 获取商品列表(通过关键字) */
-	public void deleteCartProduct(String userId, String skuId,String count,
+	public void deleteCartProduct(String userId, String skuId, String count,
 			final OnAddToCartCompletedListener listener) {
 		// 共通参数
 		InputBean input = new InputBean();
@@ -163,7 +169,7 @@ public class CartModel {
 		input.putQueryParam(CartParams2.USER_ID, userId);
 		input.putQueryParam(CartParams2.SKU_ID, skuId);
 		input.putQueryParam(CartParams2.COUNT, count);
-		
+
 		InternetClient.post(ServiceUrlConstants.getApiHost(), input,
 				AddToCartResponse.class,
 				new HttpResponseListener<AddToCartResponse>() {
@@ -527,6 +533,26 @@ public class CartModel {
 		void onStart();
 
 		void onFinish();
+	}
+
+	public static String formatCartCount(String count) {
+		if (!TextUtils.isEmpty(count) && !"0".equals(count)) {
+			try {
+				int number = Integer.parseInt(count);
+				if (number > 99) {
+					return "99+";
+				} else if (number < 0) {
+					return "";
+				} else {
+					return count;
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				return "";
+			}
+		} else {
+			return "";
+		}
 	}
 
 }

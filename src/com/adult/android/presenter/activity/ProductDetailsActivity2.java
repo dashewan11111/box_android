@@ -42,6 +42,8 @@ import com.lidroid.xutils.BitmapUtils;
 public class ProductDetailsActivity2 extends WebViewActivity implements OnPageChangeListener, OnClickListener,
 		SkuListPopupWindowListener {
 
+	public static final String EXTRA_PRODUCT_ID = "extra_product_id";
+
 	private ProductDetailsDto product;
 
 	private WebView mWebView;
@@ -195,15 +197,17 @@ public class ProductDetailsActivity2 extends WebViewActivity implements OnPageCh
 				continue;
 			}
 			View view = getLayoutInflater().inflate(R.layout.item_product_promotion_list, null);
-			ImageView type = (ImageView) view.findViewById(R.id.item_product_promotin_list_type);
+			TextView type = (TextView) view.findViewById(R.id.item_product_promotin_list_type);
 			if ("0".equals(promotion.getType())) {
-				type.setBackgroundColor(getResources().getColor(R.color.red));
+				type.setText("满减");
+				type.setBackgroundResource(R.drawable.promotion_type_full_cut);
 			}
 			if ("1".equals(promotion.getType())) {
-				type.setBackgroundColor(getResources().getColor(R.color.green));
+				type.setText("满包邮");
+				type.setBackgroundResource(R.drawable.promotion_type_full_baoyou);
 			}
 			if ("2".equals(promotion.getType())) {
-				type.setBackgroundColor(getResources().getColor(R.color.blue));
+				type.setBackgroundResource(R.drawable.promotion_type_full_cut);
 			}
 			TextView desc = (TextView) view.findViewById(R.id.item_product_promotin_list_desc);
 			desc.setText(promotion.getDesc());
@@ -255,7 +259,7 @@ public class ProductDetailsActivity2 extends WebViewActivity implements OnPageCh
 
 	/** 获取数据 */
 	protected void getDateList(int flag) {
-		CategoryModel.getInstance().getProductDetail(getIntent().getStringExtra("pid"),
+		CategoryModel.getInstance().getProductDetail(getIntent().getStringExtra(EXTRA_PRODUCT_ID),
 				new CategoryModel.OnGetProducDetailCompletedListener() {
 
 					@Override

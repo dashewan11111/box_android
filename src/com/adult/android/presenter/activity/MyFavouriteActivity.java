@@ -16,10 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adult.android.R;
+import com.adult.android.entity.CartProductListResponse;
+import com.adult.android.entity.CartProductListResponse2;
 import com.adult.android.entity.ProductForCart;
 import com.adult.android.model.CartModel;
-import com.adult.android.model.CartProductListResponse;
-import com.adult.android.model.CartProductListResponse2;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;

@@ -1,8 +1,11 @@
+# To enable ProGuard in your project, edit project.properties
+# to define the proguard.config property as described in that file.
+#
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in /Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
+# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the ProGuard
+# include property in project.properties.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
@@ -12,108 +15,6 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-
--keepattributes Signature
--keepattributes *Annotation*
--dontskipnonpubliclibraryclassmembers
--ignorewarnings
--optimizationpasses 7
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontpreverify
--verbose
--useuniqueclassmembernames
-
-#Keep the R
--keep public class **.R$* {
-    public static final int *;
-}
-
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
-
--keepclasseswithmembernames class * {
-    native <methods>;
-}
--keep class * extends java.lang.annotation.Annotation { *; }
-#for android-support-v4
--dontwarn android.support.v4.**
--keep class android.support.v4.** {*;}
-
-#for android-support-v7
--dontwarn android.support.v7.**
--keep class android.support.v7.** {*;}
-
-#To maintain custom components names that are used on layouts XML:
--keep public class * extends android.view.View {
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public void set*(...);
-}
-
--keep class * implements java.io.Serializable {
-  	public *;
-}
--keepclassmembers class * {
-   public <init>(org.json.JSONObject);
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-}
-
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
-
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
--keep class com.adult.android.entity.** { *; }
--keep public class * extends com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper { *; }
--keep public class * extends com.j256.ormlite.android.apptools.OpenHelperManager { *; }
-
--dontwarn com.adult.android.utils.**
--keep class com.adult.android.utils.** {*;}
-
--keep class com.adult.android.model.internet.bean.** {
-    *;
-}
--keep class com.adult.android.model.internet.exception.** {
-    *;
-}
--keep class com.adult.android.model.internet.listener.** {
-    *;
-}
-
--dontwarn com.alibaba.fastjson.**
--keep class com.alibaba.fastjson.** { *; }
-
--libraryjars libs/fastjson-1.2.4.jar
-
--keep class com.UCMobile.PayPlugin.** { *; }
--keep class com.unionpay.** { *; }
-
--libraryjars libs/alipaysdk.jar
--libraryjars libs/alipaysecsdk.jar
--libraryjars libs/alipayutdid.jar
-
--keep class com.alipay.android.app.IAlixPay{*;}
--keep class com.alipay.android.app.IAlixPay$Stub{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
--keep class com.alipay.sdk.app.PayTask{ public *;}
--keep class com.alipay.sdk.auth.AlipaySDK{ public *;}
--keep class com.alipay.sdk.auth.APAuthInfo{ public *;}
--keep class com.alipay.mobilesecuritysdk.*
--keep class com.ut.*
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}

@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import com.adult.android.R;
 import com.adult.android.entity.Comment2;
-import com.adult.android.model.CommentResponse;
+import com.adult.android.entity.EvaluationResponse;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
@@ -75,7 +75,7 @@ public class CommentListActivity extends BaseActivity {
 				new UserModel.OnGetCommentListCompletedListener() {
 
 					@Override
-					public void onSuccess(CommentResponse info) {
+					public void onSuccess(EvaluationResponse info) {
 						loadingDialog.dismiss();
 						if (0 == flag) {
 							commentList = new ArrayList<Comment2>();

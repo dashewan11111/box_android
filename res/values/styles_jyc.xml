@@ -72,6 +72,16 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
+    <style name="rating_bar_big" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable_big</item>
+        <item name="android:minHeight">25dip</item>
+        <item name="android:maxHeight">35dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:numStars">5</item>
+    </style>
+
     <style name="rating_bar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:minHeight">17dip</item>

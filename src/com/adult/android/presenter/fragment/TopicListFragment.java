@@ -53,8 +53,7 @@ public class TopicListFragment extends Fragment {
 	private String communityId, type;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mainView = inflater.inflate(R.layout.topic_list_fragment, null);
 		return mainView;
 	}
@@ -68,21 +67,15 @@ public class TopicListFragment extends Fragment {
 	private void initViews() {
 		LoadingDialog = new LoadingDialog(getActivity());
 		LoadingDialog.show();
-		listView = (PullToRefreshListView) mainView
-				.findViewById(R.id.topic_listview);
+		listView = (PullToRefreshListView) mainView.findViewById(R.id.topic_listview);
 		listView.setMode(Mode.BOTH);
 		dto = (CommunityDTO) getArguments().getSerializable("community");
 		if (null != dto) {
-			View headeriew = LayoutInflater.from(getActivity()).inflate(
-					R.layout.item_community_list, null);
-			ImageView imageHeader = (ImageView) headeriew
-					.findViewById(R.id.item_community_list_image);
-			TextView txtTitle = (TextView) headeriew
-					.findViewById(R.id.item_community_list_title);
-			TextView txtContent = (TextView) headeriew
-					.findViewById(R.id.item_community_list_content);
-			new BitmapUtils(getActivity()).display(imageHeader,
-					ServiceUrlConstants.getImageHost() + dto.getImgUrl());
+			View headeriew = LayoutInflater.from(getActivity()).inflate(R.layout.item_community_list, null);
+			ImageView imageHeader = (ImageView) headeriew.findViewById(R.id.item_community_list_image);
+			TextView txtTitle = (TextView) headeriew.findViewById(R.id.item_community_list_title);
+			TextView txtContent = (TextView) headeriew.findViewById(R.id.item_community_list_content);
+			new BitmapUtils(getActivity()).display(imageHeader, ServiceUrlConstants.getImageHost() + dto.getImgUrl());
 			txtTitle.setText(dto.getName());
 			txtContent.setText(dto.getDescription());
 			listView.getRefreshableView().addHeaderView(headeriew);
@@ -93,42 +86,34 @@ public class TopicListFragment extends Fragment {
 		listView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
 			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 				getDateList(0);
 			}
 
 			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 				getDateList(1);
 			}
 		});
-		listView.getRefreshableView().setOnItemClickListener(
-				new OnItemClickListener() {
+		listView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
 
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int position, long id) {
-						Intent intent = new Intent();
-						intent.putExtra("topicId", topicList.get((int) id)
-								.getTopicId());
-						intent.setClass(getActivity(),
-								TopicDetailsActivity.class);
-						startActivity(intent);
-					}
-				});
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+				Intent intent = new Intent();
+				intent.putExtra("topicId", topicList.get((int) id).getTopicId());
+				intent.setClass(getActivity(), TopicDetailsActivity.class);
+				startActivity(intent);
+			}
+		});
 		getDateList(0);
 	}
 
 	/** 获取数据 */
 	protected void getDateList(final int flag) {
-		communityId = getArguments().getString(
-				TopicListActivity.EXTRA_COMMUNITY_ID);
+		communityId = getArguments().getString(TopicListActivity.EXTRA_COMMUNITY_ID);
 		type = getArguments().getString("type");
 
-		CommunityModel.getInstance().getTopicListByCommunityId(communityId,
-				type, pageCount + "",
+		CommunityModel.getInstance().getTopicListByCommunityId(communityId, type, pageCount + "",
 				new CommunityModel.OnGetTopicListCompletedListener() {
 
 					@Override
@@ -141,10 +126,10 @@ public class TopicListFragment extends Fragment {
 						if (null == info.getData().getTopicList()) {
 							return;
 						}
+						pageCount++;
 						topicList.addAll(info.getData().getTopicList());
 						if (null == adapter) {
-							adapter = new TopicListAdapter(getActivity(),
-									topicList);
+							adapter = new TopicListAdapter(getActivity(), topicList);
 							listView.setAdapter(adapter);
 						} else {
 							adapter.notifyDataSetChanged();
@@ -172,8 +157,7 @@ public class TopicListFragment extends Fragment {
 					public void onFailed(ResponseException e) {
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
-						ToastUtil.showToastShort(getActivity(),
-								e.getResultMsg());
+						ToastUtil.showToastShort(getActivity(), e.getResultMsg());
 					}
 				});
 	}

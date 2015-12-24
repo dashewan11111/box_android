@@ -7,12 +7,10 @@ public class ServiceUrlConstants {
 	public static final String TEST_SIG = "";
 
 	public static enum HOST {
-		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(
-				1, "http://123.56.229.178:8080/xscr-api-web/router",
-				"http://123.57.211.13/"), REGRESS(2,
-				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(
-				3, "http://api.ccigmall.com/router",
-				"http://image01.ccigmall.com/");
+		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(1,
+				"http://192.168.100.47:8081/yunyike-app-web/router", "http://123.57.211.13/"), REGRESS(2,
+				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(3,
+				"http://api.ccigmall.com/router", "http://image01.ccigmall.com/");
 		private int id;
 		private String apiHost;
 		private String imageHost;
@@ -37,24 +35,18 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum MAIN_INDEX_URL {
-		DEVELOP("http://192.168.0.197:8080/app/index.html",
-				"http://192.168.0.197:8080/app/act/xsj_9.html",
+		DEVELOP("http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
 				"http://192.168.1.202:8080/view/productMix/toShowList"), TEST(
-				"http://192.168.0.197:8080/app/index.html",
-				"http://192.168.0.197:8080/app/act/xsj_9.html",
+				"http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
 				"http://192.168.1.202:8080/view/productMix/toShowList"), REGRESS(
-				"http://192.168.0.197:8080/app/index.html",
-				"http://192.168.0.197:8080/app/act/xsj_9.html",
-				"http://192.168.1.202:8080/view/productMix/toShowList"), RELEASE(
-				"http://api.ccigmall.com",
-				"http://api.ccigmall.com/act/fenlei.html",
-				"http://api.ccigmall.com/act/guojiaguan.html");
+				"http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
+				"http://192.168.1.202:8080/view/productMix/toShowList"), RELEASE("http://api.ccigmall.com",
+				"http://api.ccigmall.com/act/fenlei.html", "http://api.ccigmall.com/act/guojiaguan.html");
 		private String homePageUrl;
 		private String categoryUrl;
 		private String nationalMuseumUrl;
 
-		MAIN_INDEX_URL(String homePageUrl, String categoryUrl,
-				String nationalMuseumUrl) {
+		MAIN_INDEX_URL(String homePageUrl, String categoryUrl, String nationalMuseumUrl) {
 			this.homePageUrl = homePageUrl;
 			this.categoryUrl = categoryUrl;
 			this.nationalMuseumUrl = nationalMuseumUrl;
@@ -74,8 +66,7 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum WAP_URL {
-		TEST(1, "http://192.168.1.208:8080/ccigmall-wap-customer"), RELEASE(2,
-				"http://kj.ccigmall.com/");
+		TEST(1, "http://192.168.1.208:8080/ccigmall-wap-customer"), RELEASE(2, "http://kj.ccigmall.com/");
 
 		private int id;
 		private String wapUrl;
@@ -95,9 +86,9 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum UPDATE {
-		TEST(1, "http://192.168.1.215:8089/b2client/findNewVersion"), REGRESS(
-				2, "http://192.168.1.215:8089/b2client/findNewVersion"), RELEASE(
-				3, "http://www.91xsj.com/app/download/b2client/findNewVersion");
+		TEST(1, "http://192.168.1.215:8089/b2client/findNewVersion"), REGRESS(2,
+				"http://192.168.1.215:8089/b2client/findNewVersion"), RELEASE(3,
+				"http://www.91xsj.com/app/download/b2client/findNewVersion");
 
 		private int id;
 		private String host;
@@ -369,6 +360,8 @@ public class ServiceUrlConstants {
 
 		public static final String SORT_BY = "sortBy";
 
+		public static final String SORT_BY_VALUE = "sortVal";
+
 		public static final String KEY_WORD = "keyword";
 
 		public static final String ID = "id";
@@ -454,6 +447,14 @@ public class ServiceUrlConstants {
 
 		public static final String GET_MY_EVALUATION_LIST = "user.myEvaluationList";
 
+		public static final String GET_USER_INFO = "user.getUserInfo";
+
+		public static final String SAVE_USER_INFO = "user.saveUserInfo";
+
+		public static final String BIND_MOBILE = "user.bindMobile";
+
+		public static final String UPDATE_PASSWORD = "user.updatePassword";
+
 		public static final String USER_ID = "userId";
 
 		public static final String SKU_ID = "skuId";
@@ -477,6 +478,10 @@ public class ServiceUrlConstants {
 		public static final String NICK_NAME = "nickname";
 
 		public static final String STATUS = "status";
+
+		public static final String MARRAGE_STATUS = "marriageStatus";
+
+		public static final String SEX_ORIENTATION = "sexualOrientation";
 
 	}
 
@@ -524,12 +529,14 @@ public class ServiceUrlConstants {
 		public static final String DELETE_ORDER = "order.deleteOrder";
 
 		public static final String GET_EVALUATION_LIST = "order.getEvaluationList";
-		
-		public static final String GET_MY_EVALUATION_LIST = "user.myEvaluationList"; 
+
+		public static final String GET_MY_EVALUATION_LIST = "user.myEvaluationList";
 
 		public static final String POST_EVALUATION = "order.evaluation";
 
 		public static final String GET_LOGISTICS_PRICE = "cart.getLogisticsPrice";
+
+		public static final String EVALUATION_PRICE = "evaluationPrice";
 
 		public static final String EVALUATION_CONTENT = "evaluationContent";
 
@@ -662,11 +669,11 @@ public class ServiceUrlConstants {
 	/**
 	 * 应用从微信开发者平台网站申请到的合法APP_ID*
 	 */
-	public static final String WECHAT_APPID = "wx9fa8b546b917ed1f";
+	public static final String WECHAT_APPID = "wxf80ee60293a88ede";
 	/**
 	 * APP SECRET
 	 */
-	public static final String WECHAT_APPSECRET = "6ac39c4a7c09015ed3e3c574424d2dda";
+	public static final String WECHAT_APPSECRET = "ef7685be766fc7bcd77aa4429f673c8c";
 	/**
 	 * 新浪微博申请的APP_KEY*
 	 */
@@ -690,8 +697,7 @@ public class ServiceUrlConstants {
 	public static final String HelpUrl = "http://www.baidu.com";
 
 	public static enum JPushUrl {
-		TEST(1, "http://192.168.100.182:8089/web-pushsys/collect/"), RELEASE(2,
-				"http://www.91xsj.com/app/pushsys/");
+		TEST(1, "http://192.168.100.182:8089/web-pushsys/collect/"), RELEASE(2, "http://www.91xsj.com/app/pushsys/");
 
 		private int jPushId = 0;
 		private String jPush_url = "";

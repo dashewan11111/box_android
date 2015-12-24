@@ -16,11 +16,11 @@ import android.view.View.OnClickListener;
 
 import com.adult.android.R;
 import com.adult.android.entity.UserDto;
+import com.adult.android.entity.UserResponse;
 import com.adult.android.entity.VersionInfo;
 import com.adult.android.logic.UserLogic;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnLoginCompletedListener;
-import com.adult.android.model.UserResponse;
 import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.constants.ServiceUrlConstants.HOST;
 import com.adult.android.model.internet.exception.HttpResponseException;
@@ -42,8 +42,7 @@ import com.adult.android.view.LoadingDialog;
 import com.adult.android.view.SampleDialog;
 
 @SuppressLint("NewApi")
-public class MainActivity extends BaseActivity implements OnClickListener,
-		OnCheckVersionListener {
+public class MainActivity extends BaseActivity implements OnClickListener, OnCheckVersionListener {
 	/** bottom tab switcher fragment */
 	private TabSwitcherFragment tabSwitcherFragment;
 	public static final String SWITCH_INDEX = "switch_index";
@@ -57,21 +56,17 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setSlidingFinish(false);
-		tabSwitcherFragment = (TabSwitcherFragment) Fragment.instantiate(this,
-				TabSwitcherFragment.class.getName(), null);
-		getSupportFragmentManager().beginTransaction()
-				.add(R.id.tab_switcher, tabSwitcherFragment, null).commit();
+		tabSwitcherFragment = (TabSwitcherFragment) Fragment.instantiate(this, TabSwitcherFragment.class.getName(),
+				null);
+		getSupportFragmentManager().beginTransaction().add(R.id.tab_switcher, tabSwitcherFragment, null).commit();
 
-		tabSwitcherFragment.addOnTabSelectListener(0, new TabListener(this,
-				"AFragment", HomePageFragment2.class, null));
-		tabSwitcherFragment.addOnTabSelectListener(1, new TabListener(this,
-				"BFragment", CategoryFragment.class, null));
-		tabSwitcherFragment.addOnTabSelectListener(2, new TabListener(this,
-				"CFragment", CommunityFragment.class, null));
-		tabSwitcherFragment.addOnTabSelectListener(3, new TabListener(this,
-				"DFragment", CarsFragment2.class, null));
-		tabSwitcherFragment.addOnTabSelectListener(4, new TabListener(this,
-				"EFragment", MyCcigFragment2.class, null));
+		tabSwitcherFragment
+				.addOnTabSelectListener(0, new TabListener(this, "AFragment", HomePageFragment2.class, null));
+		tabSwitcherFragment.addOnTabSelectListener(1, new TabListener(this, "BFragment", CategoryFragment.class, null));
+		tabSwitcherFragment
+				.addOnTabSelectListener(2, new TabListener(this, "CFragment", CommunityFragment.class, null));
+		tabSwitcherFragment.addOnTabSelectListener(3, new TabListener(this, "DFragment", CarsFragment2.class, null));
+		tabSwitcherFragment.addOnTabSelectListener(4, new TabListener(this, "EFragment", MyCcigFragment2.class, null));
 		loadingDialog = new LoadingDialog(this);
 		startService(new Intent(this, DaemonService.class));
 		PackageManager pm = this.getPackageManager();
@@ -93,43 +88,42 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		}
 		loadingDialog.show();
 
-		UserModel.getInstance().login(userName, password,
-				new OnLoginCompletedListener() {
+		UserModel.getInstance().login(userName, password, new OnLoginCompletedListener() {
 
-					@Override
-					public void onSuccess(UserResponse info) {
-						loadingDialog.dismiss();
-						UserDto user = info.getData();
-						user.setPassword(password);
-						UserLogic.getInsatnace().setUserInfo(user);
-					}
+			@Override
+			public void onSuccess(UserResponse info) {
+				loadingDialog.dismiss();
+				UserDto user = info.getData();
+				user.setPassword(password);
+				UserLogic.getInsatnace().setUserInfo(user);
+			}
 
-					@Override
-					public void onStart() {
+			@Override
+			public void onStart() {
 
-					}
+			}
 
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						loadingDialog.dismiss();
-					}
+			@Override
+			public void onHttpException(HttpResponseException e) {
+				loadingDialog.dismiss();
+			}
 
-					@Override
-					public void onFinish() {
-						loadingDialog.dismiss();
-					}
+			@Override
+			public void onFinish() {
+				loadingDialog.dismiss();
+			}
 
-					@Override
-					public void onFailed(ResponseException e) {
-						loadingDialog.dismiss();
-					}
-				});
+			@Override
+			public void onFailed(ResponseException e) {
+				loadingDialog.dismiss();
+			}
+		});
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		// handleIntent(intent);
+		handleIntent(intent);
 	}
 
 	private void handleIntent(Intent intent) {
@@ -184,23 +178,21 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 			};
 			dialog.setTitleText("提醒", R.color.black);
 			dialog.setContentText("确定要退出成人秀吗？", R.color.gray);
-			dialog.setTwoButton(R.string.cancel, R.color.black,
-					new DialogInterface.OnClickListener() {
+			dialog.setTwoButton(R.string.cancel, R.color.black, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							dialog.dismiss();
-						}
-					}, R.string.ok, R.color.red,
-					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					dialog.dismiss();
+				}
+			}, R.string.ok, R.color.red, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							finish();
-							AgentApplication.get().exit();
-							dialog.dismiss();
-						}
-					});
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					finish();
+					AgentApplication.get().exit();
+					dialog.dismiss();
+				}
+			});
 			dialog.show();
 		}
 		return super.onKeyDown(keyCode, event);
@@ -221,8 +213,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
 	}
 
-	public static class TabListener<T extends Fragment> implements
-			TabSwitcherFragment.OnTabSelectListener {
+	public static class TabListener<T extends Fragment> implements TabSwitcherFragment.OnTabSelectListener {
 		private final MainActivity mActivity;
 		private final String mTag;
 		private final Class<T> mClass;
@@ -233,8 +224,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 			this(activity, tag, clz, null);
 		}
 
-		public TabListener(MainActivity activity, String tag, Class<T> clz,
-				Bundle args) {
+		public TabListener(MainActivity activity, String tag, Class<T> clz, Bundle args) {
 			mActivity = activity;
 			mTag = tag;
 			mClass = clz;
@@ -243,11 +233,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 			// Check to see if we already have a fragment for this tab, probably
 			// from a previously saved state. If so, deactivate it, because our
 			// initial state is that a tab isn't shown.
-			mFragment = (BaseTabFragment) mActivity.getSupportFragmentManager()
-					.findFragmentByTag(mTag);
+			mFragment = (BaseTabFragment) mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
 			if (mFragment != null && !mFragment.isDetached()) {
-				FragmentTransaction ft = mActivity.getSupportFragmentManager()
-						.beginTransaction();
+				FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
 				ft.detach(mFragment);
 				ft.commit();
 			}
@@ -255,11 +243,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
 		@Override
 		public void onTabSelected() {
-			FragmentTransaction ft = mActivity.getSupportFragmentManager()
-					.beginTransaction();
+			FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
 			if (mFragment == null) {
-				mFragment = (BaseTabFragment) Fragment.instantiate(mActivity,
-						mClass.getName(), mArgs);
+				mFragment = (BaseTabFragment) Fragment.instantiate(mActivity, mClass.getName(), mArgs);
 				ft.add(R.id.tab_container, mFragment, mTag);
 			} else {
 				ft.show(mFragment);
@@ -271,8 +257,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		@Override
 		public void onTabUnselected() {
 			if (mFragment != null) {
-				FragmentTransaction ft = mActivity.getSupportFragmentManager()
-						.beginTransaction();
+				FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
 				ft.hide(mFragment);
 				ft.commit();
 				mFragment.onUnSelected();
@@ -307,46 +292,42 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				return null;
 			}
 		};
-		dialog.setTitleText(String.format(
-				getResources().getString(R.string.new_version), versionName), 0);
+		dialog.setTitleText(String.format(getResources().getString(R.string.new_version), versionName), 0);
 		// dialog.setContentText(releaseNotes, 0);
 		dialog.setContentText(Misc.ToDBC(releaseNotes), 0);
 		dialog.setContentTextGravity(Gravity.LEFT);
 		if (res == 1) {
 			dialog.setCancelable(false);
-			dialog.setSingleButton(R.string.upgrade, 0,
-					new DialogInterface.OnClickListener() {
+			dialog.setSingleButton(R.string.upgrade, 0, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					Misc.startSystemBrowser(MainActivity.this, apkUrl);
+					new Handler().postDelayed(new Runnable() {
 
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							Misc.startSystemBrowser(MainActivity.this, apkUrl);
-							new Handler().postDelayed(new Runnable() {
-
-								@Override
-								public void run() {
-									AgentApplication.get().exit();
-								}
-							}, 2000);
+						public void run() {
+							AgentApplication.get().exit();
 						}
-					});
+					}, 2000);
+				}
+			});
 		} else {
-			dialog.setTwoButton(R.string.cancel, 0,
-					new DialogInterface.OnClickListener() {
+			dialog.setTwoButton(R.string.cancel, 0, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					}, R.string.upgrade, 0,
-					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}, R.string.upgrade, 0, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Misc.startSystemBrowser(MainActivity.this, apkUrl);
-							dialog.dismiss();
-						}
-					});
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Misc.startSystemBrowser(MainActivity.this, apkUrl);
+					dialog.dismiss();
+				}
+			});
 		}
 		dialog.show();
 	}

@@ -15,7 +15,7 @@
         style="@style/layout.xY"
         android:layout_width="35dp"
         android:layout_height="25dp"
-        android:background="@drawable/btn_number_content_disable"
+        android:background="@drawable/btn_number_content_normal"
         android:editable="true"
         android:gravity="center"
         android:inputType="number"

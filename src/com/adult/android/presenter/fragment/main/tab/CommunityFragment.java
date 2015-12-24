@@ -23,6 +23,7 @@ import com.adult.android.presenter.activity.MainActivity;
 import com.adult.android.presenter.activity.TopicListActivity;
 import com.adult.android.presenter.fragment.main.BaseTabFragment;
 import com.adult.android.presenter.fragment.main.tab.adapter.CommunityListAdapter;
+import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -103,9 +104,14 @@ public class CommunityFragment extends BaseTabFragment {
 					@Override
 					public void onSuccess(CommunityResponse info) {
 						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
 						if (0 == flag) {
 							communityList = new ArrayList<CommunityDTO>();
 						}
+						if (null == info.getData().getCommunityList()) {
+							return;
+						}
+						currentPage++;
 						communityList.addAll(info.getData().getCommunityList());
 						if (null == adapter) {
 							adapter = new CommunityListAdapter(getActivity(),
@@ -114,7 +120,7 @@ public class CommunityFragment extends BaseTabFragment {
 						} else {
 							adapter.notifyDataSetChanged();
 						}
-						listView.onRefreshComplete();
+
 					}
 
 					@Override
@@ -124,7 +130,8 @@ public class CommunityFragment extends BaseTabFragment {
 
 					@Override
 					public void onHttpException(HttpResponseException e) {
-
+						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
 					}
 
 					@Override
@@ -134,7 +141,10 @@ public class CommunityFragment extends BaseTabFragment {
 
 					@Override
 					public void onFailed(ResponseException e) {
-
+						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
+						ToastUtil.showToastShort(getActivity(),
+								e.getResultMsg());
 					}
 				});
 	}

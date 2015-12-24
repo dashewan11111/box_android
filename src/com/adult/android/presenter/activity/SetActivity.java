@@ -22,6 +22,7 @@ import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.adult.android.view.SampleDialog;
 import com.lidroid.xutils.BitmapUtils;
+
 /**
  * 
  * @author GongXun
@@ -32,8 +33,7 @@ import com.lidroid.xutils.BitmapUtils;
  * 
  *            设置界面
  */
-public class SetActivity extends BaseActivity implements OnClickListener,
-		OnCheckVersionListener {
+public class SetActivity extends BaseActivity implements OnClickListener, OnCheckVersionListener {
 	private RelativeLayout rl_checkVersion, rl_clear;
 	private AppUpgradeModel appUpdateModel;
 	private TextView tv_setting_current_version;
@@ -87,47 +87,43 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 				return null;
 			}
 		};
-		dialog.setTitleText(String.format(
-				getResources().getString(R.string.new_version), versionName), 0);
+		dialog.setTitleText(String.format(getResources().getString(R.string.new_version), versionName), 0);
 		dialog.setContentText(Misc.ToDBC(releaseNotes), 0);
 		dialog.setContentTextGravity(Gravity.LEFT);
 
 		// dialog.setContentText(releaseNotes, 0);
 		if (res == 1) {
 			dialog.setCancelable(false);
-			dialog.setSingleButton(R.string.upgrade, 0,
-					new DialogInterface.OnClickListener() {
+			dialog.setSingleButton(R.string.upgrade, 0, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					Misc.startSystemBrowser(SetActivity.this, apkUrl);
+					handler.postDelayed(new Runnable() {
 
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							Misc.startSystemBrowser(SetActivity.this, apkUrl);
-							handler.postDelayed(new Runnable() {
-
-								@Override
-								public void run() {
-									AgentApplication.get().exit();
-								}
-							}, 2000);
+						public void run() {
+							AgentApplication.get().exit();
 						}
-					});
+					}, 2000);
+				}
+			});
 		} else {
-			dialog.setTwoButton(R.string.cancel, 0,
-					new DialogInterface.OnClickListener() {
+			dialog.setTwoButton(R.string.cancel, 0, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					}, R.string.upgrade, 0,
-					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}, R.string.upgrade, 0, new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Misc.startSystemBrowser(SetActivity.this, apkUrl);
-							dialog.dismiss();
-						}
-					});
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Misc.startSystemBrowser(SetActivity.this, apkUrl);
+					dialog.dismiss();
+				}
+			});
 		}
 		dialog.show();
 	}
@@ -139,8 +135,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onCheckVersionFail(ResponseException e) {
-		ToastUtil.showToastShort(SetActivity.this,
-				R.string.http_exception_string);
+		ToastUtil.showToastShort(SetActivity.this, "请求失败");
 		showExceptionView();
 	}
 

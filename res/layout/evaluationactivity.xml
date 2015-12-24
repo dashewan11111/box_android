@@ -4,11 +4,7 @@
     android:background="@color/gray_bottom_bg"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/evaluation_container"
-        style="@style/layout.Xy"
-        android:orientation="vertical" >
-    </LinearLayout>
+    <include layout="@layout/layout_evaluation_details" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +13,10 @@
         android:orientation="horizontal"
         android:padding="10dip" >
 
-        <ImageView
-            android:id="@+id/evaluation_hide_name"
-            android:layout_width="15dip"
-            android:layout_height="15dip"
-            android:src="@drawable/check_xhdpi" />
+        <CheckBox
+            android:id="@+id/evaluation_detail_hide_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,11 +24,11 @@
             android:layout_marginLeft="5dip"
             android:text="匿名评论"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/evaluation_btn_commit"
+        android:id="@+id/evaluation_detail_btn_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"

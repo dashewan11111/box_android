@@ -24,9 +24,7 @@ public class HomeListViewAdapter extends BaseAdapter {
 
 	private BitmapUtils bitmapUtils;
 
-	public HomeListViewAdapter(Context context,
-			List<HomeFinalItem> dataList, BitmapUtils bitmapUtils,
-			ListView listView) {
+	public HomeListViewAdapter(Context context, List<HomeFinalItem> dataList, BitmapUtils bitmapUtils, ListView listView) {
 		this.context = context;
 		this.dataList = dataList;
 		this.bitmapUtils = bitmapUtils;
@@ -52,12 +50,9 @@ public class HomeListViewAdapter extends BaseAdapter {
 		HomePageHodler holder = null;
 		if (null == convertView) {
 			holder = new HomePageHodler();
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.item_home_page_list, null);
-			holder.img = (ImageView) convertView
-					.findViewById(R.id.item_home_page_img);
-			holder.txt = (TextView) convertView
-					.findViewById(R.id.item_home_page_txt);
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_home_page_list, null);
+			holder.img = (ImageView) convertView.findViewById(R.id.item_home_page_img);
+			holder.txt = (TextView) convertView.findViewById(R.id.item_home_page_txt);
 			convertView.setTag(holder);
 		} else {
 			holder = (HomePageHodler) convertView.getTag();
@@ -73,10 +68,8 @@ public class HomeListViewAdapter extends BaseAdapter {
 		// holder.img.setLayoutParams(params);
 		HomeFinalItem dto = dataList.get(position);
 		holder.txt.setText("类型：" + dto.getType());
-		bitmapUtils
-				.configDefaultLoadFailedImage(R.drawable.img_default_720_360);
-		bitmapUtils.display(holder.img, ServiceUrlConstants.getImageHost()
-				+ dto.getContent());
+		bitmapUtils.configDefaultLoadFailedImage(R.drawable.img_default_720_360);
+		bitmapUtils.display(holder.img, ServiceUrlConstants.getImageHost() + dto.getImgUrl());
 		return convertView;
 	}
 

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -19,22 +18,24 @@ import com.adult.android.model.CategoryModel;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.fragment.main.tab.adapter.ProductListAdapter;
+import com.adult.android.view.HeaderGridView;
 import com.adult.android.view.LoadingDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class PromotionActivity extends BaseActivity {
 
 	public static boolean isGrid = false;
 
+	public static String PROMOTION_ID = "promotionId";
+
 	private PullToRefreshListView listView;
 
-	private PullToRefreshGridView gridView;;
+	private HeaderGridView gridView;;
 
-	private LinearLayout llytNoProduct;
+	private LinearLayout llytNoProduct, llytHeader;
 
 	private ProductListAdapter adapter;
 
@@ -76,19 +77,23 @@ public class PromotionActivity extends BaseActivity {
 			}
 		});
 		if (null != getIntent()) {
-			promotionId = getIntent().getStringExtra("promotionId");
+			promotionId = getIntent().getStringExtra(PROMOTION_ID);
 		}
 		LoadingDialog = new LoadingDialog(this);
 		LoadingDialog.show();
 		listView = (PullToRefreshListView) findViewById(R.id.promotion_listview);
 		listView.setMode(Mode.PULL_UP_TO_REFRESH);
-		gridView = (PullToRefreshGridView) findViewById(R.id.promotion_gridview);
-		gridView.setMode(Mode.PULL_UP_TO_REFRESH);
+		gridView = (HeaderGridView) findViewById(R.id.promotion_gridview);
+
 		listView.setVisibility(View.GONE);
 		gridView.setVisibility(View.VISIBLE);
 
 		llytNoProduct = (LinearLayout) findViewById(R.id.no_product);
 
+		llytHeader = (LinearLayout) getLayoutInflater().inflate(
+				R.layout.header_promotion_list, null);
+		listView.getRefreshableView().addHeaderView(llytHeader);
+		gridView.addHeaderView(llytHeader);
 		listView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
 			@Override
@@ -112,29 +117,15 @@ public class PromotionActivity extends BaseActivity {
 						toProductDetail((int) id);
 					}
 				});
-		gridView.setOnRefreshListener(new OnRefreshListener2<GridView>() {
+
+		gridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<GridView> refreshView) {
-				getDateList(0);
-			}
-
-			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<GridView> refreshView) {
-				getDateList(1);
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long id) {
+				toProductDetail((int) id);
 			}
 		});
-		gridView.getRefreshableView().setOnItemClickListener(
-				new OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int position, long id) {
-						toProductDetail((int) id);
-					}
-				});
 		// 获取数据
 		getDateList(0);
 	}
@@ -142,7 +133,8 @@ public class PromotionActivity extends BaseActivity {
 	/** 跳转商品详情 */
 	protected void toProductDetail(int id) {
 		Intent intent = new Intent();
-		intent.putExtra("pid", productList.get((int) id).getPid());
+		intent.putExtra(ProductDetailsActivity2.EXTRA_PRODUCT_ID, productList
+				.get((int) id).getPid());
 		intent.setClass(PromotionActivity.this, ProductDetailsActivity2.class);
 		startActivity(intent);
 	}
@@ -156,7 +148,7 @@ public class PromotionActivity extends BaseActivity {
 		} else {
 			listView.setVisibility(View.GONE);
 			gridView.setVisibility(View.VISIBLE);
-			gridView.getRefreshableView().setSelection(0);
+			// gridView.getRefreshableView().setSelection(0);
 		}
 	}
 
@@ -195,7 +187,7 @@ public class PromotionActivity extends BaseActivity {
 						} else {
 							adapter.notifyDataSetChanged();
 						}
-						gridView.onRefreshComplete();
+						// gridView.onRefreshComplete();
 						listView.onRefreshComplete();
 					}
 
@@ -224,7 +216,7 @@ public class PromotionActivity extends BaseActivity {
 
 	protected void showNoProduct() {
 		LoadingDialog.dismiss();
-		gridView.onRefreshComplete();
+		// gridView.onRefreshComplete();
 		listView.onRefreshComplete();
 		llytNoProduct.setVisibility(View.VISIBLE);
 	}

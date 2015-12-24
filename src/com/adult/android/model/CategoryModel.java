@@ -85,10 +85,14 @@ public class CategoryModel {
 				});
 	}
 
-	/** 获取商品列表(通过类目Id) */
+	/**
+	 * 获取商品列表(通过类目Id)
+	 * 
+	 * @param sortByValue
+	 */
 	public void getProductListByCategoryId(String categoryId, String keyword,
 			String pageCount, String filterValueIdList, String sortBy,
-			final OnGetProductListCompletedListener listener) {
+			String sortByValue, final OnGetProductListCompletedListener listener) {
 		// 共通参数
 		Map<String, String> maps = new HashMap<String, String>();
 		maps.put(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
@@ -101,6 +105,7 @@ public class CategoryModel {
 		maps.put(CategoryParams.PAGE_COUNT, pageCount);
 		maps.put(CategoryParams.FILTER_VALUE_ID_LIST, filterValueIdList);
 		maps.put(CategoryParams.SORT_BY, sortBy);
+		maps.put(CategoryParams.SORT_BY_VALUE, sortByValue);
 		maps.put(CategoryParams.KEY_WORD, keyword);
 
 		String url = CopUtils.buildGetUrl(maps,
@@ -143,7 +148,7 @@ public class CategoryModel {
 				});
 	}
 
-	/** 获取商品列表(通过类目Id) */
+	/** 获取专题列表(通过专题Id) */
 	public void getProductListByPromotionId(String promotionId,
 			final OnGetProductListCompletedListener listener) {
 		// 共通参数

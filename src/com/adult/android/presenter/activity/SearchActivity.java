@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,37 +23,28 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.adult.android.R;
-import com.adult.android.entity.SuggestionInfo;
-import com.adult.android.entity.SuggestionResponse;
-import com.adult.android.model.SuggestionModel;
-import com.adult.android.model.SuggestionModel.SuggestionListener;
-import com.adult.android.model.internet.exception.HttpResponseException;
-import com.adult.android.presenter.fragment.main.tab.adapter.SuggestionAdapter;
 import com.adult.android.utils.SharedPreferencesUtil;
 import com.adult.android.utils.ToastUtil;
 
 /**
  * 搜索页面
- *
+ * 
  * */
 
 public class SearchActivity extends BaseActivity implements TextWatcher,
-		OnClickListener, SuggestionListener, OnItemClickListener {
+		OnClickListener, OnItemClickListener {
 
 	private static final String TAG = "SearchActivity";
 	private static ArrayList<String> list;
 	private EditText input;
 	private ListView mSearching;
-	private ArrayList<SuggestionInfo> suggestionList;
-	private SuggestionAdapter suggest_adapter;
+
 	private String input_text;
 	private Button cancelBtn;
-	private int currentType = 1;
 	private View lineone;
 	private View linetwo;
 	private TextView texttwo;
 	private TextView textone;
-	private Fragment hotfragment, historyFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +110,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
 			// findViewById(R.id.line_layout).setVisibility(View.VISIBLE);
 			// findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 		} else {
-			new SuggestionModel().getSuggestionList(input_text,
-					SearchActivity.this);
+			// new SuggestionModel().getSuggestionList(input_text,
+			// SearchActivity.this);
 			mSearching.setVisibility(View.VISIBLE);
 		}
 	}
@@ -157,24 +147,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
 		default:
 			break;
 		}
-	}
-
-	@Override
-	public void getSuggestionSuccess(SuggestionResponse t) {
-		suggestionList = t.getData();
-		if (suggestionList.size() == 0) {
-			mSearching.setAdapter(null);
-		} else {
-			suggest_adapter = new SuggestionAdapter(this, suggestionList);
-			mSearching.setAdapter(suggest_adapter);
-			mSearching.setOnItemClickListener(this);
-		}
-
-	}
-
-	@Override
-	public void onFail(HttpResponseException e) {
-		ToastUtil.showToastShort(this, "连接超时");
 	}
 
 	/**
@@ -225,12 +197,12 @@ public class SearchActivity extends BaseActivity implements TextWatcher,
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view,
 			int position, long id) {
-		saveHistory(suggestionList.get(position).getKeyword());
-		Intent intent = new Intent();
-		intent.setClass(this, ProductListActivity.class);
-		intent.putExtra("search_from", "keyword");
-		intent.putExtra("keyword", suggestionList.get(position).getKeyword());
-		startActivity(intent);
+		/*
+		 * saveHistory(suggestionList.get(position).getKeyword()); Intent intent
+		 * = new Intent(); intent.setClass(this, ProductListActivity.class);
+		 * intent.putExtra("search_from", "keyword"); intent.putExtra("keyword",
+		 * suggestionList.get(position).getKeyword()); startActivity(intent);
+		 */
 	}
 
 }

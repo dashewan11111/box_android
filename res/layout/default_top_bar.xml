@@ -55,7 +55,7 @@
 
         <TextView
             style="@style/layout.xY"
-            android:layout_marginLeft="28dip"
+            android:layout_marginLeft="35dip"
             android:gravity="center_vertical"
             android:text="搜索你感兴趣的商品"
             android:textColor="@color/gray"

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_bg1"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -28,8 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="90dip"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/test_home_page_item" />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:id="@+id/homepage_part2_2_layout_1"

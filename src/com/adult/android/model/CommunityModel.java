@@ -42,186 +42,166 @@ public class CommunityModel {
 	}
 
 	/** 获取社区模块列表 */
-	public void getCommunityList(String pageCount,
-			final OnGetCommunityListCompletedListener listener) {
+	public void getCommunityList(String pageCount, final OnGetCommunityListCompletedListener listener) {
 		// 共通参数
 		Map<String, String> maps = new HashMap<String, String>();
 		maps.put(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
 		maps.put(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE);
-		maps.put(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE);
+		maps.put(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE);
 		maps.put(ServiceUrlConstants.MOTHOD, CommunityParams.GET_COMMUNITY_LIST);
 		// 业务参数:
 		maps.put(CommunityParams.PAGE_COUNT, pageCount);
-		String url = CopUtils.buildGetUrl(maps,
-				ServiceUrlConstants.getApiHost());
-		InternetClient.get(url, null, CommunityResponse.class,
-				new HttpResponseListener<CommunityResponse>() {
+		String url = CopUtils.buildGetUrl(maps, ServiceUrlConstants.getApiHost());
+		InternetClient.get(url, null, CommunityResponse.class, new HttpResponseListener<CommunityResponse>() {
 
-					@Override
-					public void onStart() {
-						listener.onStart();
-					}
+			@Override
+			public void onStart() {
+				listener.onStart();
+			}
 
-					@Override
-					public void onSuccess(CommunityResponse response) {
-						listener.onSuccess(response);
-					}
+			@Override
+			public void onSuccess(CommunityResponse response) {
+				listener.onSuccess(response);
+			}
 
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						listener.onHttpException(e);
-					}
+			@Override
+			public void onHttpException(HttpResponseException e) {
+				listener.onHttpException(e);
+			}
 
-					@Override
-					public void onBusinessException(BusinessException e) {
-						listener.onFailed(e);
-					}
+			@Override
+			public void onBusinessException(BusinessException e) {
+				listener.onFailed(e);
+			}
 
-					@Override
-					public void onOtherException(Throwable throwable) {
-						ResponseException exception = new ResponseException(
-								throwable);
-						exception.setResultMsg("请求失败");
-						listener.onFailed(exception);
-					}
+			@Override
+			public void onOtherException(Throwable throwable) {
+				ResponseException exception = new ResponseException(throwable);
+				exception.setResultMsg("请求失败");
+				listener.onFailed(exception);
+			}
 
-					@Override
-					public void onFinish() {
+			@Override
+			public void onFinish() {
 
-					}
-				});
+			}
+		});
 	}
 
 	/** 获取帖子列表(通过社区Id) */
-	public void getTopicListByCommunityId(String communityId, String type,
-			String pageCount, final OnGetTopicListCompletedListener listener) {
+	public void getTopicListByCommunityId(String communityId, String type, String pageCount,
+			final OnGetTopicListCompletedListener listener) {
 		// 共通参数
 		Map<String, String> maps = new HashMap<String, String>();
 		maps.put(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
 		maps.put(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE);
-		maps.put(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE);
-		maps.put(ServiceUrlConstants.MOTHOD,
-				CommunityParams.GET_TOPIC_LIST_BY_COMMUNITY_ID);
+		maps.put(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE);
+		maps.put(ServiceUrlConstants.MOTHOD, CommunityParams.GET_TOPIC_LIST_BY_COMMUNITY_ID);
 		// 业务参数:
 		maps.put(CommunityParams.COMMUNITY_ID, communityId);
 		maps.put(CommunityParams.PAGE_COUNT, pageCount);
 		maps.put(CommunityParams.TYPE, type);
 
-		String url = CopUtils.buildGetUrl(maps,
-				ServiceUrlConstants.getApiHost());
-		InternetClient.get(url, null, TopicResponse.class,
-				new HttpResponseListener<TopicResponse>() {
+		String url = CopUtils.buildGetUrl(maps, ServiceUrlConstants.getApiHost());
+		InternetClient.get(url, null, TopicResponse.class, new HttpResponseListener<TopicResponse>() {
 
-					@Override
-					public void onStart() {
-						listener.onStart();
-					}
+			@Override
+			public void onStart() {
+				listener.onStart();
+			}
 
-					@Override
-					public void onSuccess(TopicResponse response) {
-						listener.onSuccess(response);
-					}
+			@Override
+			public void onSuccess(TopicResponse response) {
+				listener.onSuccess(response);
+			}
 
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						listener.onHttpException(e);
-					}
+			@Override
+			public void onHttpException(HttpResponseException e) {
+				listener.onHttpException(e);
+			}
 
-					@Override
-					public void onBusinessException(BusinessException e) {
-						listener.onFailed(e);
-					}
+			@Override
+			public void onBusinessException(BusinessException e) {
+				listener.onFailed(e);
+			}
 
-					@Override
-					public void onOtherException(Throwable throwable) {
-						ResponseException exception = new ResponseException(
-								throwable);
-						exception.setResultMsg("请求失败");
-						listener.onFailed(exception);
-					}
+			@Override
+			public void onOtherException(Throwable throwable) {
+				ResponseException exception = new ResponseException(throwable);
+				exception.setResultMsg("请求失败");
+				listener.onFailed(exception);
+			}
 
-					@Override
-					public void onFinish() {
+			@Override
+			public void onFinish() {
 
-					}
-				});
+			}
+		});
 	}
 
 	/** 获取帖子详情 */
-	public void getTopicDetail(String topicId,
-			final OnGetTopicDetailCompletedListener listener) {
+	public void getTopicDetail(String topicId, final OnGetTopicDetailCompletedListener listener) {
 		// 共通参数
 		Map<String, String> maps = new HashMap<String, String>();
 		maps.put(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
 		maps.put(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE);
 		maps.put(ServiceUrlConstants.MOTHOD, CommunityParams.GET_TOPIC_DETAIL);
-		maps.put(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE);
+		maps.put(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE);
 		// 业务参数:
 		maps.put(CommunityParams.TOPIC_ID, topicId);
 
-		String url = CopUtils.buildGetUrl(maps,
-				ServiceUrlConstants.getApiHost());
-		InternetClient.get(url, null, TopicDetailResponse.class,
-				new HttpResponseListener<TopicDetailResponse>() {
+		String url = CopUtils.buildGetUrl(maps, ServiceUrlConstants.getApiHost());
+		InternetClient.get(url, null, TopicDetailResponse.class, new HttpResponseListener<TopicDetailResponse>() {
 
-					@Override
-					public void onStart() {
-						listener.onStart();
-					}
+			@Override
+			public void onStart() {
+				listener.onStart();
+			}
 
-					@Override
-					public void onSuccess(TopicDetailResponse response) {
-						listener.onSuccess(response);
-					}
+			@Override
+			public void onSuccess(TopicDetailResponse response) {
+				listener.onSuccess(response);
+			}
 
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						listener.onHttpException(e);
-					}
+			@Override
+			public void onHttpException(HttpResponseException e) {
+				listener.onHttpException(e);
+			}
 
-					@Override
-					public void onBusinessException(BusinessException e) {
-						listener.onFailed(e);
-					}
+			@Override
+			public void onBusinessException(BusinessException e) {
+				listener.onFailed(e);
+			}
 
-					@Override
-					public void onOtherException(Throwable throwable) {
-						ResponseException exception = new ResponseException(
-								throwable);
-						exception.setResultMsg("请求失败");
-						listener.onFailed(exception);
-					}
+			@Override
+			public void onOtherException(Throwable throwable) {
+				ResponseException exception = new ResponseException(throwable);
+				exception.setResultMsg("请求失败");
+				listener.onFailed(exception);
+			}
 
-					@Override
-					public void onFinish() {
+			@Override
+			public void onFinish() {
 
-					}
-				});
+			}
+		});
 	}
 
 	/** 回复帖子 */
-	public void replyTopic(String userId, String topicId, String content,
-			final OnReplyTopicCompletedListener listener) {
+	public void replyTopic(String userId, String topicId, String content, final OnReplyTopicCompletedListener listener) {
 		InputBean inputBean = new InputBean();
 		// 共通参数
-		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
-				ServiceUrlConstants.APP_KEY_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.VERSION,
-				ServiceUrlConstants.VERSION_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD,
-				CommunityParams.POST_REPLY);
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD, CommunityParams.POST_REPLY);
 		// 业务参数
 		inputBean.putQueryParam(CommunityParams.USER_ID, userId);
 		inputBean.putQueryParam(CommunityParams.TOPIC_ID, topicId);
 		inputBean.putQueryParam(CommunityParams.CONTENT, content);
 
-		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean,
-				StatusInfo.class, new HttpResponseListener<StatusInfo>() {
+		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean, StatusInfo.class,
+				new HttpResponseListener<StatusInfo>() {
 
 					@Override
 					public void onStart() {
@@ -245,8 +225,7 @@ public class CommunityModel {
 
 					@Override
 					public void onOtherException(Throwable throwable) {
-						ResponseException exception = new ResponseException(
-								throwable);
+						ResponseException exception = new ResponseException(throwable);
 						exception.setResultMsg("请求失败");
 						listener.onFailed(exception);
 					}
@@ -323,15 +302,12 @@ public class CommunityModel {
 
 	}
 
-	public void postTopic(String userId, String communityId, String title,
-			String content, List<File> fileList, final OnSuccessListner listener) {
+	public void postTopic(String userId, String communityId, String title, String content, List<File> fileList,
+			final OnSuccessListner listener) {
 		List<Part> params = new LinkedList<Part>();
-		params.add(new StringPart(ServiceUrlConstants.APP_KEY,
-				ServiceUrlConstants.APP_KEY_VALUE));
-		params.add(new StringPart(ServiceUrlConstants.VERSION,
-				ServiceUrlConstants.VERSION_VALUE));
-		params.add(new StringPart(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE));
+		params.add(new StringPart(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE));
+		params.add(new StringPart(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE));
+		params.add(new StringPart(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE));
 
 		params.add(new StringPart(CommunityParams.USER_ID, userId));
 		params.add(new StringPart(CommunityParams.COMMUNITY_ID, communityId));
@@ -339,9 +315,8 @@ public class CommunityModel {
 		params.add(new StringPart(CommunityParams.CONTENT, content));
 
 		try {
-			DataService.sendDataByHttpClientPost(
-					"http://123.56.229.178:8080/xscr-api-web/topic/postTopic",
-					fileList, params, new OnSuccessListner() {
+			DataService.sendDataByHttpClientPost("http://123.56.229.178:8080/xscr-api-web/topic/postTopic", fileList,
+					params, new OnSuccessListner() {
 
 						@Override
 						public void onSuccess(String result) {
@@ -411,25 +386,20 @@ public class CommunityModel {
 		// });
 	}
 
-	public void rewordTopic(String userId, String topicId, String amount,
-			final OnReplyTopicCompletedListener listener) {
+	public void rewordTopic(String userId, String topicId, String amount, final OnReplyTopicCompletedListener listener) {
 		InputBean inputBean = new InputBean();
 		// 共通参数
-		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
-				ServiceUrlConstants.APP_KEY_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.VERSION,
-				ServiceUrlConstants.VERSION_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME,
-				ServiceUrlConstants.APP_SECRET_VALUE);
-		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD,
-				CommunityParams.POST_REPLY);
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME, ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD, CommunityParams.REWORD_TOPIC);
 		// 业务参数
 		inputBean.putQueryParam(CommunityParams.USER_ID, userId);
 		inputBean.putQueryParam(CommunityParams.TOPIC_ID, topicId);
 		inputBean.putQueryParam(CommunityParams.AMOUNT, amount);
 
-		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean,
-				StatusInfo.class, new HttpResponseListener<StatusInfo>() {
+		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean, StatusInfo.class,
+				new HttpResponseListener<StatusInfo>() {
 
 					@Override
 					public void onStart() {
@@ -453,8 +423,7 @@ public class CommunityModel {
 
 					@Override
 					public void onOtherException(Throwable throwable) {
-						ResponseException exception = new ResponseException(
-								throwable);
+						ResponseException exception = new ResponseException(throwable);
 						exception.setResultMsg("请求失败");
 						listener.onFailed(exception);
 					}

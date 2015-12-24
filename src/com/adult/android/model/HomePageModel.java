@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.util.Log;
 
-import com.adult.android.entity.HomePageResponse;
 import com.adult.android.entity.HomePageResponse2;
 import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.constants.ServiceUrlConstants.HomePageParams;
@@ -84,20 +83,6 @@ public class HomePageModel {
 						listener.onFinish();
 					}
 				});
-	}
-
-	public static interface OnGetHomePageDataCompletedListener {
-		void onStart();
-
-		void onFinish();
-
-		void onCompleted(final HomePageResponse info);
-
-		void onFailed(BusinessException e);
-
-		void onHttpException(HttpResponseException e);
-
-		void onOtherException(Throwable throwable);
 	}
 
 	public static interface OnGetHomePageDataCompletedListener2 {

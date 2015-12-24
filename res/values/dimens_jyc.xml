@@ -16,4 +16,6 @@
     <dimen name="bbuton_rounded_corner_radius">5dp</dimen>
     <dimen name="empty_view_img_size">130dip</dimen>
 
+    <dimen name="standard_padding">8dip</dimen>
+    <dimen name="half_padding">4dip</dimen>
 </resources>

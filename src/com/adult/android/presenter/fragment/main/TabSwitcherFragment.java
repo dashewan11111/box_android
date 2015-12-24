@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.adult.android.R;
-import com.adult.android.model.CarsModel;
+import com.adult.android.model.CartModel;
 import com.adult.android.model.constants.SharedPreferencesConstants;
 import com.adult.android.utils.SharedPreferencesUtil;
 
@@ -42,7 +42,7 @@ public class TabSwitcherFragment extends BaseFragment implements
 				return;
 			String action = intent.getAction();
 			if (INTENT_ACTION_REFRESH_CART_COUNT.equals(action)) {
-				String number = CarsModel.formatCartCount(intent
+				String number = CartModel.formatCartCount(intent
 						.getStringExtra(INTENT_EXTRA_CART_COUNT));
 				if (!TextUtils.isEmpty(number)) {
 					txtCarsCount.setVisibility(View.VISIBLE);
@@ -84,7 +84,7 @@ public class TabSwitcherFragment extends BaseFragment implements
 		int count = SharedPreferencesUtil.getSharedPreferences(
 				SharedPreferencesConstants.FILES.FILE_SHOPPING_CART,
 				SharedPreferencesConstants.PARAMS.CART_COUNT, 0);
-		String number = CarsModel.formatCartCount(count + "");
+		String number = CartModel.formatCartCount(count + "");
 		if (!TextUtils.isEmpty(number)) {
 			txtCarsCount.setVisibility(View.VISIBLE);
 			txtCarsCount.setText(number);

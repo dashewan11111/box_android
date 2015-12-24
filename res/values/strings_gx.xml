@@ -1,4 +1,0 @@
-<resources>
-    <string name="service_phone_number">400-068-1199</string>
-    <string name="http_exception_string">"网络连接失败，请检查您的网络"</string>
-</resources>

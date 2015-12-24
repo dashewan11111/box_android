@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.adult.android.R;
+import com.adult.android.entity.VerifyResponse;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnGetVerifyCodeCompletedListener;
-import com.adult.android.model.VerifyResponse;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.utils.CheckCode;

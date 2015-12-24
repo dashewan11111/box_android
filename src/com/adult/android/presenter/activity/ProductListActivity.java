@@ -42,6 +42,10 @@ public class ProductListActivity extends BaseActivity implements
 
 	public static boolean isGrid = false;
 
+	public static String CATEGORY_ID = "categoryId";
+
+	public static String KEWORD = "keword";
+
 	private PullToRefreshListView listView;
 
 	private PullToRefreshGridView gridView;
@@ -97,8 +101,8 @@ public class ProductListActivity extends BaseActivity implements
 			}
 		});
 		if (null != getIntent()) {
-			categoryId = getIntent().getStringExtra("categoryId");
-			keyword = getIntent().getStringExtra("keyword");
+			categoryId = getIntent().getStringExtra(CATEGORY_ID);
+			keyword = getIntent().getStringExtra(KEWORD);
 		}
 		LoadingDialog = new LoadingDialog(this);
 		LoadingDialog.show();
@@ -142,8 +146,9 @@ public class ProductListActivity extends BaseActivity implements
 							int position, long id) {
 						showFilter(false);
 						Intent intent = new Intent();
-						intent.putExtra("pid", productList.get((int) id)
-								.getPid());
+						intent.putExtra(
+								ProductDetailsActivity2.EXTRA_PRODUCT_ID,
+								productList.get((int) id).getPid());
 						intent.setClass(ProductListActivity.this,
 								ProductDetailsActivity2.class);
 						startActivity(intent);
@@ -170,8 +175,9 @@ public class ProductListActivity extends BaseActivity implements
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int position, long id) {
 						Intent intent = new Intent();
-						intent.putExtra("pid", productList.get((int) id)
-								.getPid());
+						intent.putExtra(
+								ProductDetailsActivity2.EXTRA_PRODUCT_ID,
+								productList.get((int) id).getPid());
 						intent.setClass(ProductListActivity.this,
 								ProductDetailsActivity2.class);
 						startActivity(intent);
@@ -201,7 +207,7 @@ public class ProductListActivity extends BaseActivity implements
 			getProductByKeyword(flag, keyword);
 		} else {
 			llytSortBy.setVisibility(View.VISIBLE);// 显示排序和筛选
-			getProductByCategoryId(flag, categoryId, "1");
+			getProductByCategoryId(flag, categoryId, "3", "DESC");
 		}
 	}
 
@@ -272,26 +278,34 @@ public class ProductListActivity extends BaseActivity implements
 		return Misc.transMapToString(filterIds);
 	}
 
+	private int salseAmount = 0, popular = 0, price = 0;
+
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.product_sort_by_salesamount:
-			isPriceDown = false;
-			getProductByCategoryId(0, categoryId, "1");
+			salseAmount++;
+			if (0 == salseAmount % 2) {
+				getProductByCategoryId(0, categoryId, "3", "ASC");
+			} else {
+				getProductByCategoryId(0, categoryId, "3", "DESC");
+			}
+
 			break;
 		case R.id.product_sort_by_renqi:
-			isPriceDown = false;
-			getProductByCategoryId(0, categoryId, "2");
+			if (0 == salseAmount % 2) {
+				getProductByCategoryId(0, categoryId, "1", "ASC");
+			} else {
+				getProductByCategoryId(0, categoryId, "1", "DESC");
+			}
+
 			break;
 		case R.id.product_sort_by_price:
-			if (isPriceDown) {
-				// 按价格上升
-				getProductByCategoryId(0, categoryId, "4");
+			if (0 == salseAmount % 2) {
+				getProductByCategoryId(0, categoryId, "2", "ASC");
 			} else {
-				// 按价格下降
-				getProductByCategoryId(0, categoryId, "3");
+				getProductByCategoryId(0, categoryId, "2", "DESC");
 			}
-			isPriceDown = !isPriceDown;
 			break;
 		case R.id.product_txt_filter:
 			if (View.VISIBLE == llytFilter.getVisibility()) {
@@ -331,21 +345,24 @@ public class ProductListActivity extends BaseActivity implements
 	}
 
 	private void getProductByCategoryId(final int flag, String categoryId,
-			String sortBy) {
+			String sortBy, String sortByValue) {
 		CategoryModel.getInstance().getProductListByCategoryId(categoryId, "",
-				currentPage + "", getFilterIds(), sortBy,
+				currentPage + "", getFilterIds(), sortBy, sortByValue,
 				new CategoryModel.OnGetProductListCompletedListener() {
 
 					@Override
 					public void onSuccess(ProductResponse info) {
 						LoadingDialog.dismiss();
-						if (null == info.getData()
-								|| null == info.getData().getProductList()
-								|| 0 == info.getData().getProductList().size()) {
+						if ((null == info.getData()
+								|| null == info.getData().getProductList() || 0 == info
+								.getData().getProductList().size())
+								&& (null == productList || 0 == productList
+										.size())) {
 							llytNoProduct.setVisibility(View.VISIBLE);
 							return;
 						}
 						llytNoProduct.setVisibility(View.GONE);
+						currentPage++;
 						// 排序和刷选条
 						initFilter(info.getData().getFilterList());
 						// TODO currentPage是否++？

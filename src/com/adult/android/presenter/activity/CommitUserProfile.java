@@ -8,10 +8,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.adult.android.R;
+import com.adult.android.entity.UserResponse;
 import com.adult.android.logic.UserLogic;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnLoginCompletedListener;
-import com.adult.android.model.UserResponse;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.view.LoadingDialog;

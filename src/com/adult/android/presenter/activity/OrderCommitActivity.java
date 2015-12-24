@@ -15,11 +15,11 @@ import android.widget.TextView;
 import com.adult.android.R;
 import com.adult.android.entity.AddressDto;
 import com.adult.android.entity.CalculateCartResponse2;
+import com.adult.android.entity.CommitOrderResponse;
 import com.adult.android.entity.CouponDto;
 import com.adult.android.entity.SkuForCart;
 import com.adult.android.model.CartModel;
 import com.adult.android.model.CartModel.OnOrderCommitCompletedListener;
-import com.adult.android.model.CommitOrderResponse;
 import com.adult.android.model.OrderModel2;
 import com.adult.android.model.OrderModel2.OnDeleteOrderCompletedListener;
 import com.adult.android.model.constants.ServiceUrlConstants;
@@ -35,8 +35,7 @@ import com.adult.android.view.CartPromotionPopupWindow.CartPromotionPopupWindowL
 import com.adult.android.view.LoadingDialog;
 import com.lidroid.xutils.BitmapUtils;
 
-public class OrderCommitActivity extends BaseActivity implements
-		OnClickListener {
+public class OrderCommitActivity extends BaseActivity implements OnClickListener {
 
 	private CalculateCartResponse2 data;
 
@@ -48,9 +47,8 @@ public class OrderCommitActivity extends BaseActivity implements
 
 	private boolean isQuickBuy;
 
-	private TextView txtReceiverName, txtReceiverNum, txtAddress,
-			txtPromotionName, txtProductAmount, txtTransFee, txtCoupon,
-			txtShoudPay;
+	private TextView txtReceiverName, txtReceiverNum, txtAddress, txtPromotionName, txtProductAmount, txtTransFee,
+			txtCoupon, txtShoudPay;
 
 	private EditText edTxtMessage;
 
@@ -110,30 +108,23 @@ public class OrderCommitActivity extends BaseActivity implements
 			finish();
 		}
 		isQuickBuy = getIntent().getBooleanExtra("isQuickBuy`", false);
-		data = (CalculateCartResponse2) getIntent()
-				.getSerializableExtra("data");
-		txtProductAmount.setText(getResources().getString(R.string.rmb)
-				+ data.getProductAmount());
+		data = (CalculateCartResponse2) getIntent().getSerializableExtra("data");
+		txtProductAmount.setText(getResources().getString(R.string.rmb) + data.getProductAmount());
 		double transFee = Double.parseDouble(data.getTransAmount());
 		if (0 < transFee) {
-			txtTransFee.setText(getResources().getString(R.string.rmb)
-					+ Misc.scale(transFee, 2) + "");
-			findViewById(R.id.order_commit_trans_fee_included).setVisibility(
-					View.GONE);
+			txtTransFee.setText(getResources().getString(R.string.rmb) + Misc.scale(transFee, 2) + "");
+			findViewById(R.id.order_commit_trans_fee_included).setVisibility(View.GONE);
 		} else {
-			findViewById(R.id.order_commit_trans_fee_included).setVisibility(
-					View.VISIBLE);
+			findViewById(R.id.order_commit_trans_fee_included).setVisibility(View.VISIBLE);
 			txtTransFee.setText("包邮");
 		}
 		txtShoudPay.setText(getResources().getString(R.string.rmb)
 				+ Misc.scale(Double.parseDouble(data.getTotalAmount()), 2));
-		productList = (List<SkuForCart>) getIntent().getSerializableExtra(
-				"skuList");
+		productList = (List<SkuForCart>) getIntent().getSerializableExtra("skuList");
 		skuIds = data.getSkuIds();
 		address = data.getDefaultAddress();
 		if (null == address || GeneralTool.isEmpty(address.getAddressId())
-				|| GeneralTool.isEmpty(address.getReceiverName())
-				|| GeneralTool.isEmpty(address.getReceiveMb())) {
+				|| GeneralTool.isEmpty(address.getReceiverName()) || GeneralTool.isEmpty(address.getReceiveMb())) {
 			llytNewAddress.setVisibility(View.VISIBLE);
 			llytAddress.setVisibility(View.GONE);
 		} else {
@@ -142,9 +133,8 @@ public class OrderCommitActivity extends BaseActivity implements
 
 			txtReceiverName.setText(address.getReceiverName());
 			txtReceiverNum.setText(address.getReceiveMb());
-			txtAddress.setText("收货地址：" + address.getProvinceName() + " "
-					+ address.getCityName() + " " + address.getAreaName() + " "
-					+ address.getDetailAddress());
+			txtAddress.setText("收货地址：" + address.getProvinceName() + " " + address.getCityName() + " "
+					+ address.getAreaName() + " " + address.getDetailAddress());
 		}
 		if (null == data.getEnableUse() || 0 == data.getEnableUse().size()) {
 			txtCoupon.setText(data.getAvailableCouponCount() + "张可用优惠券");
@@ -153,11 +143,9 @@ public class OrderCommitActivity extends BaseActivity implements
 			finish();
 		}
 		if (2 >= productList.size()) {
-			findViewById(R.id.order_commit_prodcut_more).setVisibility(
-					View.GONE);
+			findViewById(R.id.order_commit_prodcut_more).setVisibility(View.GONE);
 		} else {
-			findViewById(R.id.order_commit_prodcut_more).setOnClickListener(
-					this);
+			findViewById(R.id.order_commit_prodcut_more).setOnClickListener(this);
 		}
 		addProduct();
 	}
@@ -195,18 +183,14 @@ public class OrderCommitActivity extends BaseActivity implements
 			commitOrder();
 			break;
 		case R.id.order_commit_layout_address:
-			Intent intentEditAddress = new Intent(this,
-					AddressEditActivity.class);
+			Intent intentEditAddress = new Intent(this, AddressEditActivity.class);
 			intentEditAddress.putExtra("address", address);
-			intentEditAddress.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intentEditAddress.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivityForResult(intentEditAddress, 10);
 			break;
 		case R.id.order_commit_layout_address_new:
-			Intent intentNewAddress = new Intent(this,
-					AddressEditActivity.class);
-			intentNewAddress.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			Intent intentNewAddress = new Intent(this, AddressEditActivity.class);
+			intentNewAddress.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivityForResult(intentNewAddress, 10);
 			break;
 		case R.id.sum_details_llyt_coupon:
@@ -229,18 +213,14 @@ public class OrderCommitActivity extends BaseActivity implements
 	 * 显示地址选择弹框
 	 */
 	private void showAddressPopupWindow() {
-		skuPopupWindow = new CartPromotionPopupWindow(this,
-				((BaseActivity) this).pop_layout, data.getEnableUse(),
+		skuPopupWindow = new CartPromotionPopupWindow(this, ((BaseActivity) this).pop_layout, data.getEnableUse(),
 				new CartPromotionPopupWindowListener() {
 
 					@Override
 					public void onPromotionSelected(CouponDto coupon) {
-						ToastUtil.showToastShort(OrderCommitActivity.this,
-								coupon.getCoupon_id());
+						ToastUtil.showToastShort(OrderCommitActivity.this, coupon.getCoupon_id());
 						currentCoupon = coupon;
-						txtCoupon.setText(getResources()
-								.getString(R.string.rmb)
-								+ coupon.getCoupon_amount());
+						txtCoupon.setText(getResources().getString(R.string.rmb) + coupon.getCoupon_amount());
 					}
 
 					@Override
@@ -263,11 +243,9 @@ public class OrderCommitActivity extends BaseActivity implements
 			quickBuy = "1";
 			qtyQuickyBuy = productList.get(0).getQty() + "";
 		}
-		CartModel.getInstance().commitOrder(AgentApplication.get().getUserId(),
-				skuIds,
-				null == currentCoupon ? "" : currentCoupon.getCoupon_id(),
-				edTxtMessage.getText().toString(), "0", address.getAddressId(),
-				"0", quickBuy, skuIdQuickBuy, qtyQuickyBuy,
+		CartModel.getInstance().commitOrder(AgentApplication.get().getUserId(), skuIds,
+				null == currentCoupon ? "" : currentCoupon.getCoupon_id(), edTxtMessage.getText().toString(), "0",
+				address.getAddressId(), "0", quickBuy, skuIdQuickBuy, qtyQuickyBuy,
 				new OnOrderCommitCompletedListener() {
 
 					@Override
@@ -275,11 +253,8 @@ public class OrderCommitActivity extends BaseActivity implements
 						loadingDialog.dismiss();
 						if (null != info.getData()) {
 							if (0 == payWay) {
-								Intent intent = new Intent(
-										OrderCommitActivity.this,
-										OrderListActivity2.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-										| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+								Intent intent = new Intent(OrderCommitActivity.this, OrderListActivity2.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 								startActivity(intent);
 								finish();
 							} else {
@@ -336,27 +311,18 @@ public class OrderCommitActivity extends BaseActivity implements
 		}
 		for (SkuForCart product : productList) {
 			if (!isShowAll && 2 == llytProductContainer.getChildCount()) {
-				findViewById(R.id.order_commit_prodcut_more).setVisibility(
-						View.VISIBLE);
+				findViewById(R.id.order_commit_prodcut_more).setVisibility(View.VISIBLE);
 				return;
 			}
-			View view = getLayoutInflater().inflate(
-					R.layout.item_product_list_order_commit, null);
-			ImageView imageProduct = (ImageView) view
-					.findViewById(R.id.item_product_order_commit_image);
-			TextView txtProductName = (TextView) view
-					.findViewById(R.id.item_product_order_commit_name);
-			TextView txtProductPrice = (TextView) view
-					.findViewById(R.id.item_product_order_commit_price);
-			TextView txtProductFormat = (TextView) view
-					.findViewById(R.id.item_product_order_commit_format);
-			TextView txtProductCount = (TextView) view
-					.findViewById(R.id.item_product_order_commit_count);
-			mBitmapUtils.display(imageProduct,
-					ServiceUrlConstants.getImageHost() + product.getImgUrl());
+			View view = getLayoutInflater().inflate(R.layout.item_product_list_order_commit, null);
+			ImageView imageProduct = (ImageView) view.findViewById(R.id.item_product_order_commit_image);
+			TextView txtProductName = (TextView) view.findViewById(R.id.item_product_order_commit_name);
+			TextView txtProductPrice = (TextView) view.findViewById(R.id.item_product_order_commit_price);
+			TextView txtProductFormat = (TextView) view.findViewById(R.id.item_product_order_commit_format);
+			TextView txtProductCount = (TextView) view.findViewById(R.id.item_product_order_commit_count);
+			mBitmapUtils.display(imageProduct, ServiceUrlConstants.getImageHost() + product.getImgUrl());
 			txtProductName.setText(product.getItemName());
-			txtProductPrice.setText(getResources().getString(R.string.rmb)
-					+ product.getPromotionPrice());
+			txtProductPrice.setText(getResources().getString(R.string.rmb) + product.getPromotionPrice());
 			txtProductFormat.setText(product.getSkuName());
 			txtProductCount.setText("数量：" + product.getQty());
 
@@ -365,8 +331,7 @@ public class OrderCommitActivity extends BaseActivity implements
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode,
-			Intent intent) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// ToastUtil.showToastShort(this, requestCode + ", resultCode:"
 		// + resultCode);
 		switch (requestCode) {
@@ -387,9 +352,8 @@ public class OrderCommitActivity extends BaseActivity implements
 			address = (AddressDto) intent.getSerializableExtra("address");
 			txtReceiverName.setText(address.getReceiverName());
 			txtReceiverNum.setText(address.getReceiveMb());
-			txtAddress.setText("收货地址：" + address.getProvinceName() + " "
-					+ address.getCityName() + " " + address.getAreaName() + " "
-					+ address.getDetailAddress());
+			txtAddress.setText("收货地址：" + address.getProvinceName() + " " + address.getCityName() + " "
+					+ address.getAreaName() + " " + address.getDetailAddress());
 			getLogisticPrice(address.getProvinceName());
 		}
 	}
@@ -397,37 +361,35 @@ public class OrderCommitActivity extends BaseActivity implements
 	/** 获取运费 */
 	private void getLogisticPrice(String province) {
 		loadingDialog.show();
-		OrderModel2.getInstance().getLogisticsPrice(province,
-				new OnDeleteOrderCompletedListener() {
+		OrderModel2.getInstance().getLogisticsPrice(province, new OnDeleteOrderCompletedListener() {
 
-					@Override
-					public void onSuccess(StatusInfo info) {
-						loadingDialog.dismiss();
-					}
+			@Override
+			public void onSuccess(StatusInfo info) {
+				loadingDialog.dismiss();
+			}
 
-					@Override
-					public void onStart() {
+			@Override
+			public void onStart() {
 
-					}
+			}
 
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						loadingDialog.dismiss();
+			@Override
+			public void onHttpException(HttpResponseException e) {
+				loadingDialog.dismiss();
 
-					}
+			}
 
-					@Override
-					public void onFinish() {
+			@Override
+			public void onFinish() {
 
-					}
+			}
 
-					@Override
-					public void onFailed(ResponseException e) {
-						loadingDialog.dismiss();
-						ToastUtil.showToastShort(OrderCommitActivity.this,
-								e.getResultMsg());
-					}
-				});
+			@Override
+			public void onFailed(ResponseException e) {
+				loadingDialog.dismiss();
+				ToastUtil.showToastShort(OrderCommitActivity.this, e.getResultMsg());
+			}
+		});
 	}
 
 }
