@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:my="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bottom_bg"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="YYK SmartShop Terminal"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dip"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip" >
+
+            <ImageView
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:src="@drawable/login_acount" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/login_user_name"
+                android:textColor="@color/gray_2"
+                android:textSize="@dimen/default_size"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/login_usernameEdt"
+                android:layout_width="0dip"
+                android:layout_height="45dip"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/common_round_conner_bg_gray_stroke"
+                android:gravity="center_vertical"
+                android:hint="input your e-mail here"
+                android:imeOptions="actionNext"
+                android:text="testName"
+                android:paddingLeft="10dip"
+                android:textColorHint="@color/gray_line1"
+                android:textSize="@dimen/default_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip" >
+
+            <ImageView
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:src="@drawable/login_password" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/login_password"
+                android:textColor="@color/gray_2"
+                android:textSize="@dimen/default_size"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/login_psdEdt"
+                android:layout_width="0dip"
+                android:layout_height="45dip"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/common_round_conner_bg_gray_stroke"
+                android:gravity="center_vertical"
+                android:imeOptions="actionNext"
+                android:paddingLeft="15dip"
+                android:text="shopper"
+                android:password="true"
+                android:textColorHint="@color/gray_line1"
+                android:textSize="@dimen/default_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_loginBtn"
+        style="@style/white_bt"
+        android:layout_marginLeft="70dip"
+        android:layout_marginRight="70dip"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/common_round_conner_bg_gray_stroke"
+        android:text="Login"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/string_regist"
+            android:textColor="@color/gray_1"
+            android:textSize="@dimen/default_size_small_1"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_register"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingTop="5dip"
+            android:text="@string/string_find_psd"
+            android:textColor="@color/gray_1"
+            android:textSize="@dimen/default_size_moderate"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

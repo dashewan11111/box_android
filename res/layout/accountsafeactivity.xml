@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout.XY"
+    android:background="@color/gray_bottom_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/account_safe_mobile"
+        style="@style/layout.arraw"
+        android:layout_marginTop="10dip" >
+
+        <TextView
+            style="@style/text_black_12"
+            android:layout_weight="1.0"
+            android:text="手机号" />
+
+        <TextView
+            android:id="@+id/account_safe_mobile_status"
+            style="@style/text_black_12"
+            android:text="去绑定" />
+
+        <ImageView
+            android:layout_width="7dip"
+            android:layout_height="14dip"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/account_safe_password"
+        style="@style/layout.arraw"
+        android:layout_marginTop="10dip" >
+
+        <TextView
+            style="@style/text_black_12"
+            android:layout_weight="1.0"
+            android:text="密码" />
+
+        <TextView
+            android:id="@+id/account_safe_chage_password"
+            style="@style/text_black_12"
+            android:text="去修改" />
+
+        <ImageView
+            android:layout_width="7dip"
+            android:layout_height="14dip"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <include layout="@layout/line_gray_full" />
+
+</LinearLayout>

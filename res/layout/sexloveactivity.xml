@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bottom_bg"
+    android:orientation="vertical"
+    android:paddingTop="15dip" >
+
+    <TextView
+        android:id="@+id/sex_love_man"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dip"
+        android:text="爱好男" />
+
+    <include layout="@layout/line_gray_full" />
+
+    <TextView
+        android:id="@+id/sex_love_femal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dip"
+        android:text="爱好女" />
+
+    <include layout="@layout/line_gray_full" />
+
+    <TextView
+        android:id="@+id/sex_love_double"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dip"
+        android:text="双性恋" />
+
+    <include layout="@layout/line_gray_full" />
+
+    <TextView
+        android:id="@+id/sex_love_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dip"
+        android:text="无性恋" />
+
+    <include layout="@layout/line_gray_full" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dip"
+        android:text="选择您的性取向"
+        android:textColor="@color/gray" />
+
+</LinearLayout>

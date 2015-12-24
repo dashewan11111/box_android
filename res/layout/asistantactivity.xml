@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout.XY"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/asistant_shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:gravity="center"
+        android:text="ParaShop"
+        android:textSize="25sp" />
+
+    <com.adult.android.view.CircleImageView
+        android:id="@+id/asistant_shopper_image"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_marginTop="20dip"
+        android:src="@drawable/default_user_avator_m" >
+    </com.adult.android.view.CircleImageView>
+
+    <TextView
+        android:id="@+id/asistant_shopper_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:text="Alice liu"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/asistant_asistant_code"
+        android:layout_width="260dip"
+        android:layout_height="260dip"
+        android:layout_marginTop="20dip"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_default_248" />
+
+</LinearLayout>

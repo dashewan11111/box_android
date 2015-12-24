@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout.Xy"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <LinearLayout
+        style="@style/layout.Xy"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/item_evaluation_list_product_image"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:src="@drawable/img_default_672_632" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/item_evaluation_list_product_name"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_evaluation_list_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="￥158.00"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_evaluation_list_product_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:text="颜色：薰衣草紫"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/item_evaluation_list_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:text="数量：1"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/layout.Xy"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/item_evaluation_list_product_action"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:background="@drawable/common_round_conner_bg_red"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

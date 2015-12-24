@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:my="http://schemas.android.com/apk/res-auto"
+    style="@style/layout.XY"
+    android:background="@color/activity_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/layout.XY"
+        android:orientation="vertical" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cart_fragment_listView"
+            style="@style/layout.XY"
+            android:layout_weight="1.0"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:focusable="true"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="@color/transparent"
+            android:scrollbars="none"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both" />
+
+        <!-- 结算 -->
+
+        <include layout="@layout/cart_operation_bar" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/cart_fragment_no_goods"
+        layout="@layout/cart_empty"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/pop_base_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_gravity="bottom" />
+
+</FrameLayout>

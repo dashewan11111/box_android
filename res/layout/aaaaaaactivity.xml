@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_get_my"
+            android:layout_width="0dip"
+            android:layout_height="50dip"
+            android:layout_weight="1.0"
+            android:text="我的" />
+
+        <Button
+            android:id="@+id/btn_connectuser"
+            android:layout_width="0dip"
+            android:layout_height="50dip"
+            android:layout_weight="1.0"
+            android:text="绑定用户" />
+
+        <Button
+            android:id="@+id/btn_get_cart_list"
+            android:layout_width="0dip"
+            android:layout_height="50dip"
+            android:layout_weight="1.0"
+            android:text="列表" />
+
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="0dip"
+            android:layout_height="50dip"
+            android:layout_weight="1.0"
+            android:text="添加" />
+
+        <Button
+            android:id="@+id/btn_update_cart"
+            android:layout_width="0dip"
+            android:layout_height="50dip"
+            android:layout_weight="1.0"
+            android:text="更新" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/asistant_asistant_code"
+        android:layout_width="260dip"
+        android:layout_height="260dip"
+        android:layout_marginTop="20dip"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_default_248" />
+
+    <TextView
+        android:id="@+id/txt_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

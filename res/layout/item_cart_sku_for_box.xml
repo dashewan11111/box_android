@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout.Xy"
+    android:background="@color/white"
+    android:gravity="center_vertical" >
+
+    <LinearLayout
+        style="@style/layout.Xy"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/item_cart_box_check"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:padding="12dip"
+            android:src="@drawable/cart_product_select_off"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:id="@+id/item_cart_box_img_product"
+                android:layout_width="75dip"
+                android:layout_height="75dip"
+                android:src="@drawable/img_default_672_632" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/item_cart_box_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1.0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_cart_box_product_formart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <com.adult.android.view.MyEditText2
+                        android:id="@+id/item_cart_box_edit_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dip"
+                        android:layout_marginTop="3dip"
+                        android:inputType="numberSigned" />
+
+                    <TextView
+                        android:id="@+id/item_cart_box_product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/item_cart_box_delete"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@drawable/icon_delete_item_car" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_cart_box_llyt_disable"
+        style="@style/layout.XY"
+        android:background="#50000000"
+        android:gravity="center_vertical|right"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="失效"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</FrameLayout>

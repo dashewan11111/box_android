@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout.XY"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="5dip"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我们已发送验证码到这个手机号码"
+            android:textColor="@color/gray_2"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/bindmobile_mobile"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_weight="1.0"
+            android:text="1363636363"
+            android:textColor="@color/gray_2"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <include layout="@layout/line_gray_full" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/bindmobile_code"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@null"
+            android:digits="@string/digits"
+            android:gravity="center_vertical"
+            android:hint="请输入验证码"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="11"
+            android:padding="5dip"
+            android:textColorHint="@color/gray_line1"
+            android:textColorLink="@color/gray"
+            android:textSize="@dimen/default_size" />
+
+        <Button
+            android:id="@+id/bindmobile_btn_resend"
+            android:layout_width="110dip"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_round_conner_bg_gray_stroke"
+            android:padding="10dip"
+            android:text="重新发送(60)"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        style="@style/gray_line"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/gray_bg1" />
+
+    <Button
+        android:id="@+id/bindmobile_btn_commit"
+        style="@style/white_bt"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/common_round_conner_bg_purple"
+        android:text="提交"
+        android:textColor="@color/gray" />
+
+</LinearLayout>
