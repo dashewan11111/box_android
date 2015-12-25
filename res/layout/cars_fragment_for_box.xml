@@ -8,6 +8,26 @@
         style="@style/layout.XY"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:id="@+id/cars_fragment_box_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/scan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扫一扫" />
+        </LinearLayout>
+
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/cart_fragment_listView"
@@ -27,7 +47,7 @@
 
         <!-- 结算 -->
 
-        <include layout="@layout/cart_operation_bar" />
+        <include layout="@layout/cart_box_operation_bar" />
     </LinearLayout>
 
     <include

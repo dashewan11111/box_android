@@ -76,10 +76,10 @@ public class MyEditText2 extends LinearLayout implements TextWatcher, OnEditorAc
 		bAdd.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				if (null != v.getTag()) {
-					bReduce.setEnabled(false);
-					return;
-				}
+//				if (null != v.getTag()) {
+//					bReduce.setEnabled(false);
+//					return;
+//				}
 				int tempNumber = Integer.parseInt(number);
 				if (isValidNumber()) {
 					if (tempNumber > 1) {
@@ -114,10 +114,10 @@ public class MyEditText2 extends LinearLayout implements TextWatcher, OnEditorAc
 		bReduce.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (null != v.getTag()) {
-					bReduce.setEnabled(false);
-					return;
-				}
+				// if (null != v.getTag()) {
+				// bReduce.setEnabled(false);
+				// return;
+				// }
 				if (isValidNumber()) {
 					int tempNumber = Integer.parseInt(number);
 					if (tempNumber <= 1) {

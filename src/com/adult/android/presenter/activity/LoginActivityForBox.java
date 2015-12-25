@@ -7,11 +7,9 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.adult.android.R;
-import com.adult.android.entity.OnGetMyResponse;
 import com.adult.android.entity.UserResponse2;
 import com.adult.android.logic.UserLogic;
 import com.adult.android.model.UserModel;
-import com.adult.android.model.UserModel.OnGetMyCompletedListener;
 import com.adult.android.model.UserModel.OnLoginCompletedListenerForBox;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
@@ -21,7 +19,8 @@ import com.adult.android.utils.GeneralTool;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 
-public class LoginActivityForBox extends BaseActivity implements OnClickListener {
+public class LoginActivityForBox extends BaseActivity implements
+		OnClickListener {
 
 	public static final int FROM_RRODUCT_DETATIL = 11;
 
@@ -58,7 +57,8 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 
 		if (!GeneralTool.isEmpty(UserLogic.getInsatnace().getUserName())) {
 			edTxtUserName.setText((UserLogic.getInsatnace().getUserName()));
-			edTxtUserName.setSelection((UserLogic.getInsatnace().getUserName().length()));
+			edTxtUserName.setSelection((UserLogic.getInsatnace().getUserName()
+					.length()));
 		}
 	}
 
@@ -76,7 +76,8 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 			break;
 		// 忘记密码
 		case R.id.btn_forget_pwd:
-			startActivity(new Intent(LoginActivityForBox.this, FindPsdActivity2.class));
+			startActivity(new Intent(LoginActivityForBox.this,
+					FindPsdActivity2.class));
 			break;
 
 		default:
@@ -85,10 +86,11 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 	}
 
 	private void login() {
-		final String account = edTxtUserName.getText().toString().trim();
+		final String userName = edTxtUserName.getText().toString().trim();
 		final String password = edTxtPassword.getText().toString().trim();
-		if (GeneralTool.isEmpty(account)) {
-			ToastUtil.showToastShort(LoginActivityForBox.this, R.string.login_nick_name_empty);
+		if (GeneralTool.isEmpty(userName)) {
+			ToastUtil.showToastShort(LoginActivityForBox.this,
+					R.string.login_nick_name_empty);
 			return;
 		}
 		// if (CheckCode.isChinese(account)) {
@@ -98,7 +100,8 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 		// }
 
 		if (GeneralTool.isEmpty(password)) {
-			ToastUtil.showToastShort(LoginActivityForBox.this, R.string.string_hint_login_pas);
+			ToastUtil.showToastShort(LoginActivityForBox.this,
+					R.string.string_hint_login_pas);
 			return;
 		}
 		// if (account.length() > 20 || account.length() < 6) {
@@ -111,11 +114,13 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 		// return;
 		// }
 		if (password.length() > 20 || password.length() < 6) {
-			ToastUtil.showToastShort(LoginActivityForBox.this, R.string.pwd_lengh_limit);
+			ToastUtil.showToastShort(LoginActivityForBox.this,
+					R.string.pwd_lengh_limit);
 			return;
 		}
 		if (CheckCode.isChinese(password)) {
-			ToastUtil.showToastShort(LoginActivityForBox.this, R.string.pwd_chinese_error);
+			ToastUtil.showToastShort(LoginActivityForBox.this,
+					R.string.pwd_chinese_error);
 			return;
 		}
 		// if (name.equals(psd)) {
@@ -129,51 +134,63 @@ public class LoginActivityForBox extends BaseActivity implements OnClickListener
 		// return;
 		// }
 		loaddingDialog.show();
-		UserModel.getInstance().loginForBox(account, password, new OnLoginCompletedListenerForBox() {
+		UserModel.getInstance().loginForBox(userName, password,
+				new OnLoginCompletedListenerForBox() {
 
-			@Override
-			public void onSuccess(UserResponse2 info) {
-				loaddingDialog.dismiss();
-				// UserDto user = info.getData();
-				// user.setPassword(password);
-				// UserLogic.getInsatnace().setUserInfo(user);
-				//
-				if (null != info.getData()) {
-					AgentApplication.get().setShopperId(info.getData().getShopperId());
-					AgentApplication.get().setSessionId(info.getData().getSessionId());
-					AgentApplication.get().setShopId(info.getData().getShopId());
-					sendBroadcast(new Intent(ACTION_REFRESH_USER));
-					// finish();
-					Intent intent = new Intent(LoginActivityForBox.this, AsistantActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-					startActivity(intent);
-				} else {
-					ToastUtil.showToastShort(LoginActivityForBox.this, "没有返回值");
-				}
-			}
+					@Override
+					public void onSuccess(UserResponse2 info) {
+						loaddingDialog.dismiss();
+						// UserDto user = info.getData();
+						// user.setPassword(password);
+						// UserLogic.getInsatnace().setUserInfo(user);
+						if (null != info.getData()) {
+							AgentApplication.get().setShopperId(
+									info.getData().getShopperId());
+							AgentApplication.get().setSessionId(
+									info.getData().getSessionId());
+							AgentApplication.get().setShopId(
+									info.getData().getShopId());
+							sendBroadcast(new Intent(ACTION_REFRESH_USER));
+							UserLogic.getInsatnace().saveUserName(userName);
+							UserLogic.getInsatnace().savePassword(password);
+							Intent intent = new Intent(
+									LoginActivityForBox.this,
+									CarsActivityFroBox.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+									| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+							startActivity(intent);
+							finish();
+						} else {
+							ToastUtil.showToastShort(LoginActivityForBox.this,
+									"没有返回值");
+						}
+					}
 
-			@Override
-			public void onStart() {
+					@Override
+					public void onStart() {
 
-			}
+					}
 
-			@Override
-			public void onHttpException(HttpResponseException e) {
-				loaddingDialog.dismiss();
-			}
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						loaddingDialog.dismiss();
+						ToastUtil.showToastShort(LoginActivityForBox.this,
+								e.getResultMsg());
+					}
 
-			@Override
-			public void onFinish() {
-				loaddingDialog.dismiss();
-			}
+					@Override
+					public void onFinish() {
+						loaddingDialog.dismiss();
+					}
 
-			@Override
-			public void onFailed(ResponseException e) {
-				loaddingDialog.dismiss();
-				ToastUtil.showToastShort(LoginActivityForBox.this, e.getResultMsg());
-				// finish();
-			}
-		});
+					@Override
+					public void onFailed(ResponseException e) {
+						loaddingDialog.dismiss();
+						ToastUtil.showToastShort(LoginActivityForBox.this,
+								e.getResultMsg());
+						// finish();
+					}
+				});
 	}
 
 }
