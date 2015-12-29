@@ -6,7 +6,6 @@ import java.util.Map;
 import com.adult.android.entity.CouponResponse;
 import com.adult.android.entity.EvaluationResponse;
 import com.adult.android.entity.MyTopicResponse;
-import com.adult.android.entity.OnAddToCartResponse;
 import com.adult.android.entity.OnConnectUserResponse;
 import com.adult.android.entity.OnGetCartListResponse;
 import com.adult.android.entity.OnGetMyResponse;
@@ -1228,6 +1227,152 @@ public class UserModel {
 
 	}
 
+	/** 获取未支付订单 */
+	public void getUnPayOrderList(
+			final OnUnPayOrderListCompletedListener listener) {
+		// 共通参数
+		InputBean inputBean = new InputBean();
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		// inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME,
+		// ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD,
+				"userorder.getunpaid");
+		// 业务参数:
+		inputBean.putQueryParam("shopId", AgentApplication.get().getShopId());
+		inputBean.putQueryParam("orderId", null);
+		inputBean.putQueryParam("shopperId", AgentApplication.get()
+				.getShopperId());
+		Map<String, String> paramValues = new HashMap<String, String>();
+		// 系统级参数
+		paramValues.put(ServiceUrlConstants.MOTHOD, "userorder.getunpaid");
+		paramValues.put(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		paramValues.put(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+
+		// 业务级参数
+		paramValues.put("shopId", AgentApplication.get().getShopId());
+		paramValues.put("orderId", null);
+		paramValues.put("shopperId", AgentApplication.get().getShopperId());
+		// 生成签名--根据后台约定，并非每个参数都需要计算签名
+		String sign = CopUtils.sign(paramValues,
+				ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam("sign", sign);
+
+		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean,
+				OnUnPayOrderListResponse.class,
+				new HttpResponseListener<OnUnPayOrderListResponse>() {
+
+					@Override
+					public void onStart() {
+						listener.onStart();
+					}
+
+					@Override
+					public void onSuccess(OnUnPayOrderListResponse response) {
+						listener.onSuccess(response);
+					}
+
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						listener.onHttpException(e);
+					}
+
+					@Override
+					public void onBusinessException(BusinessException e) {
+						listener.onFailed(e);
+					}
+
+					@Override
+					public void onOtherException(Throwable throwable) {
+						ResponseException exception = new ResponseException(
+								throwable);
+						exception.setResultMsg("请求失败");
+						listener.onFailed(exception);
+					}
+
+					@Override
+					public void onFinish() {
+
+					}
+				});
+	}
+
+	/** 获取未支付订单 */
+	public void payOrder(String orderId,
+			final OnUnPayOrderListCompletedListener listener) {
+		// 共通参数
+		InputBean inputBean = new InputBean();
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		// inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME,
+		// ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD,
+				"userorder.payorder");
+		// 业务参数:
+		inputBean.putQueryParam("orderId", orderId);
+		inputBean.putQueryParam("shopperId", AgentApplication.get()
+				.getShopperId());
+		Map<String, String> paramValues = new HashMap<String, String>();
+		// 系统级参数
+		paramValues.put(ServiceUrlConstants.MOTHOD, "userorder.payorder");
+		paramValues.put(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		paramValues.put(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+
+		// 业务级参数
+		paramValues.put("orderId", orderId);
+		paramValues.put("shopperId", AgentApplication.get().getShopperId());
+		// 生成签名--根据后台约定，并非每个参数都需要计算签名
+		String sign = CopUtils.sign(paramValues,
+				ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam("sign", sign);
+
+		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean,
+				OnUnPayOrderListResponse.class,
+				new HttpResponseListener<OnUnPayOrderListResponse>() {
+
+					@Override
+					public void onStart() {
+						listener.onStart();
+					}
+
+					@Override
+					public void onSuccess(OnUnPayOrderListResponse response) {
+						listener.onSuccess(response);
+					}
+
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						listener.onHttpException(e);
+					}
+
+					@Override
+					public void onBusinessException(BusinessException e) {
+						listener.onFailed(e);
+					}
+
+					@Override
+					public void onOtherException(Throwable throwable) {
+						ResponseException exception = new ResponseException(
+								throwable);
+						exception.setResultMsg("请求失败");
+						listener.onFailed(exception);
+					}
+
+					@Override
+					public void onFinish() {
+
+					}
+				});
+	}
+
 	/** 获取购物车数据回调 */
 	public static interface OnConnectUserCompletedListener {
 
@@ -1274,6 +1419,20 @@ public class UserModel {
 	public static interface OnUpdateCartCompletedListener {
 
 		void onSuccess(OnGetCartListResponse info);
+
+		void onFailed(ResponseException e);
+
+		void onHttpException(HttpResponseException e);
+
+		void onStart();
+
+		void onFinish();
+	}
+
+	/** 获取购物车数据回调 */
+	public static interface OnUnPayOrderListCompletedListener {
+
+		void onSuccess(OnUnPayOrderListResponse info);
 
 		void onFailed(ResponseException e);
 

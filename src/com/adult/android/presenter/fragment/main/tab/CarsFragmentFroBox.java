@@ -32,7 +32,9 @@ import com.adult.android.model.UserModel.OnUpdateCartCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
+import com.adult.android.presenter.activity.CarsActivityFroBox;
 import com.adult.android.presenter.activity.LoginActivityForBox;
+import com.adult.android.presenter.activity.OrderListActivityForBox;
 import com.adult.android.presenter.fragment.main.BaseTabFragment;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox.OnDataChangeListener;
@@ -255,7 +257,12 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			break;
 
 		case R.id.cart_box_txt_checkout:
-
+			Intent intentOrder = new Intent(getActivity(),
+					OrderListActivityForBox.class);
+			intentOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			getActivity().startActivityForResult(intentOrder,
+					OrderListActivityForBox.REQUEST_CODE);
 			break;
 		default:
 			break;
@@ -266,6 +273,19 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	public void onHiddenChanged(boolean hidden) {
 		if (!hidden) {
 			initActivityTitle();
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case OrderListActivityForBox.REQUEST_CODE:
+			getDateList(0);// 刷新
+			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -330,7 +350,6 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			@Override
 			public void onStart() {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override

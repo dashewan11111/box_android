@@ -2,7 +2,7 @@ package com.adult.android.entity;
 
 import java.util.List;
 
-public class OrderDto extends BaseEntity {
+public class OrderDto2 extends BaseEntity {
 
 	private String orderId;// 订单号
 

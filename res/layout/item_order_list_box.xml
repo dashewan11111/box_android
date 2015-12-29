@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单号："
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_order_list_box_order_num"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_order_list_box_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待处理"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <include layout="@layout/line_gray_full" />
+
+    <LinearLayout
+        style="@style/layout.Xy"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <ImageView
+            android:id="@+id/item_order_list_box_sku_img"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default_248" />
+
+        <LinearLayout
+            style="@style/layout.Xy"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="10dip" >
+
+            <TextView
+                android:id="@+id/item_order_list_box_sku_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="的交锋骄傲if骄傲的骄傲所得税"
+                android:textColor="@color/gray_2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/item_order_list_box_box_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:text="共2箱"
+                android:textColor="@color/gray_2"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                style="@style/layout.Xy"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总金额"
+                    android:textColor="@color/gray_2"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_order_list_box_amount"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dip"
+                    android:layout_weight="1.0"
+                    android:gravity="left"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="比国内省："
+                    android:textColor="@color/gray"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/item_order_list_box_saving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$15"
+                    android:textColor="@color/gray"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/line_gray_full" />
+
+    <LinearLayout
+        style="@style/layout.Xy"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/item_order_list_box_time"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:textColor="@color/gray_2"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/item_order_list_box_btn_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/common_round_conner_bg_red"
+            android:paddingBottom="5dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="5dip"
+            android:text="确认付款"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

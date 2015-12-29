@@ -304,6 +304,10 @@
             android:name=".presenter.activity.CarsActivityFroBox"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".presenter.activity.OrderListActivityForBox"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
