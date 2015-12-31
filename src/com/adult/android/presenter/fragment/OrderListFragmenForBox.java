@@ -84,7 +84,7 @@ public class OrderListFragmenForBox extends Fragment implements
 		llytNoOrder = (LinearLayout) mainView.findViewById(R.id.order_null_box);
 		listView = (PullToRefreshListView) mainView
 				.findViewById(R.id.order_listview_box);
-		listView.setMode(Mode.PULL_UP_TO_REFRESH);
+		listView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 
 		listView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
@@ -121,13 +121,9 @@ public class OrderListFragmenForBox extends Fragment implements
 								orderList = new ArrayList<UserOrdersDTO>();
 							}
 							orderList.addAll(info.getData().getUserOrders());
-							if (null == adapter) {
-								adapter = new OrderListAdapterForBox(
-										getActivity(), orderList);
-								listView.setAdapter(adapter);
-							} else {
-								adapter.notifyDataSetChanged();
-							}
+							adapter = new OrderListAdapterForBox(getActivity(),
+									OrderListFragmenForBox.this, orderList);
+							listView.setAdapter(adapter);
 						}
 					}
 

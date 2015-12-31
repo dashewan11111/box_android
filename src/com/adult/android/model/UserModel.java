@@ -1242,7 +1242,6 @@ public class UserModel {
 				"userorder.getunpaid");
 		// 业务参数:
 		inputBean.putQueryParam("shopId", AgentApplication.get().getShopId());
-		inputBean.putQueryParam("orderId", null);
 		inputBean.putQueryParam("shopperId", AgentApplication.get()
 				.getShopperId());
 		Map<String, String> paramValues = new HashMap<String, String>();
@@ -1255,7 +1254,6 @@ public class UserModel {
 
 		// 业务级参数
 		paramValues.put("shopId", AgentApplication.get().getShopId());
-		paramValues.put("orderId", null);
 		paramValues.put("shopperId", AgentApplication.get().getShopperId());
 		// 生成签名--根据后台约定，并非每个参数都需要计算签名
 		String sign = CopUtils.sign(paramValues,

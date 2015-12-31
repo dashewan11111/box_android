@@ -140,20 +140,24 @@ public class OrderListFragment extends Fragment {
 
 					@Override
 					public void onHttpException(HttpResponseException e) {
-						// TODO Auto-generated method stub
-
+						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
+						ToastUtil.showToastShort(getActivity(),
+								e.getResultMsg());
 					}
 
 					@Override
 					public void onFinish() {
-						// TODO Auto-generated method stub
-
+						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
 					}
 
 					@Override
 					public void onFailed(ResponseException e) {
-						// TODO Auto-generated method stub
-
+						LoadingDialog.dismiss();
+						listView.onRefreshComplete();
+						ToastUtil.showToastShort(getActivity(),
+								e.getResultMsg());
 					}
 				});
 	}

@@ -23,6 +23,7 @@ import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.activity.OrderDetailsActivity2;
+import com.adult.android.presenter.fragment.OrderListFragmenForBox;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.lidroid.xutils.BitmapUtils;
@@ -39,9 +40,10 @@ public class OrderListAdapterForBox extends BaseAdapter {
 
 	private OnPayOrderListener listener;
 
-	public OrderListAdapterForBox(Context context, List<UserOrdersDTO> orderList) {
+	public OrderListAdapterForBox(Context context, OnPayOrderListener listener,
+			List<UserOrdersDTO> orderList) {
 		this.context = context;
-		this.listener = (OnPayOrderListener) context;
+		this.listener = listener;
 		this.productList = orderList;
 		bitmapUtils = new BitmapUtils(context);
 		loadingDialog = new LoadingDialog(context);
@@ -73,6 +75,8 @@ public class OrderListAdapterForBox extends BaseAdapter {
 					R.layout.item_order_list_box, null);
 			holder.image = (ImageView) convertView
 					.findViewById(R.id.item_order_list_box_sku_img);
+			holder.txtSkuName = (TextView) convertView
+					.findViewById(R.id.item_order_list_box_sku_name);
 			holder.txtOrderNum = (TextView) convertView
 					.findViewById(R.id.item_order_list_box_order_num);
 			holder.txtOrderStatus = (TextView) convertView
@@ -91,19 +95,22 @@ public class OrderListAdapterForBox extends BaseAdapter {
 		}
 		final UserOrdersDTO order = (UserOrdersDTO) getItem(position);
 
-		holder.txtOrderNum.setText(order.getOrderId());
+		holder.txtOrderNum.setText(order.getOrderNumber());
+		holder.txtSkuName.setText(order.getShopName());
 		String status = "";
 		switch (order.getOrderStatus()) {
 		case 0:
-			status = "确认付款";
+			status = "待付款";
+			holder.btnPay.setText("确认付款");
 			holder.btnPay.setEnabled(true);
 			break;
 		default:
 			status = "已完成";
+			holder.btnPay.setText(status);
 			holder.btnPay.setEnabled(false);
 			break;
 		}
-		holder.btnPay.setText(status);
+
 		holder.txtOrderStatus.setText(status);
 		holder.txtCreatTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(order.getOrderDateTime()));
@@ -138,7 +145,7 @@ public class OrderListAdapterForBox extends BaseAdapter {
 
 		private ImageView image;
 
-		private TextView txtOrderNum;
+		private TextView txtOrderNum, txtSkuName;
 
 		private TextView txtOrderStatus;
 

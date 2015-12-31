@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,8 +31,6 @@ import com.adult.android.model.UserModel.OnUpdateCartCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
-import com.adult.android.presenter.activity.CarsActivityFroBox;
-import com.adult.android.presenter.activity.LoginActivityForBox;
 import com.adult.android.presenter.activity.OrderListActivityForBox;
 import com.adult.android.presenter.fragment.main.BaseTabFragment;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox;
@@ -69,14 +66,12 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 	private LoadingDialog loadingDialog;
 
-	private ImageView imgCheckAll;
-
 	private TextView txtAllAmount, txtDutyFree, txtItemsPrice, txtSave,
 			txtShippingFee, txtCheckOut;
 
 	private LinearLayout llytNoGoods, llytScan;
 
-	private Button btnSum, btnGoBuy;
+	private Button btnGoBuy;
 
 	private int currentPage = 1;
 
@@ -106,11 +101,10 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	private void initViews() {
 		initActivityTitle();
 		loadingDialog = new LoadingDialog(getActivity());
-		imgCheckAll = (ImageView) mainView
-				.findViewById(R.id.cart_fragment_all_check);
+
 		txtAllAmount = (TextView) mainView
 				.findViewById(R.id.cart_fragment_txt_all_amount);
-		btnSum = (Button) mainView.findViewById(R.id.cart_fragment_btn_sum);
+
 		llytNoGoods = (LinearLayout) mainView
 				.findViewById(R.id.cart_fragment_no_goods);
 		btnGoBuy = (Button) mainView.findViewById(R.id.btn_go_buy);
@@ -125,8 +119,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 				.findViewById(R.id.cart_box_txt_checkout);
 		llytScan = (LinearLayout) mainView
 				.findViewById(R.id.cars_fragment_box_scan);
-		imgCheckAll.setOnClickListener(this);
-		btnSum.setOnClickListener(this);
+
 		btnGoBuy.setOnClickListener(this);
 		txtCheckOut.setOnClickListener(this);
 		llytScan.setOnClickListener(this);
@@ -203,7 +196,19 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 									@Override
 									public void onSuccess(
 											OnGetCartListResponse info) {
-										refreshDate(0, info);
+										if (null == info.getData()
+												|| null == info.getData()
+														.getCartDTO()
+												|| 0 == info.getData()
+														.getCartDTO()
+														.getCartSkuDTOList()
+														.size()) {
+											llytNoGoods
+													.setVisibility(View.VISIBLE);
+											return;
+										}
+										cartDto = info.getData().getCartDTO();
+										refreshDate(0);
 									}
 
 									@Override
@@ -229,6 +234,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 										loadingDialog.dismiss();
 										ToastUtil.showToastShort(getActivity(),
 												e.getResultMsg());
+										refreshDate(0);
 									}
 								});
 					}
@@ -304,7 +310,15 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 					public void onSuccess(OnGetCartListResponse info) {
 						loadingDialog.dismiss();
 						listView.onRefreshComplete();
-						refreshDate(flag, info);
+						if (null == info.getData()
+								|| null == info.getData().getCartDTO()
+								|| 0 == info.getData().getCartDTO()
+										.getCartSkuDTOList().size()) {
+							llytNoGoods.setVisibility(View.VISIBLE);
+							return;
+						}
+						cartDto = info.getData().getCartDTO();
+						refreshDate(flag);
 					}
 
 					@Override
@@ -334,6 +348,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						llytNoGoods.setVisibility(View.VISIBLE);
 						ToastUtil.showToastShort(getActivity(),
 								e.getResultMsg());
+						refreshDate(0);
 					}
 				});
 	}
@@ -373,13 +388,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	}
 
 	/** 处理数据 */
-	protected void refreshDate(int flag, OnGetCartListResponse info) {
-		if (null == info.getData() || null == info.getData().getCartDTO()
-				|| 0 == info.getData().getCartDTO().getCartSkuDTOList().size()) {
-			llytNoGoods.setVisibility(View.VISIBLE);
-			return;
-		}
-		cartDto = info.getData().getCartDTO();
+	protected void refreshDate(int flag) {
 		if (0 == flag) {
 			productList = new ArrayList<CartDTO>();
 			adapter = new CartListAdapterForBox(getActivity(), productList,
@@ -394,8 +403,8 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		} else {
 			adapter.notifyDataSetChanged();
 		}
-		txtAllAmount.setText(getResources().getString(R.string.rmb)
-				+ cartDto.getItemAmount());
+		// txtAllAmount.setText(getResources().getString(R.string.rmb)
+		// + cartDto.getItemAmount());
 		txtDutyFree.setText(getResources().getString(R.string.euro)
 				+ cartDto.getPayAmount() + "");
 		txtItemsPrice.setText(getResources().getString(R.string.euro)
@@ -420,7 +429,15 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 					@Override
 					public void onSuccess(OnGetCartListResponse info) {
 						loadingDialog.dismiss();
-						refreshDate(0, info);
+						if (null == info.getData()
+								|| null == info.getData().getCartDTO()
+								|| 0 == info.getData().getCartDTO()
+										.getCartSkuDTOList().size()) {
+							llytNoGoods.setVisibility(View.VISIBLE);
+							return;
+						}
+						cartDto = info.getData().getCartDTO();
+						refreshDate(0);
 					}
 
 					@Override
@@ -445,6 +462,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						loadingDialog.dismiss();
 						ToastUtil.showToastShort(getActivity(),
 								e.getResultMsg());
+						refreshDate(0);
 					}
 				});
 	}

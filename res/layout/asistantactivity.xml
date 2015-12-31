@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dip"
         android:gravity="center"
-        android:text="ParaShop"
         android:textSize="25sp" />
 
     <com.adult.android.view.CircleImageView
@@ -27,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
         android:gravity="center"
-        android:text="Alice liu"
         android:textSize="16sp" />
 
     <ImageView

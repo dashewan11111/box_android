@@ -11,14 +11,14 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/order_list_tab_all"
-            style="@style/community_fragment_tab_text"
-            android:text="全部" />
-
-        <TextView
             android:id="@+id/order_list_tab_unpay"
             style="@style/community_fragment_tab_text"
             android:text="待付款" />
+        <!--
+        <TextView
+            android:id="@+id/order_list_tab_all"
+            style="@style/community_fragment_tab_text"
+            android:text="全部" />
 
         <TextView
             android:id="@+id/order_list_tab_unpost"
@@ -33,7 +33,8 @@
         <TextView
             android:id="@+id/order_list_tab_uncomment"
             style="@style/community_fragment_tab_text"
-            android:text="待评价" />
+            android:text="待评价" />
+        -->
     </LinearLayout>
 
     <include layout="@layout/line_gray_full" />
@@ -46,11 +47,11 @@
         android:orientation="horizontal" >
 
         <View
-            android:id="@+id/order_list_tab_view_all"
-            style="@style/community_fragment_tab_devide_view" />
-
-        <View
             android:id="@+id/order_list_tab_view_unpay"
+            style="@style/community_fragment_tab_devide_view" />
+        <!--
+        <View
+            android:id="@+id/order_list_tab_view_all"
             style="@style/community_fragment_tab_devide_view" />
 
         <View
@@ -63,7 +64,8 @@
 
         <View
             android:id="@+id/order_list_tab_view_uncomment"
-            style="@style/community_fragment_tab_devide_view" />
+            style="@style/community_fragment_tab_devide_view" />
+        -->
     </LinearLayout>
 
 </LinearLayout>

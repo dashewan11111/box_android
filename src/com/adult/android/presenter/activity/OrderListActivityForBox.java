@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.adult.android.R;
-import com.adult.android.presenter.fragment.OrderListFragment;
+import com.adult.android.presenter.fragment.OrderListFragmenForBox;
 
 public class OrderListActivityForBox extends BaseActivity implements
 		OnClickListener {
@@ -38,7 +38,7 @@ public class OrderListActivityForBox extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setShowTitleBar(true);
-		setActivityTitle("订单列表");
+		setActivityTitle("待支付订单");
 		initView();
 	}
 
@@ -67,12 +67,12 @@ public class OrderListActivityForBox extends BaseActivity implements
 		FragmentTransaction mFragmentTransaction = mFragmentManager
 				.beginTransaction();
 		if (null == fragment) {
-			fragment = new OrderListFragment();
+			fragment = new OrderListFragmenForBox();
 			Bundle data = new Bundle();
 			if (ALL.equals(tag)) {
 				data.putString("type", "-1");
 			} else if (UN_PAY.equals(tag)) {
-				data.putString("type", "1");
+				data.putString("type", "0");
 			} else if (UN_POST.equals(tag)) {
 				data.putString("type", "2");
 			} else if (UN_RECEIVE.equals(tag)) {

@@ -59,7 +59,6 @@
                 android:id="@+id/item_order_list_box_sku_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="的交锋骄傲if骄傲的骄傲所得税"
                 android:textColor="@color/gray_2"
                 android:textSize="16sp" />
 
@@ -105,7 +104,7 @@
                     android:id="@+id/item_order_list_box_saving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$15"
+                    android:text="€15"
                     android:textColor="@color/gray"
                     android:textSize="10sp" />
             </LinearLayout>
