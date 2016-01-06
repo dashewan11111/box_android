@@ -35,7 +35,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dip"
             android:background="@drawable/common_round_conner_bg_gray_stroke"
-            android:text="去逛逛"
+            android:text="刷新"
             android:textColor="@color/gray"
             android:textSize="18sp" />
     </LinearLayout>

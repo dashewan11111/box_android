@@ -259,7 +259,8 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			startActivityForResult(intent2, SCAN_PRODUCT);
 			break;
 		case R.id.btn_go_buy:
-			addToCart();
+			// addToCart();
+			getDateList(0);
 			break;
 
 		case R.id.cart_box_txt_checkout:
@@ -359,7 +360,6 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			@Override
 			public void onSuccess(OnGetCartListResponse info) {
 				loadingDialog.dismiss();
-
 			}
 
 			@Override
@@ -389,6 +389,9 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 	/** 处理数据 */
 	protected void refreshDate(int flag) {
+		if (null == cartDto) {
+			return;
+		}
 		if (0 == flag) {
 			productList = new ArrayList<CartDTO>();
 			adapter = new CartListAdapterForBox(getActivity(), productList,
@@ -436,7 +439,6 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 							llytNoGoods.setVisibility(View.VISIBLE);
 							return;
 						}
-						cartDto = info.getData().getCartDTO();
 						refreshDate(0);
 					}
 
@@ -462,7 +464,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						loadingDialog.dismiss();
 						ToastUtil.showToastShort(getActivity(),
 								e.getResultMsg());
-						refreshDate(0);
+						// refreshDate(0);
 					}
 				});
 	}
