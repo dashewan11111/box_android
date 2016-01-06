@@ -48,10 +48,7 @@ public class LoginActivityForBox extends BaseActivity implements
 		});
 		setActivityTitle(R.string.string_title_login);
 
-		findViewById(R.id.btn_register).setOnClickListener(this);
 		findViewById(R.id.login_loginBtn).setOnClickListener(this);
-
-		findViewById(R.id.btn_forget_pwd).setOnClickListener(this);
 		edTxtUserName = (EditText) findViewById(R.id.login_usernameEdt);
 		edTxtPassword = (EditText) findViewById(R.id.login_psdEdt);
 
@@ -66,20 +63,10 @@ public class LoginActivityForBox extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		// 注册按钮
-		case R.id.btn_register:
-
-			break;
 		// 登录按钮
 		case R.id.login_loginBtn:
 			login();
 			break;
-		// 忘记密码
-		case R.id.btn_forget_pwd:
-			startActivity(new Intent(LoginActivityForBox.this,
-					FindPsdActivity2.class));
-			break;
-
 		default:
 			break;
 		}
@@ -93,26 +80,11 @@ public class LoginActivityForBox extends BaseActivity implements
 					R.string.login_nick_name_empty);
 			return;
 		}
-		// if (CheckCode.isChinese(account)) {
-		// ToastUtil.showToastShort(LoginActivityForBox.this,
-		// R.string.name_chinese_error);
-		// return;
-		// }
-
 		if (GeneralTool.isEmpty(password)) {
 			ToastUtil.showToastShort(LoginActivityForBox.this,
 					R.string.string_hint_login_pas);
 			return;
 		}
-		// if (account.length() > 20 || account.length() < 6) {
-		// ToastUtil.showToastShort(LoginActivityForBox.this,
-		// R.string.name_lengh_limit);
-		// return;
-		// }
-		// if (name.length() < 6) {
-		// ToastUtil.showToastShort(LoginActivity.this, "用户名不能少于6个字符");
-		// return;
-		// }
 		if (password.length() > 20 || password.length() < 6) {
 			ToastUtil.showToastShort(LoginActivityForBox.this,
 					R.string.pwd_lengh_limit);
@@ -123,16 +95,7 @@ public class LoginActivityForBox extends BaseActivity implements
 					R.string.pwd_chinese_error);
 			return;
 		}
-		// if (name.equals(psd)) {
-		// ToastUtil.showToastShort(LoginActivityForBox.this,
-		// R.string.pwd_name_same_error);
-		// return;
-		// }
 
-		// if (GeneralTool.isSameChars(psd)) {
-		// ToastUtil.showToastShort(LoginActivity.this, "密码不能是相同数字或字母，请重新输入");
-		// return;
-		// }
 		loaddingDialog.show();
 		UserModel.getInstance().loginForBox(userName, password,
 				new OnLoginCompletedListenerForBox() {
