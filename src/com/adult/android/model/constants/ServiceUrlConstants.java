@@ -8,7 +8,7 @@ public class ServiceUrlConstants {
 
 	public static enum HOST {
 		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(1,
-				"http://192.168.1.5:8081/yunyike-app-web/router", "http://123.57.211.13/"), REGRESS(2,
+				"http://192.168.10.206:8081/yunyike-app-web/router", "http://123.57.211.13/"), REGRESS(2,
 				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(3,
 				"http://api.ccigmall.com/router", "http://image01.ccigmall.com/");
 		private int id;
