@@ -22,10 +22,12 @@ import android.widget.TextView;
 
 import com.adult.android.R;
 import com.adult.android.entity.CartDTO;
+import com.adult.android.entity.OnConnectUserResponse;
 import com.adult.android.entity.OnGetCartListResponse;
 import com.adult.android.entity.ProductRule;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnAddToCartCompletedListener;
+import com.adult.android.model.UserModel.OnConnectUserCompletedListener;
 import com.adult.android.model.UserModel.OnGetCartListCompletedListener;
 import com.adult.android.model.UserModel.OnUpdateCartCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
@@ -108,6 +110,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		llytNoGoods = (LinearLayout) mainView
 				.findViewById(R.id.cart_fragment_no_goods);
 		btnGoBuy = (Button) mainView.findViewById(R.id.btn_go_buy);
+		mainView.findViewById(R.id.btn_band).setOnClickListener(this);
 
 		txtDutyFree = (TextView) mainView.findViewById(R.id.cart_box_duty_free);
 		txtItemsPrice = (TextView) mainView
@@ -260,10 +263,44 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
 			break;
 		case R.id.btn_go_buy:
-			// addToCart();
-			getDateList(0);
+			addToCart();
+			// getDateList(0);
 			break;
+		case R.id.btn_band:
+			loadingDialog.show();
+			UserModel.getInstance().bandUser(
+					"db143c39-83f4-4bf1-8993-a84decc42f7b",
+					new OnConnectUserCompletedListener() {
 
+						@Override
+						public void onSuccess(OnConnectUserResponse info) {
+							loadingDialog.dismiss();
+							ToastUtil.showToastShort(getActivity(), "绑定成功");
+							getDateList(0);
+						}
+
+						@Override
+						public void onFailed(ResponseException e) {
+
+						}
+
+						@Override
+						public void onHttpException(HttpResponseException e) {
+							loadingDialog.dismiss();
+						}
+
+						@Override
+						public void onStart() {
+
+						}
+
+						@Override
+						public void onFinish() {
+							loadingDialog.dismiss();
+						}
+
+					});
+			break;
 		case R.id.cart_box_txt_checkout:
 			Intent intentOrder = new Intent(getActivity(),
 					OrderListActivityForBox.class);
@@ -336,7 +373,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 					@Override
 					public void onStart() {
-						// TODO Auto-generated method stub
+
 					}
 
 					@Override
@@ -366,17 +403,19 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 				});
 	}
 
+	/** 添加购物车 */
 	private void addToCart() {
 		UserModel.getInstance().addToCart(new OnAddToCartCompletedListener() {
 
 			@Override
 			public void onSuccess(OnGetCartListResponse info) {
 				loadingDialog.dismiss();
+				getDateList(0);
 			}
 
 			@Override
 			public void onStart() {
-				// TODO Auto-generated method stub
+
 			}
 
 			@Override
@@ -404,6 +443,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		if (null == cartDto) {
 			return;
 		}
+		llytNoGoods.setVisibility(View.GONE);
 		if (0 == flag) {
 			productList = new ArrayList<CartDTO>();
 			adapter = new CartListAdapterForBox(getActivity(), productList,
@@ -451,6 +491,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 							llytNoGoods.setVisibility(View.VISIBLE);
 							return;
 						}
+						cartDto = info.getData().getCartDTO();
 						refreshDate(0);
 					}
 

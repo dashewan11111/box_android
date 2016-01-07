@@ -14,6 +14,7 @@ import com.adult.android.entity.Shopper;
 import com.adult.android.logic.UserLogic;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnGetMyCompletedListener;
+import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
@@ -80,7 +81,8 @@ public class AsistantActivity extends BaseActivity {
 				bitmapUtils.display(imageShopper, shopper.getShopperPhoto());
 				AgentApplication.get().setShopId(
 						info.getData().getShop().getShopId());
-				createQRImage(AgentApplication.get().getShopperId());
+				createQRImage(ServiceUrlConstants.CODE_HOST
+						+ AgentApplication.get().getShopperId());
 			}
 
 			@Override

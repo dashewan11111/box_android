@@ -1371,6 +1371,82 @@ public class UserModel {
 				});
 	}
 
+	/**
+	 * 绑定用户
+	 * 
+	 * @param userId
+	 * @param onGetCartListResponse
+	 */
+	public void bandUser(String userId,
+			final OnConnectUserCompletedListener listener) {
+		// 共通参数
+		InputBean inputBean = new InputBean();
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		// inputBean.putQueryParam(ServiceUrlConstants.APP_SECRET_NAME,
+		// ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD, "shopper.connect");
+		// 业务参数:
+		inputBean.putQueryParam("userId", userId);
+		inputBean.putQueryParam("shopperId", AgentApplication.get()
+				.getShopperId());
+		Map<String, String> paramValues = new HashMap<String, String>();
+		// 系统级参数
+		paramValues.put(ServiceUrlConstants.MOTHOD, "shopper.connect");
+		paramValues.put(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		paramValues.put(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+
+		// 业务级参数
+		paramValues.put("userId", userId);
+		paramValues.put("shopperId", AgentApplication.get().getShopperId());
+		// 生成签名--根据后台约定，并非每个参数都需要计算签名
+		String sign = CopUtils.sign(paramValues,
+				ServiceUrlConstants.APP_SECRET_VALUE);
+		inputBean.putQueryParam("sign", sign);
+
+		InternetClient.post(ServiceUrlConstants.getApiHost(), inputBean,
+				OnConnectUserResponse.class,
+				new HttpResponseListener<OnConnectUserResponse>() {
+
+					@Override
+					public void onStart() {
+						listener.onStart();
+					}
+
+					@Override
+					public void onSuccess(OnConnectUserResponse response) {
+						listener.onSuccess(response);
+					}
+
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						listener.onHttpException(e);
+					}
+
+					@Override
+					public void onBusinessException(BusinessException e) {
+						listener.onFailed(e);
+					}
+
+					@Override
+					public void onOtherException(Throwable throwable) {
+						ResponseException exception = new ResponseException(
+								throwable);
+						exception.setResultMsg("请求失败");
+						listener.onFailed(exception);
+					}
+
+					@Override
+					public void onFinish() {
+
+					}
+				});
+	}
+
 	/** 获取购物车数据回调 */
 	public static interface OnConnectUserCompletedListener {
 
@@ -1440,4 +1516,5 @@ public class UserModel {
 
 		void onFinish();
 	}
+
 }

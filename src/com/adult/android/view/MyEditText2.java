@@ -93,7 +93,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher, OnEditorAc
 					}
 
 					tempNumber++;
-					number = String.valueOf(tempNumber);
+					//number = String.valueOf(tempNumber);
 
 					// overrideSetText(number);
 					if (mOnAddReduceClickListener != null) {
@@ -127,7 +127,7 @@ public class MyEditText2 extends LinearLayout implements TextWatcher, OnEditorAc
 						bReduce.setEnabled(false);
 					}
 					tempNumber--;
-					number = String.valueOf(tempNumber);
+					//number = String.valueOf(tempNumber);
 					// overrideSetText(number);
 					if (mOnAddReduceClickListener != null) {
 						mOnAddReduceClickListener.onReduceClick(position1, position2, v, tempNumber + 1, tempNumber,

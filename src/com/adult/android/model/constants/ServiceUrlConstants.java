@@ -5,12 +5,16 @@ public class ServiceUrlConstants {
 	public static final String TEST_PHONE_NO = "13366287438";// 测试手机号
 	public static final String TEST_LOCATION = "01";// 北京
 	public static final String TEST_SIG = "";
+	// 二维码前缀
+	public static final String CODE_HOST = "http://yundongma.cn/yunyike-wap-shopping/shopper/connectShopper/";
 
 	public static enum HOST {
-		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(1,
-				"http://114.215.150.42:80/yunyike-app-web/router", "http://123.57.211.13/"), REGRESS(2,
-				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(3,
-				"http://api.ccigmall.com/router", "http://image01.ccigmall.com/");
+		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(
+				1, "http://yundongma.cn/yunyike-app-web/router",
+				"http://yundongma.cn/yunyike-wap-shopping"), REGRESS(2,
+				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(
+				3, "http://api.ccigmall.com/router",
+				"http://image01.ccigmall.com/");
 		private int id;
 		private String apiHost;
 		private String imageHost;
@@ -35,18 +39,24 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum MAIN_INDEX_URL {
-		DEVELOP("http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
+		DEVELOP("http://192.168.0.197:8080/app/index.html",
+				"http://192.168.0.197:8080/app/act/xsj_9.html",
 				"http://192.168.1.202:8080/view/productMix/toShowList"), TEST(
-				"http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
+				"http://192.168.0.197:8080/app/index.html",
+				"http://192.168.0.197:8080/app/act/xsj_9.html",
 				"http://192.168.1.202:8080/view/productMix/toShowList"), REGRESS(
-				"http://192.168.0.197:8080/app/index.html", "http://192.168.0.197:8080/app/act/xsj_9.html",
-				"http://192.168.1.202:8080/view/productMix/toShowList"), RELEASE("http://api.ccigmall.com",
-				"http://api.ccigmall.com/act/fenlei.html", "http://api.ccigmall.com/act/guojiaguan.html");
+				"http://192.168.0.197:8080/app/index.html",
+				"http://192.168.0.197:8080/app/act/xsj_9.html",
+				"http://192.168.1.202:8080/view/productMix/toShowList"), RELEASE(
+				"http://api.ccigmall.com",
+				"http://api.ccigmall.com/act/fenlei.html",
+				"http://api.ccigmall.com/act/guojiaguan.html");
 		private String homePageUrl;
 		private String categoryUrl;
 		private String nationalMuseumUrl;
 
-		MAIN_INDEX_URL(String homePageUrl, String categoryUrl, String nationalMuseumUrl) {
+		MAIN_INDEX_URL(String homePageUrl, String categoryUrl,
+				String nationalMuseumUrl) {
 			this.homePageUrl = homePageUrl;
 			this.categoryUrl = categoryUrl;
 			this.nationalMuseumUrl = nationalMuseumUrl;
@@ -66,7 +76,8 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum WAP_URL {
-		TEST(1, "http://192.168.1.208:8080/ccigmall-wap-customer"), RELEASE(2, "http://kj.ccigmall.com/");
+		TEST(1, "http://192.168.1.208:8080/ccigmall-wap-customer"), RELEASE(2,
+				"http://kj.ccigmall.com/");
 
 		private int id;
 		private String wapUrl;
@@ -86,9 +97,9 @@ public class ServiceUrlConstants {
 	}
 
 	public static enum UPDATE {
-		TEST(1, "http://192.168.1.215:8089/b2client/findNewVersion"), REGRESS(2,
-				"http://192.168.1.215:8089/b2client/findNewVersion"), RELEASE(3,
-				"http://www.91xsj.com/app/download/b2client/findNewVersion");
+		TEST(1, "http://192.168.1.215:8089/b2client/findNewVersion"), REGRESS(
+				2, "http://192.168.1.215:8089/b2client/findNewVersion"), RELEASE(
+				3, "http://www.91xsj.com/app/download/b2client/findNewVersion");
 
 		private int id;
 		private String host;
@@ -697,7 +708,8 @@ public class ServiceUrlConstants {
 	public static final String HelpUrl = "http://www.baidu.com";
 
 	public static enum JPushUrl {
-		TEST(1, "http://192.168.100.182:8089/web-pushsys/collect/"), RELEASE(2, "http://www.91xsj.com/app/pushsys/");
+		TEST(1, "http://192.168.100.182:8089/web-pushsys/collect/"), RELEASE(2,
+				"http://www.91xsj.com/app/pushsys/");
 
 		private int jPushId = 0;
 		private String jPush_url = "";
