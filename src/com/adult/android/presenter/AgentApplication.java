@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import cn.jpush.android.api.JPushInterface;
 
 import com.adult.android.entity.UserDto;
 import com.adult.android.model.constants.ServiceUrlConstants;
@@ -78,15 +77,18 @@ public class AgentApplication extends Application {
 		super.onCreate();
 		// TODO LiCheng 将下一行代码的注释打开，解决错误.
 		// CatchHandler.getInstance().init();
-		iwxapi = WXAPIFactory.createWXAPI(AgentApplication.get(), ServiceUrlConstants.WECHAT_APPID);
+		iwxapi = WXAPIFactory.createWXAPI(AgentApplication.get(),
+				ServiceUrlConstants.WECHAT_APPID);
 		iwxapi.registerApp(ServiceUrlConstants.WECHAT_APPID);
 
 		// 设置开启日志,发布时请关闭日志
-		JPushInterface.setDebugMode(false);
+		// JPushInterface.setDebugMode(false);
 		// 初始化 JPush
-		JPushInterface.init(this);
-		typeZhface = Typeface.createFromAsset(getResources().getAssets(), "FZLTZHJW.TTF");
-		typeXhface = Typeface.createFromAsset(getResources().getAssets(), "FZLTXHJW.TTF");
+		// JPushInterface.init(this);
+		typeZhface = Typeface.createFromAsset(getResources().getAssets(),
+				"FZLTZHJW.TTF");
+		typeXhface = Typeface.createFromAsset(getResources().getAssets(),
+				"FZLTXHJW.TTF");
 	}
 
 	public Typeface getTypeZhface() {
@@ -146,7 +148,9 @@ public class AgentApplication extends Application {
 		Iterator<Activity> it = activityList.iterator();
 		while (it.hasNext()) {
 			Activity activity = it.next();
-			if (activity == null || activity.getClass().getName().equals(activityClass.getName()))
+			if (activity == null
+					|| activity.getClass().getName()
+							.equals(activityClass.getName()))
 				continue;
 			activity.finish();
 		}
@@ -170,7 +174,9 @@ public class AgentApplication extends Application {
 		Iterator<Activity> it = activityList.iterator();
 		while (it.hasNext()) {
 			Activity activity = it.next();
-			if (activity != null && activity.getClass().getName().equals(activityClass.getName())) {
+			if (activity != null
+					&& activity.getClass().getName()
+							.equals(activityClass.getName())) {
 				activity.finish();
 			}
 		}
@@ -179,7 +185,8 @@ public class AgentApplication extends Application {
 	public ApplicationInfo getApplicationInfo() {
 		ApplicationInfo applicationInfo = null;
 		try {
-			applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+			applicationInfo = getPackageManager().getApplicationInfo(
+					getPackageName(), PackageManager.GET_META_DATA);
 		} catch (PackageManager.NameNotFoundException e) {
 			return null;
 		}

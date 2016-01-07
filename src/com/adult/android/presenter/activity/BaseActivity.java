@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.jpush.android.api.JPushInterface;
 
 import com.adult.android.R;
 import com.adult.android.presenter.AgentApplication;
@@ -76,14 +75,14 @@ public class BaseActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		StatService.onResume(this);
-		JPushInterface.onResume(this);
+		// JPushInterface.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		StatService.onPause(this);
-		JPushInterface.onPause(this);
+		// JPushInterface.onPause(this);
 	}
 
 	// 自定义标题栏 初始化

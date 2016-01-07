@@ -36,7 +36,6 @@ import com.adult.android.view.LoadingDialog;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
@@ -73,7 +72,8 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 	private void initViews() {
 		loadingDialog = new LoadingDialog(this);
 		QR_WIDTH = QR_HEIGHT = Misc.dip2px(this, 260f);
-		AgentApplication.get().setCustomerId("db143c39-83f4-4bf1-8993-a84decc42f7");
+		AgentApplication.get().setCustomerId(
+				"db143c39-83f4-4bf1-8993-a84decc42f7");
 		txtresult = (TextView) findViewById(R.id.txt_result);
 		imageCode = (ImageView) findViewById(R.id.asistant_asistant_code);
 		findViewById(R.id.btn_get_my).setOnClickListener(this);
@@ -90,9 +90,9 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn_get_my:
 			// my();
 			// 扫描商品
-			Intent intent2 = new Intent(this, CaptureActivity.class);
-			intent2.putExtra("type", SCAN_PRODUCT);
-			startActivityForResult(intent2, SCAN_PRODUCT);
+			// Intent intent2 = new Intent(this, CaptureActivity.class);
+			// intent2.putExtra("type", SCAN_PRODUCT);
+			// startActivityForResult(intent2, SCAN_PRODUCT);
 			break;
 		case R.id.btn_connectuser:
 			// connectUser(AgentApplication.get().getCustomerId());
@@ -125,7 +125,8 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 			Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
 			hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 			// 图像数据转换，使用了矩阵转换
-			BitMatrix bitMatrix = new QRCodeWriter().encode(url, BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT, hints);
+			BitMatrix bitMatrix = new QRCodeWriter().encode(url,
+					BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT, hints);
 			int[] pixels = new int[QR_WIDTH * QR_HEIGHT];
 			// 下面这里按照二维码的算法，逐个生成二维码的图片，
 			// 两个for循环是图片横列扫描的结果
@@ -139,7 +140,8 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 				}
 			}
 			// 生成二维码图片的格式，使用ARGB_8888
-			Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.ARGB_8888);
+			Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT,
+					Bitmap.Config.ARGB_8888);
 			bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
 			// 显示到一个ImageView上面
 			imageCode.setImageBitmap(bitmap);
@@ -160,7 +162,8 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 
 					e.printStackTrace();
 				}
-				AgentApplication.get().setShopId(info.getData().getShop().getShopId());
+				AgentApplication.get().setShopId(
+						info.getData().getShop().getShopId());
 			}
 
 			@Override
@@ -190,83 +193,85 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void connectUser(String userId) {
-		UserModel.getInstance().connectUser(userId, new OnConnectUserCompletedListener() {
+		UserModel.getInstance().connectUser(userId,
+				new OnConnectUserCompletedListener() {
 
-			@Override
-			public void onSuccess(OnConnectUserResponse info) {
-				loadingDialog.dismiss();
-				try {
-					txtresult.setText(JsonUtils.generate(info));
-				} catch (IOException e) {
+					@Override
+					public void onSuccess(OnConnectUserResponse info) {
+						loadingDialog.dismiss();
+						try {
+							txtresult.setText(JsonUtils.generate(info));
+						} catch (IOException e) {
 
-					e.printStackTrace();
-				}
-			}
+							e.printStackTrace();
+						}
+					}
 
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onHttpException(HttpResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
 
-			@Override
-			public void onFinish() {
-				loadingDialog.dismiss();
+					@Override
+					public void onFinish() {
+						loadingDialog.dismiss();
 
-			}
+					}
 
-			@Override
-			public void onFailed(ResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
-		});
+					@Override
+					public void onFailed(ResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
+				});
 	}
 
 	private void getcartList() {
-		UserModel.getInstance().getcartList(new OnGetCartListCompletedListener() {
+		UserModel.getInstance().getcartList(
+				new OnGetCartListCompletedListener() {
 
-			@Override
-			public void onSuccess(OnGetCartListResponse info) {
-				loadingDialog.dismiss();
-				try {
-					txtresult.setText(JsonUtils.generate(info));
-				} catch (IOException e) {
+					@Override
+					public void onSuccess(OnGetCartListResponse info) {
+						loadingDialog.dismiss();
+						try {
+							txtresult.setText(JsonUtils.generate(info));
+						} catch (IOException e) {
 
-					e.printStackTrace();
-				}
-			}
+							e.printStackTrace();
+						}
+					}
 
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onHttpException(HttpResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
 
-			@Override
-			public void onFinish() {
-				loadingDialog.dismiss();
+					@Override
+					public void onFinish() {
+						loadingDialog.dismiss();
 
-			}
+					}
 
-			@Override
-			public void onFailed(ResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
-		});
+					@Override
+					public void onFailed(ResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
+				});
 	}
 
 	private void addToCart() {
@@ -310,43 +315,44 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void updateCart() {
-		UserModel.getInstance().updateCart("sss", "0", new OnUpdateCartCompletedListener() {
+		UserModel.getInstance().updateCart("sss", "0",
+				new OnUpdateCartCompletedListener() {
 
-			@Override
-			public void onSuccess(OnGetCartListResponse info) {
-				loadingDialog.dismiss();
-				try {
-					txtresult.setText(JsonUtils.generate(info));
-				} catch (IOException e) {
+					@Override
+					public void onSuccess(OnGetCartListResponse info) {
+						loadingDialog.dismiss();
+						try {
+							txtresult.setText(JsonUtils.generate(info));
+						} catch (IOException e) {
 
-					e.printStackTrace();
-				}
-			}
+							e.printStackTrace();
+						}
+					}
 
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onHttpException(HttpResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
 
-			@Override
-			public void onFinish() {
-				loadingDialog.dismiss();
+					@Override
+					public void onFinish() {
+						loadingDialog.dismiss();
 
-			}
+					}
 
-			@Override
-			public void onFailed(ResponseException e) {
-				loadingDialog.dismiss();
-				txtresult.setText(e.getResultMsg());
-			}
-		});
+					@Override
+					public void onFailed(ResponseException e) {
+						loadingDialog.dismiss();
+						txtresult.setText(e.getResultMsg());
+					}
+				});
 	}
 
 	private MyHandler mHandler = new MyHandler();

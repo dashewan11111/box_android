@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <color name="main_green">#A2CD5A</color>
     <color name="gray_1">#999999</color>
     <color name="gray_2">#666666</color>
     <color name="gray_3">#333333</color>
@@ -47,7 +48,6 @@
     <color name="result_text">#ffffffff</color>
     <color name="result_view">#b0000000</color>
     <color name="status_text">#ffffffff</color>
-    <color name="transparent">#00000000</color>
     <color name="viewfinder_laser">#ffcc0000</color>
     <!-- Android standard ICS color -->
     <color name="viewfinder_mask">#60000000</color>

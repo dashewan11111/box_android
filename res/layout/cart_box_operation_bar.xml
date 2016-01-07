@@ -117,7 +117,7 @@
         android:id="@+id/cart_box_txt_checkout"
         android:layout_width="match_parent"
         android:layout_height="60dip"
-        android:background="@color/gray"
+        android:background="#6B8E23"
         android:gravity="center"
         android:text="CheckOut"
         android:textColor="@color/white"

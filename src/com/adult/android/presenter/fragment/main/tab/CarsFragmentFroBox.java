@@ -31,6 +31,7 @@ import com.adult.android.model.UserModel.OnUpdateCartCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
+import com.adult.android.presenter.activity.MipcaActivityCapture;
 import com.adult.android.presenter.activity.OrderListActivityForBox;
 import com.adult.android.presenter.fragment.main.BaseTabFragment;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox;
@@ -39,7 +40,6 @@ import com.adult.android.utils.GeneralTool;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.adult.android.view.SampleDialog;
-import com.google.zxing.client.android.CaptureActivity;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -50,7 +50,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 	private final static int LOADING_FOR_PRODUCT = 29;
 
-	public static final int SCAN_PRODUCT = 2;
+	private final static int SCANNIN_GREQUEST_CODE = 1;
 
 	public static final String INTENT_ACTION_REFRESH_CART = "INTENT_ACTION_refresh_cart";
 
@@ -254,9 +254,10 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			break;
 		case R.id.cars_fragment_box_scan:
 			// 扫描商品
-			Intent intent2 = new Intent(getActivity(), CaptureActivity.class);
-			intent2.putExtra("type", SCAN_PRODUCT);
-			startActivityForResult(intent2, SCAN_PRODUCT);
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), MipcaActivityCapture.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
 			break;
 		case R.id.btn_go_buy:
 			// addToCart();
@@ -290,7 +291,18 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		case OrderListActivityForBox.REQUEST_CODE:
 			getDateList(0);// 刷新
 			break;
-
+		case SCANNIN_GREQUEST_CODE:
+			if (resultCode == android.app.Activity.RESULT_OK) {
+				Bundle bundle = data.getExtras();
+				ToastUtil.showToastShort(getActivity(),
+						bundle.getString("result"));
+				loadingDialog.show();
+				Message msg2 = new Message();
+				msg2.obj = bundle.getString("result");
+				msg2.what = LOADING_FOR_PRODUCT;
+				mHandler.sendMessageDelayed(msg2, 500);
+			}
+			break;
 		default:
 			break;
 		}

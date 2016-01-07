@@ -271,5 +271,6 @@
     <string name="history_empty_detail">No barcode scans have been recorded</string>
     <string name="history_send">Send history</string>
     <string name="history_title">History</string>
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 
 </resources>
