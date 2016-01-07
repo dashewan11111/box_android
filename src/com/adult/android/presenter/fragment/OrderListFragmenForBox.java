@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -82,6 +83,14 @@ public class OrderListFragmenForBox extends Fragment implements
 		LoadingDialog = new LoadingDialog(getActivity());
 		LoadingDialog.show();
 		llytNoOrder = (LinearLayout) mainView.findViewById(R.id.order_null_box);
+		mainView.findViewById(R.id.btn_refresh_order).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						getDateList(0);
+					}
+				});
 		listView = (PullToRefreshListView) mainView
 				.findViewById(R.id.order_listview_box);
 		listView.setMode(Mode.PULL_DOWN_TO_REFRESH);
@@ -112,10 +121,12 @@ public class OrderListFragmenForBox extends Fragment implements
 					public void onSuccess(OnUnPayOrderListResponse info) {
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
-						if ((null == info.getData().getUserOrders())
+						if ((null == info.getData().getUserOrders() || 0 == info
+								.getData().getUserOrders().size())
 								&& (null == orderList || 0 == orderList.size())) {
 							llytNoOrder.setVisibility(View.VISIBLE);
 						} else {
+							llytNoOrder.setVisibility(View.GONE);
 							currentPage++;
 							if (0 == flag) {
 								orderList = new ArrayList<UserOrdersDTO>();

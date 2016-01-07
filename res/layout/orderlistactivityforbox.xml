@@ -4,7 +4,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-<!--    <include layout="@layout/layout_order_list_tab_box" /> -->
+    <!-- <include layout="@layout/layout_order_list_tab_box" /> -->
 
     <FrameLayout
         android:id="@+id/order_list_content_box"
