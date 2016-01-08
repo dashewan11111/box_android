@@ -98,7 +98,6 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-
 	}
 
 	private void initViews() {

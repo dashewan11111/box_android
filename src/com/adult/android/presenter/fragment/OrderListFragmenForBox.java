@@ -114,6 +114,7 @@ public class OrderListFragmenForBox extends Fragment implements
 
 	/** 获取数据 */
 	protected void getDateList(final int flag) {
+		LoadingDialog.show();
 		UserModel.getInstance().getUnPayOrderList(
 				new OnUnPayOrderListCompletedListener() {
 
@@ -155,7 +156,7 @@ public class OrderListFragmenForBox extends Fragment implements
 					public void onFinish() {
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
-						//llytNoOrder.setVisibility(View.VISIBLE);
+						// llytNoOrder.setVisibility(View.VISIBLE);
 					}
 
 					@Override

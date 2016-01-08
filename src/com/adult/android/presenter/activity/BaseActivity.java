@@ -191,6 +191,10 @@ public class BaseActivity extends FragmentActivity {
 		btnRight.setImageResource(drawResId);
 	}
 
+	public void setTitleOnClickListener(OnClickListener l) {
+		txtActivityTitle.setOnClickListener(l);
+	}
+
 	public void setLeftButtonOnClickListener(OnClickListener l) {
 		btnLeft.setOnClickListener(l);
 	}
