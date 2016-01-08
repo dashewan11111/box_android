@@ -155,12 +155,14 @@ public class OrderListFragmenForBox extends Fragment implements
 					public void onFinish() {
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
+						//llytNoOrder.setVisibility(View.VISIBLE);
 					}
 
 					@Override
 					public void onFailed(ResponseException e) {
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
+						llytNoOrder.setVisibility(View.VISIBLE);
 						ToastUtil.showToastShort(getActivity(),
 								e.getResultMsg());
 					}

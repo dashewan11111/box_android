@@ -17,7 +17,7 @@
         android:padding="15dip"
         android:text="没有订单数据"
         android:textColor="@color/gray"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_refresh_order"

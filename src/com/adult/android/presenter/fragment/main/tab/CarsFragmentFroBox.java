@@ -39,6 +39,7 @@ import com.adult.android.presenter.fragment.main.BaseTabFragment;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox;
 import com.adult.android.presenter.fragment.main.tab.adapter.CartListAdapterForBox.OnDataChangeListener;
 import com.adult.android.utils.GeneralTool;
+import com.adult.android.utils.Misc;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.adult.android.view.SampleDialog;
@@ -256,6 +257,9 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 			break;
 		case R.id.cars_fragment_box_scan:
+			if (View.VISIBLE == llytNoGoods.getVisibility()) {
+				return;
+			}
 			// 扫描商品
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), MipcaActivityCapture.class);
@@ -263,8 +267,8 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 			startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
 			break;
 		case R.id.btn_go_buy:
-			addToCart();
-			// getDateList(0);
+			// addToCart();
+			getDateList(0);
 			break;
 		case R.id.btn_band:
 			loadingDialog.show();
@@ -302,6 +306,9 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 					});
 			break;
 		case R.id.cart_box_txt_checkout:
+			if (View.VISIBLE == llytNoGoods.getVisibility()) {
+				return;
+			}
 			Intent intentOrder = new Intent(getActivity(),
 					OrderListActivityForBox.class);
 			intentOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -460,13 +467,19 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		}
 		// txtAllAmount.setText(getResources().getString(R.string.rmb)
 		// + cartDto.getItemAmount());
-		txtDutyFree.setText(getResources().getString(R.string.euro)
-				+ cartDto.getPayAmount() + "");
+		txtDutyFree
+				.setText(getResources().getString(R.string.euro)
+						+ Misc.scale(
+								Double.parseDouble(cartDto.getPayAmount() + ""),
+								2) + "");
 		txtItemsPrice.setText(getResources().getString(R.string.euro)
-				+ cartDto.getItemAmount() + "");
+				+ Misc.scale(Double.parseDouble(cartDto.getItemAmount() + ""),
+						2));
 		txtSave.setText(getResources().getString(R.string.euro)
-				+ cartDto.getSaveAmount() + "");
-		txtShippingFee.setText(getResources().getString(R.string.euro) + "10");
+				+ Misc.scale(Double.parseDouble(cartDto.getSaveAmount() + ""),
+						2));
+		txtShippingFee.setText(getResources().getString(R.string.euro)
+				+ Misc.scale(10d, 2));
 	}
 
 	/**
