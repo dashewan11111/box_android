@@ -26,13 +26,7 @@ public class CarsActivityFroBox extends BaseActivity {
 	private void initViews() {
 		setShowTitleBar(true);
 		setActivityTitle("购物车");
-		setTitleOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				ToastUtil.showToastShort(CarsActivityFroBox.this, "ssss");
-			}
-		});
 		setLeftButtonBackGround(R.drawable.boy_bcg);
 		setLeftButtonOnClickListener(new OnClickListener() {
 

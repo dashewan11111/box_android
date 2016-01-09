@@ -35,6 +35,7 @@
                     android:id="@+id/cart_box_duty_free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
                     android:gravity="left"
                     android:textColor="@color/main_red"
                     android:textSize="20sp" />
@@ -56,6 +57,7 @@
                     android:id="@+id/cart_box_items_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
                     android:gravity="left" />
             </LinearLayout>
         </LinearLayout>
@@ -86,6 +88,7 @@
                     android:id="@+id/cart_box_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
                     android:gravity="left"
                     android:textColor="@color/main_red" />
             </LinearLayout>
@@ -106,6 +109,7 @@
                     android:id="@+id/cart_box_shipping_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
                     android:gravity="left" />
             </LinearLayout>
         </LinearLayout>

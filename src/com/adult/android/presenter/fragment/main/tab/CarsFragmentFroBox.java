@@ -25,6 +25,7 @@ import com.adult.android.entity.CartDTO;
 import com.adult.android.entity.OnConnectUserResponse;
 import com.adult.android.entity.OnGetCartListResponse;
 import com.adult.android.entity.ProductRule;
+import com.adult.android.entity.UserForBox;
 import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnAddToCartCompletedListener;
 import com.adult.android.model.UserModel.OnConnectUserCompletedListener;
@@ -33,6 +34,7 @@ import com.adult.android.model.UserModel.OnUpdateCartCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.AgentApplication;
+import com.adult.android.presenter.activity.CarsActivityFroBox;
 import com.adult.android.presenter.activity.MipcaActivityCapture;
 import com.adult.android.presenter.activity.OrderListActivityForBox;
 import com.adult.android.presenter.fragment.main.BaseTabFragment;
@@ -64,6 +66,8 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	private CartListAdapterForBox adapter;
 
 	private CartDTO cartDto;
+
+	private UserForBox user;
 
 	private List<CartDTO> productList = new ArrayList<CartDTO>();
 
@@ -366,15 +370,20 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 					public void onSuccess(OnGetCartListResponse info) {
 						loadingDialog.dismiss();
 						listView.onRefreshComplete();
-						if (null == info.getData()
-								|| null == info.getData().getCartDTO()
+						if (null == info.getData()) {
+							return;
+						}
+						user = info.getData().getUser();
+						if (null == info.getData().getCartDTO()
 								|| 0 == info.getData().getCartDTO()
 										.getCartSkuDTOList().size()) {
 							llytNoGoods.setVisibility(View.VISIBLE);
 							return;
 						}
-						cartDto = info.getData().getCartDTO();
+						AgentApplication.get().setCustomerId(
+								null == user ? "" : user.getUserId());
 						refreshDate(flag);
+
 					}
 
 					@Override
@@ -449,6 +458,24 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		if (null == cartDto) {
 			return;
 		}
+		((CarsActivityFroBox) getActivity()).setActivityTitle(user.getUserId()
+				+ "购物车");
+		((CarsActivityFroBox) getActivity())
+				.setTitleOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						if (View.VISIBLE == llytNoGoods.getVisibility()) {
+							return;
+						}
+						Intent intentOrder = new Intent(getActivity(),
+								OrderListActivityForBox.class);
+						intentOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+								| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+						getActivity().startActivityForResult(intentOrder,
+								OrderListActivityForBox.REQUEST_CODE);
+					}
+				});
 		llytNoGoods.setVisibility(View.GONE);
 		if (0 == flag) {
 			productList = new ArrayList<CartDTO>();

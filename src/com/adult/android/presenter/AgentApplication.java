@@ -114,7 +114,7 @@ public class AgentApplication extends Application {
 
 	/**
 	 * 添加Activity 到容器中
-	 *
+	 * 
 	 * @param activity
 	 */
 	public void addActivity(Activity activity) {
@@ -167,7 +167,7 @@ public class AgentApplication extends Application {
 
 	/**
 	 * 关闭指定的activity
-	 *
+	 * 
 	 * @param activityClass
 	 */
 	public void exitThisActivity(Class<? extends BaseActivity> activityClass) {
