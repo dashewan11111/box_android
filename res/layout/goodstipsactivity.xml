@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bottom_bg"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/good_tips_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:hint="请输入小票号"
+        android:imeOptions="actionNext"
+        android:padding="10dip"
+        android:textColorHint="@color/gray_line1"
+        android:textSize="@dimen/default_size" />
+
+    <include layout="@layout/line_gray_full" />
+
+    <LinearLayout
+        android:id="@+id/good_tips_llyt_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/good_tips_image_1"
+            android:layout_width="0dip"
+            android:layout_height="120dip"
+            android:layout_margin="10dip"
+            android:layout_weight="1.0"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default_248" />
+
+        <ImageView
+            android:id="@+id/good_tips_image_2"
+            android:layout_width="0dip"
+            android:layout_height="120dip"
+            android:layout_margin="10dip"
+            android:layout_weight="1.0"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default_248" />
+
+        <ImageView
+            android:id="@+id/good_tips_image_3"
+            android:layout_width="0dip"
+            android:layout_height="120dip"
+            android:layout_margin="10dip"
+            android:layout_weight="1.0"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default_248" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <Button
+            android:id="@+id/btn_controller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/common_round_conner_bg_main"
+            android:padding="15dip"
+            android:text="Controller"
+            android:textColor="@color/white"
+            android:textSize="16sp" >
+        </Button>
+
+        <Button
+            android:id="@+id/btn_rop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/common_round_conner_bg_main"
+            android:padding="15dip"
+            android:text="Rop"
+            android:textColor="@color/white"
+            android:textSize="16sp" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
