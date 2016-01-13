@@ -9,8 +9,9 @@ public class ServiceUrlConstants {
 	public static final String CODE_HOST = "http://yundongma.cn/yunyike-wap-shopping/shopper/connectShopper/";
 
 	public static enum HOST {
-		DEVELOP(0, "http://192.168.1.203/router", "http://192.168.1.58/"), TEST(
-				1, "http://yundongma.cn/yunyike-app-web/router",
+		DEVELOP(0, "http://192.168.10.93:8081/yunyike-app-web/router",
+				"http://yundongma.cn/yunyike-wap-shopping"), TEST(1,
+				"http://yundongma.cn/yunyike-app-web/router",
 				"http://yundongma.cn/yunyike-wap-shopping"), REGRESS(2,
 				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(
 				3, "http://api.ccigmall.com/router",
@@ -121,7 +122,7 @@ public class ServiceUrlConstants {
 	/**
 	 * api环境配置
 	 */
-	public static final HOST mHost = HOST.TEST;
+	public static final HOST mHost = HOST.DEVELOP;
 	/**
 	 * 更新配置
 	 */

@@ -374,6 +374,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 							return;
 						}
 						user = info.getData().getUser();
+						setUserTitle();
 						if (null == info.getData().getCartDTO()
 								|| 0 == info.getData().getCartDTO()
 										.getCartSkuDTOList().size()) {
@@ -382,6 +383,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						}
 						AgentApplication.get().setCustomerId(
 								null == user ? "" : user.getUserId());
+						cartDto = info.getData().getCartDTO();
 						refreshDate(flag);
 
 					}
@@ -458,24 +460,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		if (null == cartDto) {
 			return;
 		}
-		((CarsActivityFroBox) getActivity()).setActivityTitle(user.getUserId()
-				+ "购物车");
-		((CarsActivityFroBox) getActivity())
-				.setTitleOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						if (View.VISIBLE == llytNoGoods.getVisibility()) {
-							return;
-						}
-						Intent intentOrder = new Intent(getActivity(),
-								OrderListActivityForBox.class);
-						intentOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-								| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-						getActivity().startActivityForResult(intentOrder,
-								OrderListActivityForBox.REQUEST_CODE);
-					}
-				});
+		// setUserTitle();
 		llytNoGoods.setVisibility(View.GONE);
 		if (0 == flag) {
 			productList = new ArrayList<CartDTO>();
@@ -506,6 +491,24 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						2));
 		txtShippingFee.setText(getResources().getString(R.string.euro)
 				+ Misc.scale(10d, 2));
+	}
+
+	private void setUserTitle() {
+		((CarsActivityFroBox) getActivity()).setActivityTitle(user
+				.getUserName() + " 的购物车");
+		((CarsActivityFroBox) getActivity())
+				.setTitleOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						Intent intentOrder = new Intent(getActivity(),
+								OrderListActivityForBox.class);
+						intentOrder.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+								| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+						getActivity().startActivityForResult(intentOrder,
+								OrderListActivityForBox.REQUEST_CODE);
+					}
+				});
 	}
 
 	/**

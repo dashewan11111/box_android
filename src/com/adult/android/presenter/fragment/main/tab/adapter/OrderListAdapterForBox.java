@@ -16,15 +16,8 @@ import android.widget.TextView;
 
 import com.adult.android.R;
 import com.adult.android.entity.UserOrdersDTO;
-import com.adult.android.model.OnUnPayOrderListResponse;
-import com.adult.android.model.UserModel;
-import com.adult.android.model.UserModel.OnUnPayOrderListCompletedListener;
 import com.adult.android.model.constants.ServiceUrlConstants;
-import com.adult.android.model.internet.exception.HttpResponseException;
-import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.presenter.activity.OrderDetailsActivity2;
-import com.adult.android.presenter.fragment.OrderListFragmenForBox;
-import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -89,6 +82,8 @@ public class OrderListAdapterForBox extends BaseAdapter {
 					.findViewById(R.id.item_order_list_box_amount);
 			holder.btnPay = (Button) convertView
 					.findViewById(R.id.item_order_list_box_btn_pay);
+			holder.txtSaving = (TextView) convertView
+					.findViewById(R.id.item_order_list_box_saving);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -97,21 +92,23 @@ public class OrderListAdapterForBox extends BaseAdapter {
 
 		holder.txtOrderNum.setText(order.getOrderNumber());
 		holder.txtSkuName.setText(order.getShopName());
+		// holder.txtSaving.setText(order.get);
 		String status = "";
 		switch (order.getOrderStatus()) {
 		case 0:
 			status = "待付款";
 			holder.btnPay.setText("确认付款");
+			holder.txtOrderStatus.setText(status);
 			holder.btnPay.setEnabled(true);
 			break;
 		default:
 			status = "已完成";
 			holder.btnPay.setText(status);
+			holder.txtOrderStatus.setText(status);
 			holder.btnPay.setEnabled(false);
 			break;
 		}
 
-		holder.txtOrderStatus.setText(status);
 		holder.txtCreatTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 				.format(order.getOrderDateTime()));
 		holder.txtBoxNum.setText("共" + order.getBoxNum() + "箱");
@@ -156,6 +153,8 @@ public class OrderListAdapterForBox extends BaseAdapter {
 		private TextView txtOrderAmount;
 
 		private Button btnPay;
+
+		private TextView txtSaving;
 	}
 
 	public interface OnPayOrderListener {

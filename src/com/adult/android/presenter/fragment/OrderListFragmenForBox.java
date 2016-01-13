@@ -23,11 +23,13 @@ import com.adult.android.model.UserModel;
 import com.adult.android.model.UserModel.OnUnPayOrderListCompletedListener;
 import com.adult.android.model.internet.exception.HttpResponseException;
 import com.adult.android.model.internet.exception.ResponseException;
+import com.adult.android.presenter.activity.GoodsTipsActivity;
 import com.adult.android.presenter.activity.OrderDetailsActivity2;
 import com.adult.android.presenter.fragment.main.tab.adapter.OrderListAdapterForBox;
 import com.adult.android.presenter.fragment.main.tab.adapter.OrderListAdapterForBox.OnPayOrderListener;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.LoadingDialog;
+import com.adult.android.view.SampleDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -181,42 +183,46 @@ public class OrderListFragmenForBox extends Fragment implements
 
 	@Override
 	public void onPayOrder(final int position) {
-		LoadingDialog.show();
-		UserModel.getInstance().payOrder(orderList.get(position).getOrderId(),
-				new OnUnPayOrderListCompletedListener() {
-
-					@Override
-					public void onSuccess(OnUnPayOrderListResponse info) {
-						LoadingDialog.dismiss();
-						UserOrdersDTO order = orderList.get(position);
-						order.setOrderStatus(1);
-						orderList.set(position, order);
-						adapter.notifyDataSetChanged();
-					}
-
-					@Override
-					public void onStart() {
-
-					}
-
-					@Override
-					public void onHttpException(HttpResponseException e) {
-						LoadingDialog.dismiss();
-						ToastUtil.showToastShort(getActivity(),
-								e.getResultMsg());
-					}
-
-					@Override
-					public void onFinish() {
-						LoadingDialog.dismiss();
-					}
-
-					@Override
-					public void onFailed(ResponseException e) {
-						LoadingDialog.dismiss();
-						ToastUtil.showToastShort(getActivity(),
-								e.getResultMsg());
-					}
-				});
+		Intent intent = new Intent(getActivity(), GoodsTipsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+		// LoadingDialog.show();
+		// UserModel.getInstance().payOrder(orderList.get(position).getOrderId(),
+		// new OnUnPayOrderListCompletedListener() {
+		//
+		// @Override
+		// public void onSuccess(OnUnPayOrderListResponse info) {
+		// LoadingDialog.dismiss();
+		// UserOrdersDTO order = orderList.get(position);
+		// order.setOrderStatus(1);
+		// orderList.set(position, order);
+		// adapter.notifyDataSetChanged();
+		// }
+		//
+		// @Override
+		// public void onStart() {
+		//
+		// }
+		//
+		// @Override
+		// public void onHttpException(HttpResponseException e) {
+		// LoadingDialog.dismiss();
+		// ToastUtil.showToastShort(getActivity(),
+		// e.getResultMsg());
+		// }
+		//
+		// @Override
+		// public void onFinish() {
+		// LoadingDialog.dismiss();
+		// }
+		//
+		// @Override
+		// public void onFailed(ResponseException e) {
+		// LoadingDialog.dismiss();
+		// ToastUtil.showToastShort(getActivity(),
+		// e.getResultMsg());
+		// }
+		// });
 	}
+
 }

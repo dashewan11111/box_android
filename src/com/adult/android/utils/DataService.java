@@ -28,18 +28,21 @@ public class DataService {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String sendDataByHttpClientPost(String path, List<File> files, List<Part> mparameters,
-			OnSuccessListner listner) throws Exception {
+	public static String sendDataByHttpClientPost(String path,
+			List<File> files, List<Part> mparameters, OnSuccessListner listner)
+			throws Exception {
 
 		for (int i = 0; i < files.size(); i++) {
-			mparameters.add(new FilePart("file" + i, files.get(i)));
+			mparameters.add(new FilePart("file", files.get(i)));
 		}
 		Part[] parts = mparameters.toArray(new Part[0]);
 
 		PostMethod filePost = new PostMethod(path);
-		filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
+		filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost
+				.getParams()));
 		HttpClient client = new HttpClient();
-		client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+		client.getHttpConnectionManager().getParams()
+				.setConnectionTimeout(5000);
 
 		int status = client.executeMethod(filePost);
 		if (status == 200) {
@@ -51,6 +54,7 @@ public class DataService {
 			listner.onSuccess(result);
 			return result;
 		} else {
+			listner.onFailed();
 			return null;
 		}
 	}
@@ -64,7 +68,8 @@ public class DataService {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String sendDataByHttpClientPost(String path, String name, String filePath) throws Exception {
+	public static String sendDataByHttpClientPost(String path, String name,
+			String filePath) throws Exception {
 
 		/*
 		 * List<Part> partList = new ArrayList<Part>(); partList.add(new
@@ -75,14 +80,17 @@ public class DataService {
 		 */
 
 		// 实例化上传数据的数组
-		Part[] parts = { new StringPart("user", name), new FilePart("file", new File(filePath)) };
+		Part[] parts = { new StringPart("user", name),
+				new FilePart("file", new File(filePath)) };
 
 		PostMethod filePost = new PostMethod(path);
 
-		filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
+		filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost
+				.getParams()));
 
 		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
-		client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+		client.getHttpConnectionManager().getParams()
+				.setConnectionTimeout(5000);
 
 		int status = client.executeMethod(filePost);
 		Log.e("Other", "返回结果:" + status);

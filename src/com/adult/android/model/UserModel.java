@@ -3,6 +3,9 @@ package com.adult.android.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
 import com.adult.android.entity.CouponResponse;
 import com.adult.android.entity.EvaluationResponse;
 import com.adult.android.entity.MyTopicResponse;
@@ -17,6 +20,7 @@ import com.adult.android.model.constants.ServiceUrlConstants;
 import com.adult.android.model.constants.ServiceUrlConstants.OrderParams2;
 import com.adult.android.model.constants.ServiceUrlConstants.UserParams2;
 import com.adult.android.model.internet.InternetClient;
+import com.adult.android.model.internet.PostParamsFactory;
 import com.adult.android.model.internet.bean.InputBean;
 import com.adult.android.model.internet.exception.BusinessException;
 import com.adult.android.model.internet.exception.HttpResponseException;
@@ -24,6 +28,7 @@ import com.adult.android.model.internet.exception.ResponseException;
 import com.adult.android.model.internet.listener.HttpResponseListener;
 import com.adult.android.presenter.AgentApplication;
 import com.adult.android.utils.CopUtils;
+import com.adult.android.utils.ImageUtil;
 
 /**
  * 分类业务模块
@@ -1447,6 +1452,150 @@ public class UserModel {
 				});
 	}
 
+	/**
+	 * 上传图片
+	 * 
+	 * @param bitmap
+	 */
+	public void postTipsController(String extend, final Bitmap bitmap,
+			final OnApplyExchangListener listener) {
+
+		Map<String, String> paramValues = new HashMap<String, String>();
+		paramValues.put(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		paramValues.put("receiptNumber", "22222");
+		paramValues.put("shopperId", AgentApplication.get().getShopperId());
+		paramValues.put("orderId", "11111111111111111");
+		// 生成签名--根据后台约定，并非每个参数都需要计算签名
+		String sign = CopUtils.sign(paramValues,
+				ServiceUrlConstants.APP_SECRET_VALUE);
+
+		// 共通参数
+		InputBean inputBean = new InputBean();
+		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		// inputBean.putQueryParam(ServiceUrlConstants.VERSION,
+		// ServiceUrlConstants.VERSION_VALUE);
+		// 业务参数:
+		inputBean.putQueryParam("receiptNumber", "22222");
+		inputBean.putQueryParam("shopperId", AgentApplication.get()
+				.getShopperId());
+		inputBean.putQueryParam("orderId", "11111111111111111");
+		inputBean.putQueryParam(ServiceUrlConstants.SIGN, sign);
+
+		String buildUrl = CopUtils.buildGetUrl(paramValues,
+				"http://192.168.10.93:8081/yunyike-app-web/upload/img");
+		byte[] im = ImageUtil.bitmap2Bytes(bitmap);
+		String content = Base64.encodeToString(im, im.length);
+		inputBean.putQueryParam("file", extend + "@" + content);
+		InternetClient.post(buildUrl, inputBean, ImageInfoResponse.class,
+				new HttpResponseListener<ImageInfoResponse>() {
+
+					@Override
+					public void onStart() {
+
+					}
+
+					@Override
+					public void onSuccess(ImageInfoResponse t) {
+						listener.onUploadSuccess(t);
+
+					}
+
+					@Override
+					public void onHttpException(HttpResponseException e) {
+
+					}
+
+					@Override
+					public void onBusinessException(BusinessException e) {
+						listener.onUploadFail(e.getResultMsg());
+					}
+
+					@Override
+					public void onOtherException(Throwable throwable) {
+						listener.onUploadFail(throwable.getMessage());
+					}
+
+					@Override
+					public void onFinish() {
+
+					}
+				});
+	}
+
+	public void postTipsRop(String extend, final Bitmap bitmap,
+			final OnApplyExchangListener listener) {
+
+		Map<String, String> paramValues = new HashMap<String, String>();
+		paramValues.put(ServiceUrlConstants.APP_KEY,
+				ServiceUrlConstants.APP_KEY_VALUE);
+		paramValues.put(ServiceUrlConstants.VERSION,
+				ServiceUrlConstants.VERSION_VALUE);
+		paramValues.put(ServiceUrlConstants.MOTHOD, "upload.image");
+		paramValues.put("receiptNumber", "22222");
+		paramValues.put("shopperId", AgentApplication.get().getShopperId());
+		paramValues.put("orderId", "11111111111111111");
+
+		// 生成签名--根据后台约定，并非每个参数都需要计算签名
+		String sign = CopUtils.sign(paramValues,
+				ServiceUrlConstants.APP_SECRET_VALUE);
+
+		// 共通参数
+		InputBean inputBean = PostParamsFactory.createSignInputBean(false,
+				ServiceUrlConstants.APP_KEY, ServiceUrlConstants.APP_KEY_VALUE,
+				ServiceUrlConstants.VERSION, ServiceUrlConstants.VERSION_VALUE,
+				ServiceUrlConstants.MOTHOD, "upload.image", "receiptNumber",
+				"22222", "shopperId", AgentApplication.get().getShopperId());
+		inputBean.putQueryParam(ServiceUrlConstants.SIGN, sign);
+		String buildUrl = CopUtils.buildGetUrl(paramValues,
+				ServiceUrlConstants.getApiHost());
+		byte[] im = ImageUtil.bitmap2Bytes(bitmap);
+		String content = Base64.encodeToString(im, im.length);
+		inputBean.putQueryParam("file", extend + "@" + content);
+		InternetClient.post(buildUrl, inputBean, ImageInfoResponse.class,
+				new HttpResponseListener<ImageInfoResponse>() {
+
+					@Override
+					public void onStart() {
+
+					}
+
+					@Override
+					public void onSuccess(ImageInfoResponse t) {
+						listener.onUploadSuccess(t);
+
+					}
+
+					@Override
+					public void onHttpException(HttpResponseException e) {
+
+					}
+
+					@Override
+					public void onBusinessException(BusinessException e) {
+						listener.onUploadFail(e.getResultMsg());
+					}
+
+					@Override
+					public void onOtherException(Throwable throwable) {
+						listener.onUploadFail(throwable.getMessage());
+					}
+
+					@Override
+					public void onFinish() {
+
+					}
+				});
+	}
+
+	public static interface OnApplyExchangListener {
+
+		void onUploadSuccess(ImageInfoResponse info);
+
+		void onUploadFail(final String e);
+	}
+
 	/** 获取购物车数据回调 */
 	public static interface OnConnectUserCompletedListener {
 
@@ -1516,5 +1665,4 @@ public class UserModel {
 
 		void onFinish();
 	}
-
 }

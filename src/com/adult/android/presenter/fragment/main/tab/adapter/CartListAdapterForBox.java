@@ -17,6 +17,7 @@ import com.adult.android.entity.CartDTO;
 import com.adult.android.entity.ProductRule;
 import com.adult.android.entity.CartSkuDTO;
 import com.adult.android.model.constants.ServiceUrlConstants;
+import com.adult.android.utils.Misc;
 import com.adult.android.utils.ToastUtil;
 import com.adult.android.view.MyEditText2;
 import com.adult.android.view.MyEditText2.OnEditNumberListener;
@@ -108,7 +109,7 @@ public class CartListAdapterForBox extends BaseAdapter implements
 			txtProductName.setText(sku.getMerchandise().getMerchandiseNameCn());
 			txtProductPrice.setText(context.getResources().getString(
 					R.string.euro)
-					+ sku.getSubTotal());
+					+ Misc.scale(Float.parseFloat(sku.getSubTotal() + ""), 2));
 			// txtProductFormart.setText(sku.getSkuName());
 			imgCheck.setOnClickListener(new ItemCartClickListner(position, i));
 			imgDelete.setOnClickListener(new ItemCartClickListner(position, i));

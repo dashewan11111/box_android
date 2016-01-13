@@ -260,6 +260,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
+        <activity
+            android:name=".presenter.activity.GoodsTipsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

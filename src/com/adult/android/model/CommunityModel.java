@@ -325,7 +325,7 @@ public class CommunityModel {
 
 						@Override
 						public void onFailed() {
-
+							listener.onFailed();
 						}
 
 					});
