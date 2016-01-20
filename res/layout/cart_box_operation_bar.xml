@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,14 +52,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="总金额:" />
+                    android:text="总金额:"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/cart_box_items_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"
-                    android:gravity="left" />
+                    android:gravity="left"
+                    android:textColor="@color/main_red"
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
 
