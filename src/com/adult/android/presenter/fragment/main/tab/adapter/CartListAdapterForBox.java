@@ -178,7 +178,7 @@ public class CartListAdapterForBox extends BaseAdapter implements
 			int previousNum, int currentNum, Object tag) {
 		onDataChangeListener.onSkuCountChange(position1, position2,
 				((CartSkuDTO) v.getTag()).getMerchandise()
-						.getMerchandiseNumber(), currentNum);
+						.getMerchandiseBarcode(), currentNum);
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class CartListAdapterForBox extends BaseAdapter implements
 			int previousNum, int currentNum, Object tag) {
 		onDataChangeListener.onSkuCountChange(position1, position2,
 				((CartSkuDTO) v.getTag()).getMerchandise()
-						.getMerchandiseNumber(), currentNum);
+						.getMerchandiseBarcode(), currentNum);
 	}
 
 	@Override

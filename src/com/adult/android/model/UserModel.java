@@ -3,10 +3,6 @@ package com.adult.android.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.graphics.Bitmap;
-import android.os.Build;
-import android.util.Base64;
-
 import com.adult.android.entity.CouponResponse;
 import com.adult.android.entity.EvaluationResponse;
 import com.adult.android.entity.MyTopicResponse;
@@ -30,7 +26,6 @@ import com.adult.android.model.internet.listener.HttpResponseListener;
 import com.adult.android.presenter.AgentApplication;
 import com.adult.android.utils.CopUtils;
 import com.adult.android.utils.GeneralTool;
-import com.adult.android.utils.ImageUtil;
 
 /**
  * 分类业务模块
@@ -1089,7 +1084,8 @@ public class UserModel {
 
 	}
 
-	public void addToCart(final OnAddToCartCompletedListener listener) {
+	public void addToCart(String merchandiseBarCode,
+			final OnAddToCartCompletedListener listener) {
 		// 共通参数
 		InputBean inputBean = new InputBean();
 		inputBean.putQueryParam(ServiceUrlConstants.APP_KEY,
@@ -1101,7 +1097,7 @@ public class UserModel {
 		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD, "usercart.add");
 		// 业务参数:
 		inputBean.putQueryParam("shopId", AgentApplication.get().getShopId());
-		inputBean.putQueryParam("merchandiseNumber", "144811162218251164");
+		inputBean.putQueryParam("merchandiseBarCode", merchandiseBarCode);
 		inputBean.putQueryParam("qty", "1");
 		inputBean.putQueryParam("shopperId", AgentApplication.get()
 				.getShopperId());
@@ -1113,7 +1109,7 @@ public class UserModel {
 
 		// 业务级参数
 		paramValues.put("shopId", AgentApplication.get().getShopId());
-		paramValues.put("merchandiseNumber", "144811162218251164");
+		paramValues.put("merchandiseBarCode", merchandiseBarCode);
 		paramValues.put("qty", "1");
 		paramValues.put("shopperId", AgentApplication.get().getShopperId());
 		// 生成签名--根据后台约定，并非每个参数都需要计算签名
@@ -1161,7 +1157,7 @@ public class UserModel {
 
 	}
 
-	public void updateCart(String merchandiseNumber, String qty,
+	public void updateCart(String merchandiseBarCode, String qty,
 			final OnUpdateCartCompletedListener listener) {
 		// 共通参数
 		InputBean inputBean = new InputBean();
@@ -1174,7 +1170,7 @@ public class UserModel {
 		inputBean.putQueryParam(ServiceUrlConstants.MOTHOD, "usercart.modify");
 		// 业务参数:
 		inputBean.putQueryParam("shopId", AgentApplication.get().getShopId());
-		inputBean.putQueryParam("merchandiseNumber", merchandiseNumber);
+		inputBean.putQueryParam("merchandiseBarCode", merchandiseBarCode);
 		inputBean.putQueryParam("qty", qty);
 		inputBean.putQueryParam("shopperId", AgentApplication.get()
 				.getShopperId());
@@ -1186,7 +1182,7 @@ public class UserModel {
 
 		// 业务级参数
 		paramValues.put("shopId", AgentApplication.get().getShopId());
-		paramValues.put("merchandiseNumber", merchandiseNumber);
+		paramValues.put("merchandiseBarCode", merchandiseBarCode);
 		paramValues.put("qty", qty);
 		paramValues.put("shopperId", AgentApplication.get().getShopperId());
 		// 生成签名--根据后台约定，并非每个参数都需要计算签名

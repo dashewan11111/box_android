@@ -44,9 +44,9 @@ public class ServiceUrlConstants {
 		DEVELOP(0, "http://192.168.10.93:8081/yunyike-app-web/router",
 				"http://yundongma.cn/yunyike-wap-shopping"), TEST(1,
 				"http://yundongma.cn/yunyike-app-web/router",
-				"http://yundongma.cn/yunyike-wap-shopping"), RELEASE(2,
+				"http://static.yunyike.com"), RELEASE(2,
 				"http://shop.yunyike.com/yunyike-app-web/router",
-				"http://shop.yunyike.com/yunyike-wap-shopping");
+				"http://static.yunyike.com");
 		private int id;
 		private String apiHost;
 		private String imageHost;

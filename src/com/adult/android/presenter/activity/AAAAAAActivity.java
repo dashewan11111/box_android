@@ -275,7 +275,7 @@ public class AAAAAAActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void addToCart() {
-		UserModel.getInstance().addToCart(new OnAddToCartCompletedListener() {
+		UserModel.getInstance().addToCart("",new OnAddToCartCompletedListener() {
 
 			@Override
 			public void onSuccess(OnGetCartListResponse info) {

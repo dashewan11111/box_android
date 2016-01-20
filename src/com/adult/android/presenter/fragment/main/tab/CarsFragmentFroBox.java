@@ -197,7 +197,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						UserModel.getInstance().updateCart(
 								cartDto.getCartSkuDTOList().get(skuPosition)
 										.getMerchandise()
-										.getMerchandiseNumber(), "0",
+										.getMerchandiseBarcode(), "0",
 								new OnUpdateCartCompletedListener() {
 
 									@Override
@@ -421,38 +421,41 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 	}
 
 	/** 添加购物车 */
-	private void addToCart() {
-		UserModel.getInstance().addToCart(new OnAddToCartCompletedListener() {
+	private void addToCart(String merchandiseBarCode) {
+		UserModel.getInstance().addToCart(merchandiseBarCode,
+				new OnAddToCartCompletedListener() {
 
-			@Override
-			public void onSuccess(OnGetCartListResponse info) {
-				loadingDialog.dismiss();
-				getDateList(0);
-			}
+					@Override
+					public void onSuccess(OnGetCartListResponse info) {
+						loadingDialog.dismiss();
+						getDateList(0);
+					}
 
-			@Override
-			public void onStart() {
+					@Override
+					public void onStart() {
 
-			}
+					}
 
-			@Override
-			public void onHttpException(HttpResponseException e) {
-				loadingDialog.dismiss();
-				ToastUtil.showToastShort(getActivity(), e.getResultMsg());
-			}
+					@Override
+					public void onHttpException(HttpResponseException e) {
+						loadingDialog.dismiss();
+						ToastUtil.showToastShort(getActivity(),
+								e.getResultMsg());
+					}
 
-			@Override
-			public void onFinish() {
-				loadingDialog.dismiss();
+					@Override
+					public void onFinish() {
+						loadingDialog.dismiss();
 
-			}
+					}
 
-			@Override
-			public void onFailed(ResponseException e) {
-				loadingDialog.dismiss();
-				ToastUtil.showToastShort(getActivity(), e.getResultMsg());
-			}
-		});
+					@Override
+					public void onFailed(ResponseException e) {
+						loadingDialog.dismiss();
+						ToastUtil.showToastShort(getActivity(),
+								e.getResultMsg());
+					}
+				});
 	}
 
 	/** 处理数据 */
@@ -600,8 +603,9 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		@Override
 		public void handleMessage(Message msg) {
 			loadingDialog.dismiss();
-			addToCart();
-			//ToastUtil.showToastShort(getActivity(), (String) msg.obj);
+			addToCart((String) msg.obj);
+			// ToastUtil.showToastShort(getActivity(), "扫描结果" + (String)
+			// msg.obj);
 		}
 	}
 
