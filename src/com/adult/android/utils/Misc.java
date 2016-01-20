@@ -1,6 +1,11 @@
 package com.adult.android.utils;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,6 +50,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -53,6 +60,7 @@ import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.MediaStore.MediaColumns;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -816,4 +824,108 @@ public class Misc {
 		return "com.google.android.apps.photos.content".equals(uri
 				.getAuthority());
 	}
+
+	/**
+	 * 图片转字节数组
+	 * 
+	 * @param bitmap
+	 * @return
+	 */
+	public static byte[] getBytesFromBitmap(Bitmap bitmap) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
+
+	public static File getFileFromBytes(byte[] btyes, String outputFile) {
+		File file = null;
+		BufferedOutputStream stream = null;
+		FileOutputStream fstream = null;
+		try {
+			file = new File(outputFile);
+			fstream = new FileOutputStream(file);
+
+			stream = new BufferedOutputStream(fstream);
+			stream.write(btyes);
+			stream.close();
+			fstream.close();
+		} catch (FileNotFoundException e) {
+			Log.e("AgentUtils", "getFileFromBytes", e);
+		} catch (IOException e) {
+			Log.e("AgentUtils", "getFileFromBytes", e);
+		} finally {
+			if (stream != null) {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					Log.e("AgentUtils", "getFileFromBytes", e);
+				}
+			}
+			if (fstream != null) {
+				try {
+					fstream.close();
+				} catch (IOException e) {
+					Log.e("AgentUtils", "getFileFromBytes", e);
+				}
+			}
+		}
+		return file;
+	}
+
+	/** Get real path */
+	public static String getRealImagePath(Activity activity, Uri uri) {
+		if (uri.toString().startsWith("content")) {
+			String[] proj = { MediaColumns.DATA };
+			Cursor cursor = activity.managedQuery(uri, proj, null, null, null);
+			int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
+			cursor.moveToFirst();
+			return cursor.getString(column_index);
+		} else if (uri.toString().startsWith("file")) {
+			String tempUri = Uri.decode(uri.toString());
+			return tempUri.substring(7, tempUri.length());
+		} else {
+			return "";
+		}
+	}
+
+	public static Bitmap decodeBitmap(String bitmapPath) {
+		return BitmapFactory.decodeFile(bitmapPath);
+	}
+
+	/** Get file's extension name */
+	public static String getExtensionName(String fileName) {
+		if (fileName != null) {
+			int index = fileName.lastIndexOf(".");
+			if (index >= 0) {
+				return fileName.substring(index + 1);
+			}
+			return "";
+		}
+		return null;
+	}
+
+	public static Bitmap getSmallBitmap(String filePath) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+		options.inSampleSize = calculateInSampleSize(options, 480, 800);
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(filePath, options);
+	}
+
+	public static int calculateInSampleSize(BitmapFactory.Options options,
+			int reqWidth, int reqHeight) {
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+		if (height > reqHeight || width > reqWidth) {
+			final int heightRatio = Math.round((float) height
+					/ (float) reqHeight);
+			final int widthRatio = Math.round((float) width / (float) reqWidth);
+			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+		}
+		return inSampleSize;
+	}
+
 }

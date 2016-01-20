@@ -260,9 +260,9 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 
 			break;
 		case R.id.cars_fragment_box_scan:
-			if (View.VISIBLE == llytNoGoods.getVisibility()) {
-				return;
-			}
+			// if (View.VISIBLE == llytNoGoods.getVisibility()) {
+			// return;
+			// }
 			// 扫描商品
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), MipcaActivityCapture.class);
@@ -341,8 +341,8 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		case SCANNIN_GREQUEST_CODE:
 			if (resultCode == android.app.Activity.RESULT_OK) {
 				Bundle bundle = data.getExtras();
-				ToastUtil.showToastShort(getActivity(),
-						bundle.getString("result"));
+				// ToastUtil.showToastShort(getActivity(),
+				// bundle.getString("result"));
 				loadingDialog.show();
 				Message msg2 = new Message();
 				msg2.obj = bundle.getString("result");
@@ -601,7 +601,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 		public void handleMessage(Message msg) {
 			loadingDialog.dismiss();
 			addToCart();
-			ToastUtil.showToastShort(getActivity(), (String) msg.obj);
+			//ToastUtil.showToastShort(getActivity(), (String) msg.obj);
 		}
 	}
 

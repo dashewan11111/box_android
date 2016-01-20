@@ -5,17 +5,48 @@ public class ServiceUrlConstants {
 	public static final String TEST_PHONE_NO = "13366287438";// 测试手机号
 	public static final String TEST_LOCATION = "01";// 北京
 	public static final String TEST_SIG = "";
+
 	// 二维码前缀
-	public static final String CODE_HOST = "http://yundongma.cn/yunyike-wap-shopping/shopper/connectShopper/";
+	// public static final String CODE_HOST =
+	// "http://yundongma.cn/yunyike-wap-shopping/shopper/connectShopper/";
+
+	// public static final String UPLOAD_PATH =
+	// "http://192.168.10.93:8081/yunyike-app-web/upload/img";
+	public static enum CODE_HOST {
+		TEST(1,
+				"http://yundongma.cn/yunyike-wap-shopping/shopper/connectShopper/"), RELEASE(
+				2,
+				"http://shop.yunyike.com/yunyike-wap-shopping/shopper/connectShopper/");
+		private int id;
+		private String codeHost;
+
+		private CODE_HOST(int id, String codeHost) {
+			this.id = id;
+			this.setCodeHost(codeHost);
+
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public String getCodeHost() {
+			return codeHost;
+		}
+
+		public void setCodeHost(String codeHost) {
+			this.codeHost = codeHost;
+		}
+
+	}
 
 	public static enum HOST {
 		DEVELOP(0, "http://192.168.10.93:8081/yunyike-app-web/router",
 				"http://yundongma.cn/yunyike-wap-shopping"), TEST(1,
 				"http://yundongma.cn/yunyike-app-web/router",
-				"http://yundongma.cn/yunyike-wap-shopping"), REGRESS(2,
-				"http://192.168.0.184:8080/router", "http://192.168.0.157/"), RELEASE(
-				3, "http://api.ccigmall.com/router",
-				"http://image01.ccigmall.com/");
+				"http://yundongma.cn/yunyike-wap-shopping"), RELEASE(2,
+				"http://shop.yunyike.com/yunyike-app-web/router",
+				"http://shop.yunyike.com/yunyike-wap-shopping");
 		private int id;
 		private String apiHost;
 		private String imageHost;
@@ -122,7 +153,11 @@ public class ServiceUrlConstants {
 	/**
 	 * api环境配置
 	 */
-	public static final HOST mHost = HOST.DEVELOP;
+	public static final HOST mHost = HOST.TEST;
+	/**
+	 * 二维码环境配置
+	 */
+	public static final CODE_HOST mCodeHost = CODE_HOST.TEST;
 	/**
 	 * 更新配置
 	 */
@@ -154,6 +189,10 @@ public class ServiceUrlConstants {
 	 */
 	public static final String getApiHost() {
 		return mHost.getApiHost();
+	}
+
+	public static final String getCodeHost() {
+		return mCodeHost.getCodeHost();
 	}
 
 	/**

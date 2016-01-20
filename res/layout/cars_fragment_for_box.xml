@@ -47,6 +47,11 @@
             android:smoothScrollbar="true"
             ptr:ptrMode="both" />
 
+        <include
+            android:id="@+id/cart_fragment_no_goods"
+            layout="@layout/cart_empty"
+            android:visibility="visible" />
+
         <include layout="@layout/line_gray_full" />
         <!-- 结算 -->
 
@@ -58,10 +63,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_gravity="bottom" />
-
-    <include
-        android:id="@+id/cart_fragment_no_goods"
-        layout="@layout/cart_empty"
-        android:visibility="visible" />
 
 </FrameLayout>

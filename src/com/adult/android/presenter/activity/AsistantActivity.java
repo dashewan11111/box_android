@@ -81,7 +81,7 @@ public class AsistantActivity extends BaseActivity {
 				bitmapUtils.display(imageShopper, shopper.getShopperPhoto());
 				AgentApplication.get().setShopId(
 						info.getData().getShop().getShopId());
-				createQRImage(ServiceUrlConstants.CODE_HOST
+				createQRImage(ServiceUrlConstants.getCodeHost()
 						+ AgentApplication.get().getShopperId());
 			}
 

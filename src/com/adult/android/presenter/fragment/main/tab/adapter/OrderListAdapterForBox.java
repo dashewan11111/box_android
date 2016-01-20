@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.adult.android.R;
 import com.adult.android.entity.UserOrdersDTO;
 import com.adult.android.model.constants.ServiceUrlConstants;
-import com.adult.android.presenter.activity.OrderDetailsActivity2;
 import com.adult.android.view.LoadingDialog;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -129,10 +127,10 @@ public class OrderListAdapterForBox extends BaseAdapter {
 
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent();
-				intent.setClass(context, OrderDetailsActivity2.class);
-				intent.putExtra("orderId", order.getOrderId());
-				context.startActivity(intent);
+				// Intent intent = new Intent();
+				// intent.setClass(context, OrderDetailsActivity2.class);
+				// intent.putExtra("orderId", order.getOrderId());
+				// context.startActivity(intent);
 			}
 		});
 		return convertView;
