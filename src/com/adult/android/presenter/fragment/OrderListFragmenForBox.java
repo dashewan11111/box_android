@@ -124,11 +124,12 @@ public class OrderListFragmenForBox extends Fragment implements
 						LoadingDialog.dismiss();
 						listView.onRefreshComplete();
 						if ((null == info.getData().getUserOrders() || 0 == info
-								.getData().getUserOrders().size())
-								&& (null == orderList || 0 == orderList.size())) {
+								.getData().getUserOrders().size())) {
 							llytNoOrder.setVisibility(View.VISIBLE);
+							listView.setVisibility(View.GONE);
 						} else {
 							llytNoOrder.setVisibility(View.GONE);
+							listView.setVisibility(View.VISIBLE);
 							currentPage++;
 							if (0 == flag) {
 								orderList = new ArrayList<UserOrdersDTO>();
@@ -175,7 +176,7 @@ public class OrderListFragmenForBox extends Fragment implements
 
 		@Override
 		public void onReceive(Context arg0, Intent intent) {
-			ToastUtil.showToastShort(getActivity(), "刷新");
+			// ToastUtil.showToastShort(getActivity(), "刷新");
 			getDateList(0);
 		}
 	}

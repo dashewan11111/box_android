@@ -166,8 +166,8 @@ public class OrderListFragment extends Fragment {
 
 		@Override
 		public void onReceive(Context arg0, Intent intent) {
-			ToastUtil.showToastShort(getActivity(), "刷新");
-			getDateList(0);
+			//ToastUtil.showToastShort(getActivity(), "刷新");
+			//getDateList(0);
 		}
 	}
 }

@@ -413,8 +413,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 						loadingDialog.dismiss();
 						listView.onRefreshComplete();
 						llytNoGoods.setVisibility(View.VISIBLE);
-						ToastUtil.showToastShort(getActivity(),
-								e.getResultMsg());
+						ToastUtil.showToastShort(getActivity(), "请向顾客展示您的二维码");
 						refreshDate(0);
 					}
 				});
@@ -493,7 +492,7 @@ public class CarsFragmentFroBox extends BaseTabFragment implements
 				+ Misc.scale(Double.parseDouble(cartDto.getSaveAmount() + ""),
 						2));
 		txtShippingFee.setText(getResources().getString(R.string.euro)
-				+ Misc.scale(10d, 2));
+				+ Misc.scale(88 <= cartDto.getItemAmount().intValue() ? 0d : 10d, 2));
 	}
 
 	private void setUserTitle() {

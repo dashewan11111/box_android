@@ -130,7 +130,7 @@
         android:layout_gravity="bottom"
         android:gravity="center"
         android:padding="15dip"
-        android:text="更轻送，更自由。畅想欢乐无负担"
+        android:text="更轻松，更自由。畅享欢乐无负担"
         android:textColor="@color/gray"
         android:textSize="16sp" />
 

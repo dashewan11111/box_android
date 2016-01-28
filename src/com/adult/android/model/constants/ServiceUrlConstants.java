@@ -153,11 +153,11 @@ public class ServiceUrlConstants {
 	/**
 	 * api环境配置
 	 */
-	public static final HOST mHost = HOST.TEST;
+	public static final HOST mHost = HOST.RELEASE;
 	/**
 	 * 二维码环境配置
 	 */
-	public static final CODE_HOST mCodeHost = CODE_HOST.TEST;
+	public static final CODE_HOST mCodeHost = CODE_HOST.RELEASE;
 	/**
 	 * 更新配置
 	 */

@@ -80,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
                         android:text="小计"
+                        android:visibility="gone"
                         android:textSize="15sp" />
 
                     <TextView

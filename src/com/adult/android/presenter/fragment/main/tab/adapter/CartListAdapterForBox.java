@@ -109,7 +109,7 @@ public class CartListAdapterForBox extends BaseAdapter implements
 			txtProductName.setText(sku.getMerchandise().getMerchandiseNameCn());
 			txtProductPrice.setText(context.getResources().getString(
 					R.string.euro)
-					+ Misc.scale(Float.parseFloat(sku.getSubTotal() + ""), 2));
+					+ Misc.scale(Float.parseFloat(sku.getMerchandise().getMerchandisePrice() + ""), 2));
 			// txtProductFormart.setText(sku.getSkuName());
 			imgCheck.setOnClickListener(new ItemCartClickListner(position, i));
 			imgDelete.setOnClickListener(new ItemCartClickListner(position, i));

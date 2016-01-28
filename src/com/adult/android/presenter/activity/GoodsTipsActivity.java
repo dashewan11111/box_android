@@ -97,7 +97,7 @@ public class GoodsTipsActivity extends BaseActivity implements OnClickListener {
 		findViewById(R.id.add_pic_rl).setOnClickListener(this);
 		btnUpload = (Button) findViewById(R.id.btn_upload);
 		btnPayOrder = (Button) findViewById(R.id.btn_payorder);
-		btnPayOrder.setEnabled(false);
+		setButtonEnable(btnPayOrder, false);
 		btnUpload.setOnClickListener(this);
 		btnPayOrder.setOnClickListener(this);
 
@@ -343,9 +343,11 @@ public class GoodsTipsActivity extends BaseActivity implements OnClickListener {
 					public void onUploadSuccess(ImageInfoResponse info) {
 						loadingDialog.dismiss();
 						ToastUtil.showToastShort(GoodsTipsActivity.this,
-								"Success");
-						btnUpload.setVisibility(View.INVISIBLE);
-						btnPayOrder.setEnabled(true);
+								"图片上传成功");
+						image_show.setClickable(false);
+						findViewById(R.id.add_pic_rl).setClickable(false);
+						setButtonEnable(btnUpload, false);
+						setButtonEnable(btnPayOrder, true);
 					}
 
 					@Override
@@ -356,6 +358,17 @@ public class GoodsTipsActivity extends BaseActivity implements OnClickListener {
 					}
 
 				});
+	}
+
+	protected void setButtonEnable(Button btn, boolean enable) {
+		btn.setEnabled(enable);
+		if (enable) {
+			btn.setTextColor(R.color.white);
+			btn.setBackgroundResource(R.drawable.common_round_conner_bg_main);
+		} else {
+			btn.setBackgroundResource(R.drawable.common_round_conner_bg_gray);
+			btn.setTextColor(R.color.gray);
+		}
 	}
 
 	protected void payOrder() {
